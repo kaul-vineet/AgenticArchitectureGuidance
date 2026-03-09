@@ -7387,6 +7387,15 @@ blockquote strong:first-child {
   color: #0078d4;
 }
 
+blockquote.recommendation {
+  border-left: 4px solid #107c10;
+  background: #f0faf0;
+  color: #0d4d0d;
+}
+blockquote.recommendation strong:first-child {
+  color: #107c10;
+}
+
 table {
   display: table;
   width: 100%;
@@ -7397,7 +7406,7 @@ table {
 
 table th {
   background: #003087;
-  color: #ffffff;
+  color: #fff;
   font-weight: 600;
   padding: 0.6rem 0.85rem;
   text-align: left;
@@ -7419,9 +7428,27 @@ table tbody tr:hover {
   transition: background 0.15s ease;
 }
 
-pre.highlight,
-div.highlighter-rouge,
-.highlight {
+tr.row-cs td {
+  border-left: 3px solid #0078d4;
+}
+
+tr.row-foundry td {
+  border-left: 3px solid #e07a10;
+}
+
+tr.row-workflow td {
+  border-left: 3px solid #6b47dc;
+}
+
+tr.row-data td {
+  border-left: 3px solid #057a55;
+}
+
+tr.row-governance td {
+  border-left: 3px solid #8a8886;
+}
+
+pre.highlight, div.highlighter-rouge, .highlight {
   overflow-x: auto;
   max-width: 100%;
 }
@@ -7462,12 +7489,159 @@ h3 {
   font-weight: 600;
 }
 
+.req-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.pill {
+  background: #0078d4;
+  color: #fff;
+  border-radius: 20px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.reliability-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.reliability-table tr {
+  border-bottom: 1px solid #e2e8f0;
+}
+.reliability-table td {
+  padding: 0.65rem 0.75rem;
+  vertical-align: middle;
+}
+.reliability-table .rel-label {
+  width: 28%;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #003087;
+}
+.reliability-table .rel-pct {
+  width: 8%;
+  font-size: 0.8rem;
+  color: #666;
+  text-align: right;
+  padding-right: 0.75rem;
+}
+.reliability-table .rel-bar-cell {
+  width: 32%;
+}
+.reliability-table .rel-bar {
+  height: 16px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #0078d4, #003087);
+  opacity: 0.85;
+}
+.reliability-table .rel-note {
+  width: 32%;
+  font-size: 0.8rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem 0;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 5.5rem;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  width: 3px;
+  background: linear-gradient(to bottom, #0078d4, #003087);
+  border-radius: 2px;
+}
+
+.timeline-phase {
+  display: flex;
+  padding-bottom: 1.25rem;
+  position: relative;
+}
+.timeline-phase .phase-label {
+  width: 5rem;
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0078d4;
+  padding-top: 0.9rem;
+  padding-right: 0.6rem;
+  line-height: 1.3;
+}
+.timeline-phase .phase-dot {
+  width: 1.25rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.9rem;
+}
+.timeline-phase .phase-dot::before {
+  content: "";
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #0078d4;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #0078d4;
+  flex-shrink: 0;
+}
+.timeline-phase .phase-card {
+  flex: 1;
+  background: #f8faff;
+  border: 1px solid #c8daf0;
+  border-left: 4px solid #0078d4;
+  border-radius: 0 8px 8px 0;
+  padding: 0.75rem 1.1rem;
+  margin-left: 0.75rem;
+}
+.timeline-phase .phase-card h4 {
+  margin: 0 0 0.4rem 0;
+  color: #003087;
+  font-size: 0.9rem;
+  border: none;
+  padding: 0;
+}
+.timeline-phase .phase-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.83rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+ul.ref-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+}
+ul.ref-grid li {
+  font-size: 0.82rem;
+  border-left: 2px solid #0078d4;
+  padding-left: 0.5rem;
+  line-height: 1.4;
+}
+
 @media print {
-  .site-nav,
-  .site-header,
-  .site-footer,
-  .search,
-  .toc-wrap {
+  .site-nav, .site-header, .site-footer, .search, .toc-wrap {
     display: none !important;
   }
   .main-content {
@@ -7478,11 +7652,10 @@ h3 {
   h1, h2, h3 {
     page-break-after: avoid;
   }
-  table {
+  table, pre {
     page-break-inside: avoid;
   }
   pre {
-    page-break-inside: avoid;
     white-space: pre-wrap;
   }
   table th {

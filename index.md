@@ -13,12 +13,14 @@ permalink: /
 
 ### Design Requirements/Priorities
 
-- 🧩 No-code over custom features
-- 📈 Scale over custom development
-- 🏭 100+ agents in 6–12 months
-- 🔵 Reduced complexity at every layer
-- ☁️ Managed services over custom infrastructure
-- 🎯 Simplest effective approach wins
+<div class="req-pills">
+  <span class="pill">🧩 No-code over custom features</span>
+  <span class="pill">📈 Scale over custom development</span>
+  <span class="pill">🏭 100+ agents in 6–12 months</span>
+  <span class="pill">🔵 Reduced complexity at every layer</span>
+  <span class="pill">☁️ Managed services over custom infrastructure</span>
+  <span class="pill">🎯 Simplest effective approach wins</span>
+</div>
 
 > *Informed by: Microsoft CAF · Azure Architecture Center · DeepLearning.AI · HuggingFace Research · Gartner · MAST · smolagents*
 
@@ -75,6 +77,7 @@ permalink: /
 - [Microsoft Azure Blog — Agent Observability Best Practices](https://azure.microsoft.com/en-us/blog/agent-factory-top-5-agent-observability-best-practices-for-reliable-ai/)
 - [Microsoft Tech Community — AI Production Architecture](https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848)
 - [Microsoft for Developers — Designing Multi-Agent Intelligence](https://developer.microsoft.com/blog/designing-multi-agent-intelligence)
+{: .ref-grid}
 
 ---
 
@@ -110,28 +113,41 @@ Every recommendation is evaluated against five criteria:
 
 *Based on Andrew Ng (DeepLearning.AI) and MAST empirical research:*
 
-```
-RELIABILITY (most → least mature)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🔧 Tool Use / Deterministic Flow   ████████████████████
-   CS Topics, PA flows, known workflows
-   → Default for ~80% of all tasks
-
-🔁 Reflection / External Verification  ████████████████
-   Separate critic agent or deterministic check
-   → Add to Foundry agents for quality-sensitive outputs
-   → NEVER let an agent verify its own output
-
-📋 Planning                         ████████
-   Dynamic task decomposition
-   → Only for genuinely open-ended exploratory tasks
-   → Never for known workflows
-
-🤝 Multi-Agent Collaboration        ██████
-   Each agent handoff costs ~10–15 accuracy points
-   (68% single-agent → 47% multi-agent)
-   → Use only where domain isolation is genuinely required
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+<table class="reliability-table">
+  <thead>
+    <tr>
+      <th class="rel-label">Pattern</th>
+      <th class="rel-pct">Reliability</th>
+      <th class="rel-bar-cell"></th>
+      <th class="rel-note">When to use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="rel-label">🔧 Tool Use / Deterministic Flow</td>
+      <td class="rel-pct">100%</td>
+      <td class="rel-bar-cell"><div class="rel-bar" style="width:100%"></div></td>
+      <td class="rel-note">CS Topics, PA flows, known workflows — default for ~80% of all tasks</td>
+    </tr>
+    <tr>
+      <td class="rel-label">🔁 Reflection / External Verification</td>
+      <td class="rel-pct">80%</td>
+      <td class="rel-bar-cell"><div class="rel-bar" style="width:80%"></div></td>
+      <td class="rel-note">Separate critic agent or deterministic check — add for quality-sensitive outputs. <strong>Never</strong> let an agent verify its own output.</td>
+    </tr>
+    <tr>
+      <td class="rel-label">📋 Planning</td>
+      <td class="rel-pct">40%</td>
+      <td class="rel-bar-cell"><div class="rel-bar" style="width:40%"></div></td>
+      <td class="rel-note">Dynamic task decomposition — only for genuinely open-ended exploratory tasks. Never for known workflows.</td>
+    </tr>
+    <tr>
+      <td class="rel-label">🤝 Multi-Agent Collaboration</td>
+      <td class="rel-pct">30%</td>
+      <td class="rel-bar-cell"><div class="rel-bar" style="width:30%"></div></td>
+      <td class="rel-note">Each handoff costs ~10–15 accuracy points (68% single-agent → 47% multi-agent). Use only where domain isolation is genuinely required.</td>
+    </tr>
+  </tbody>
+</table>
 
 ---

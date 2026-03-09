@@ -228,5 +228,6 @@ Ambiguity handling:
 - [DeepLearning.AI — Evaluating AI Agents](https://www.deeplearning.ai/short-courses/evaluating-ai-agents/)
 - [HuggingFace — Agent Leaderboard](https://huggingface.co/blog/pratikbhavsar/agent-leaderboard)
 - [Power Platform — Component Collections](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-export-import-copilot-components)
+{: .ref-grid}
 
 ---

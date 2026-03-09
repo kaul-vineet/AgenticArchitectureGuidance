@@ -2,143 +2,136 @@
 // 1. FULL-WIDTH CONTENT
 // ─────────────────────────────────────────────
 .main-content-wrap,
-.main {
-  max-width: 100% !important;
-}
-
-.main-content {
-  max-width: 100% !important;
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-}
+.main { max-width: 100% !important; }
+.main-content { max-width: 100% !important; padding-left: 2.5rem; padding-right: 2.5rem; }
 
 // ─────────────────────────────────────────────
-// 2. CALLOUT BLOCKS  (> **Why this matters:**)
+// 2. CALLOUT — informational (blue)
 // ─────────────────────────────────────────────
 blockquote {
-  border-left: 4px solid #0078d4;
-  background: #eef5fc;
-  padding: 0.85rem 1.25rem;
-  border-radius: 0 6px 6px 0;
-  margin: 1.25rem 0;
-  color: #1a3a5c;
-
+  border-left: 4px solid #0078d4; background: #eef5fc;
+  padding: 0.85rem 1.25rem; border-radius: 0 6px 6px 0;
+  margin: 1.25rem 0; color: #1a3a5c;
   p { margin: 0; }
+  strong:first-child { color: #0078d4; }
+}
 
-  strong:first-child {
-    color: #0078d4;
+// 3. RECOMMENDATION callout (green)
+blockquote.recommendation {
+  border-left: 4px solid #107c10; background: #f0faf0; color: #0d4d0d;
+  strong:first-child { color: #107c10; }
+}
+
+// ─────────────────────────────────────────────
+// 4. TABLES
+// ─────────────────────────────────────────────
+table { display: table; width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1.25rem 0; }
+table th { background: #003087; color: #fff; font-weight: 600; padding: 0.6rem 0.85rem; text-align: left; border: none; }
+table td { padding: 0.55rem 0.85rem; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+table tbody tr:nth-child(odd) { background: #f7faff; }
+table tbody tr:hover { background: #ddeeff; transition: background 0.15s ease; }
+tr.row-cs         td { border-left: 3px solid #0078d4; }
+tr.row-foundry    td { border-left: 3px solid #e07a10; }
+tr.row-workflow   td { border-left: 3px solid #6b47dc; }
+tr.row-data       td { border-left: 3px solid #057a55; }
+tr.row-governance td { border-left: 3px solid #8a8886; }
+
+// ─────────────────────────────────────────────
+// 5. CODE BLOCKS
+// ─────────────────────────────────────────────
+pre.highlight, div.highlighter-rouge, .highlight { overflow-x: auto; max-width: 100%; }
+pre, code { white-space: pre; word-break: normal; overflow-wrap: normal; }
+
+// ─────────────────────────────────────────────
+// 6. TYPOGRAPHY
+// ─────────────────────────────────────────────
+h1, h2, h3, h4 { letter-spacing: -0.01em; }
+h2 { border-bottom: 2px solid #0078d4; padding-bottom: 0.3rem; margin-top: 2rem; }
+h3 { border-bottom: 1px solid #d0dce8; padding-bottom: 0.2rem; }
+
+// ─────────────────────────────────────────────
+// 7. SIDEBAR
+// ─────────────────────────────────────────────
+.site-nav { border-right: 1px solid #d0dce8; }
+.nav-list .nav-list-item .nav-list-link { border-radius: 4px; font-size: 0.875rem; }
+.nav-list .nav-list-item .nav-list-link.active { background: #ddeeff; color: #0078d4; font-weight: 600; }
+
+// ─────────────────────────────────────────────
+// 8. DESIGN REQUIREMENT PILLS
+// ─────────────────────────────────────────────
+.req-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+.pill {
+  background: #0078d4; color: #fff; border-radius: 20px;
+  padding: 0.35rem 0.9rem; font-size: 0.85rem; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 0.3rem; white-space: nowrap;
+}
+
+// ─────────────────────────────────────────────
+// 9. RELIABILITY BAR TABLE
+// ─────────────────────────────────────────────
+.reliability-table {
+  width: 100%; border-collapse: collapse; margin: 1rem 0;
+  tr { border-bottom: 1px solid #e2e8f0; }
+  td { padding: 0.65rem 0.75rem; vertical-align: middle; }
+  .rel-label { width: 28%; font-weight: 600; font-size: 0.9rem; color: #003087; }
+  .rel-pct   { width: 8%;  font-size: 0.8rem; color: #666; text-align: right; padding-right: 0.75rem; }
+  .rel-bar-cell { width: 32%; }
+  .rel-bar { height: 16px; border-radius: 4px; background: linear-gradient(90deg,#0078d4,#003087); opacity: 0.85; }
+  .rel-note { width: 32%; font-size: 0.8rem; color: #444; line-height: 1.4; }
+}
+
+// ─────────────────────────────────────────────
+// 10. TIMELINE CARDS
+// ─────────────────────────────────────────────
+.timeline {
+  display: flex; flex-direction: column; margin: 1.5rem 0; position: relative;
+  &::before {
+    content: ''; position: absolute; left: 5.5rem; top: 0.9rem; bottom: 0.9rem;
+    width: 3px; background: linear-gradient(to bottom,#0078d4,#003087); border-radius: 2px;
+  }
+}
+.timeline-phase {
+  display: flex; padding-bottom: 1.25rem; position: relative;
+  .phase-label {
+    width: 5rem; flex-shrink: 0; text-align: right; font-size: 0.72rem;
+    font-weight: 700; color: #0078d4; padding-top: 0.9rem; padding-right: 0.6rem; line-height: 1.3;
+  }
+  .phase-dot {
+    width: 1.25rem; flex-shrink: 0; display: flex; flex-direction: column;
+    align-items: center; padding-top: 0.9rem;
+    &::before {
+      content: ''; width: 13px; height: 13px; border-radius: 50%;
+      background: #0078d4; border: 3px solid #fff; box-shadow: 0 0 0 2px #0078d4; flex-shrink: 0;
+    }
+  }
+  .phase-card {
+    flex: 1; background: #f8faff; border: 1px solid #c8daf0;
+    border-left: 4px solid #0078d4; border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1.1rem; margin-left: 0.75rem;
+    h4 { margin: 0 0 0.4rem 0; color: #003087; font-size: 0.9rem; border: none; padding: 0; }
+    ul { margin: 0; padding-left: 1.1rem; font-size: 0.83rem; color: #334155; line-height: 1.6; }
   }
 }
 
 // ─────────────────────────────────────────────
-// 3. TABLES — striped + hover
+// 11. REFERENCES GRID
 // ─────────────────────────────────────────────
-table {
-  display: table;
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  margin: 1.25rem 0;
-}
-
-table th {
-  background: #003087;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 0.6rem 0.85rem;
-  text-align: left;
-  border: none;
-}
-
-table td {
-  padding: 0.55rem 0.85rem;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: top;
-}
-
-table tbody tr:nth-child(odd) {
-  background: #f7faff;
-}
-
-table tbody tr:hover {
-  background: #ddeeff;
-  transition: background 0.15s ease;
+ul.ref-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1.5rem;
+  list-style: none; padding: 0; margin: 0.75rem 0;
+  li { font-size: 0.82rem; border-left: 2px solid #0078d4; padding-left: 0.5rem; line-height: 1.4; }
 }
 
 // ─────────────────────────────────────────────
-// 4. CODE BLOCKS — horizontal scroll, no wrap
-// ─────────────────────────────────────────────
-pre.highlight,
-div.highlighter-rouge,
-.highlight {
-  overflow-x: auto;
-  max-width: 100%;
-}
-
-pre, code {
-  white-space: pre;
-  word-break: normal;
-  overflow-wrap: normal;
-}
-
-// ─────────────────────────────────────────────
-// 5. TYPOGRAPHY POLISH
-// ─────────────────────────────────────────────
-h1, h2, h3, h4 {
-  letter-spacing: -0.01em;
-}
-
-h2 {
-  border-bottom: 2px solid #0078d4;
-  padding-bottom: 0.3rem;
-  margin-top: 2rem;
-}
-
-h3 {
-  border-bottom: 1px solid #d0dce8;
-  padding-bottom: 0.2rem;
-}
-
-// ─────────────────────────────────────────────
-// 6. SIDEBAR POLISH
-// ─────────────────────────────────────────────
-.site-nav {
-  border-right: 1px solid #d0dce8;
-}
-
-.nav-list .nav-list-item .nav-list-link {
-  border-radius: 4px;
-  font-size: 0.875rem;
-}
-
-.nav-list .nav-list-item .nav-list-link.active {
-  background: #ddeeff;
-  color: #0078d4;
-  font-weight: 600;
-}
-
-// ─────────────────────────────────────────────
-// 7. PRINT STYLESHEET
+// 12. PRINT
 // ─────────────────────────────────────────────
 @media print {
-  .site-nav,
-  .site-header,
-  .site-footer,
-  .search,
-  .toc-wrap { display: none !important; }
-
-  .main-content {
-    margin: 0 !important;
-    padding: 1rem !important;
-    max-width: 100% !important;
-  }
-
+  .site-nav, .site-header, .site-footer, .search, .toc-wrap { display: none !important; }
+  .main-content { margin: 0 !important; padding: 1rem !important; max-width: 100% !important; }
   h1, h2, h3 { page-break-after: avoid; }
-  table       { page-break-inside: avoid; }
-  pre         { page-break-inside: avoid; white-space: pre-wrap; }
-
+  table, pre { page-break-inside: avoid; }
+  pre { white-space: pre-wrap; }
   table th { background: #003087 !important; color: #fff !important; -webkit-print-color-adjust: exact; }
   table tbody tr:nth-child(odd) { background: #f7faff !important; -webkit-print-color-adjust: exact; }
-
   a[href]::after { content: " (" attr(href) ")"; font-size: 0.75rem; color: #666; }
 }

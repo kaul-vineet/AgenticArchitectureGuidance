@@ -40,6 +40,7 @@ nav_order: 4
 - [Microsoft CAF — Platform Selection](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/technology-solutions-plan-strategy)
 - [Foundry — Flows and Workflows](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/)
 - [Microsoft Inside Track — CS or Foundry](https://www.microsoft.com/insidetrack/blog/customer-questions-answered-should-i-use-copilot-studio-or-azure-ai-foundry-to-build-my-agent/)
+{: .ref-grid}
 
 ### 🏆 Recommendation
 

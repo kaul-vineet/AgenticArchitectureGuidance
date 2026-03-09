@@ -9,21 +9,58 @@ nav_order: 9
 
 ### ✅ What to Build With
 
-| Layer | Technology | Notes |
-|---|---|---|
-| 🚪 Gateway + Domain Agents | **Copilot Studio** | No-code, fastest time to agent |
-| 🔧 Specialist child agents | **Copilot Studio** (inline or connected) | CS domain agents only · shared container, typed I/O |
-| 🔗 Specialist connected agents | **Foundry Agent Service** (A2A) | Complex reasoning, code execution, large RAG — connected tier only |
-| 🔗 Non-MSFT connected agents | **Agentforce / ServiceNow** (A2A/REST) | Connected tier only — never child agents |
-| ⚡ Workflows | **Power Automate** + **Foundry Flows** | No-code, 1,400+ connectors |
-| 🔌 Shared tools | **MCP servers** + **Azure APIM** | One integration per enterprise system |
-| 💾 CS agent data | **Dataverse** | Transcripts (auto), metadata, admin config |
-| ⚡ Foundry session state | **Redis** | Low latency userId→threadId, hot cache |
-| 👤 Foundry cross-session memory | **Memory Feature** (preview) | User profiles, session summaries |
-| 🗄️ Foundry full transcript + audit | **Cosmos DB** (compliance only) | CMK / data residency / LLM audit trail |
-| 🔍 Large-scale RAG | **Azure AI Search** | Knowledge base > 500 docs |
-| 📁 Long-term archive | **Azure Data Lake** (Synapse Link) | Compliance retention > 30 days |
-| 🛡️ Governance | **Agent 365 + CoE Toolkit + Entra Agent ID** | No custom audit infra needed |
+<table>
+  <thead><tr><th>Layer</th><th>Technology</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr class="row-cs">
+      <td>🚪 Gateway + Domain Agents</td><td><strong>Copilot Studio</strong></td><td>No-code, fastest time to agent</td>
+    </tr>
+    <tr class="row-cs">
+      <td>🔧 Specialist child agents</td><td><strong>Copilot Studio</strong> (inline or connected)</td><td>CS domain agents only · shared container, typed I/O</td>
+    </tr>
+    <tr class="row-foundry">
+      <td>🔗 Specialist connected agents</td><td><strong>Foundry Agent Service</strong> (A2A)</td><td>Complex reasoning, code execution, large RAG — connected tier only</td>
+    </tr>
+    <tr class="row-foundry">
+      <td>🔗 Non-MSFT connected agents</td><td><strong>Agentforce / ServiceNow</strong> (A2A/REST)</td><td>Connected tier only — never child agents</td>
+    </tr>
+    <tr class="row-workflow">
+      <td>⚡ Workflows</td><td><strong>Power Automate</strong> + <strong>Foundry Flows</strong></td><td>No-code, 1,400+ connectors</td>
+    </tr>
+    <tr class="row-workflow">
+      <td>🔌 Shared tools</td><td><strong>MCP servers</strong> + <strong>Azure APIM</strong></td><td>One integration per enterprise system</td>
+    </tr>
+    <tr class="row-data">
+      <td>💾 CS agent data</td><td><strong>Dataverse</strong></td><td>Transcripts (auto), metadata, admin config</td>
+    </tr>
+    <tr class="row-foundry">
+      <td>⚡ Foundry session state</td><td><strong>Redis</strong></td><td>Low latency userId→threadId, hot cache</td>
+    </tr>
+    <tr class="row-foundry">
+      <td>👤 Foundry cross-session memory</td><td><strong>Memory Feature</strong> (preview)</td><td>User profiles, session summaries</td>
+    </tr>
+    <tr class="row-foundry">
+      <td>🗄️ Foundry full transcript + audit</td><td><strong>Cosmos DB</strong> (compliance only)</td><td>CMK / data residency / LLM audit trail</td>
+    </tr>
+    <tr class="row-data">
+      <td>🔍 Large-scale RAG</td><td><strong>Azure AI Search</strong></td><td>Knowledge base &gt; 500 docs</td>
+    </tr>
+    <tr class="row-data">
+      <td>📁 Long-term archive</td><td><strong>Azure Data Lake</strong> (Synapse Link)</td><td>Compliance retention &gt; 30 days</td>
+    </tr>
+    <tr class="row-governance">
+      <td>🛡️ Governance</td><td><strong>Agent 365 + CoE Toolkit + Entra Agent ID</strong></td><td>No custom audit infra needed</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="font-size:0.78rem; margin-top:-0.5rem; margin-bottom:1rem;">
+  <span style="border-left:3px solid #0078d4; padding-left:4px; margin-right:1rem;">Copilot Studio</span>
+  <span style="border-left:3px solid #e07a10; padding-left:4px; margin-right:1rem;">Foundry / Non-MSFT</span>
+  <span style="border-left:3px solid #6b47dc; padding-left:4px; margin-right:1rem;">Workflows &amp; Tools</span>
+  <span style="border-left:3px solid #057a55; padding-left:4px; margin-right:1rem;">Data &amp; Storage</span>
+  <span style="border-left:3px solid #8a8886; padding-left:4px;">Governance</span>
+</div>
 
 ### ❌ What to Avoid
 
@@ -42,30 +79,49 @@ nav_order: 9
 
 ### 🗓️ 100-Agent Delivery Timeline
 
-```
-Month 1–2:   Platform foundation
-             ├── Dev / Test / Prod environments (per domain)
-             ├── ALM pipelines (Power Platform Pipelines)
-             ├── 3–5 agent templates
-             │     Gateway · Domain Agent · FAQ Specialist
-             │     Task Specialist · Integration Specialist
-             ├── CoE Toolkit deployment
-             ├── Entra Agent ID strategy
-             └── Agent 365 Frontier enrollment
-
-Month 3–4:   Pilot wave (10–15 agents)
-             ├── Gateway + 2–3 domain agents
-             ├── Validate architecture, verification gates,
-             │   correlationId pattern, termination logic
-             ├── Establish LLM-as-a-Judge evaluation baseline
-             └── Validate Agent 365 telemetry
-
-Month 5–12:  Factory mode (8–12 agents/month)
-             ├── Domain teams clone templates and configure
-             ├── CoE reviews each agent before Test promotion
-             ├── ALM pipeline promotes Test → Prod automatically
-             └── Agent 365 registry grows with each release
-```
+<div class="timeline">
+  <div class="timeline-phase">
+    <div class="phase-label">Month<br>1–2</div>
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <h4>🏗️ Platform Foundation</h4>
+      <ul>
+        <li>Dev / Test / Prod environments (per domain)</li>
+        <li>ALM pipelines (Power Platform Pipelines)</li>
+        <li>3–5 agent templates: Gateway · Domain Agent · FAQ Specialist · Task Specialist · Integration Specialist</li>
+        <li>CoE Toolkit deployment</li>
+        <li>Entra Agent ID strategy</li>
+        <li>Agent 365 Frontier enrollment</li>
+      </ul>
+    </div>
+  </div>
+  <div class="timeline-phase">
+    <div class="phase-label">Month<br>3–4</div>
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <h4>🧪 Pilot Wave — 10–15 Agents</h4>
+      <ul>
+        <li>Gateway + 2–3 domain agents live</li>
+        <li>Validate architecture, verification gates, correlationId pattern, termination logic</li>
+        <li>Establish LLM-as-a-Judge evaluation baseline</li>
+        <li>Validate Agent 365 telemetry</li>
+      </ul>
+    </div>
+  </div>
+  <div class="timeline-phase">
+    <div class="phase-label">Month<br>5–12</div>
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <h4>🏭 Factory Mode — 8–12 Agents/Month</h4>
+      <ul>
+        <li>Domain teams clone templates and configure</li>
+        <li>CoE reviews each agent before Test promotion</li>
+        <li>ALM pipeline promotes Test → Prod automatically</li>
+        <li>Agent 365 registry grows with each release</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 ---
 

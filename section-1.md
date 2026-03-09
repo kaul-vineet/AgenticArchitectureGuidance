@@ -79,9 +79,11 @@ nav_order: 2
 - [smolagents — Building Good Agents](https://huggingface.co/docs/smolagents/tutorials/building_good_agents)
 - [Gartner — Multiagent Systems](https://www.gartner.com/en/articles/multiagent-systems)
 - [Microsoft Agent Factory Blog](https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/)
+{: .ref-grid}
 
 ### 🏆 Recommendation
 > ⚡🧩📈🏭🔵 **Use Copilot Studio as gateway and domain agents with Dataverse as the operational data layer. Add Foundry only for specialist agents. This requires no custom infrastructure, deploys through Power Platform Pipelines, and lets domain teams own their agents using no-code tooling.**
+{: .recommendation}
 
 ---
 
@@ -181,8 +183,10 @@ The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, docume
 - [Azure Architecture Center — AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns)
 - [Microsoft Tech Community — AI Didn't Break Your Production](https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848)
 - [MAST Paper (arXiv)](https://arxiv.org/abs/2503.13657)
+{: .ref-grid}
 
 #### 🏆 Recommendation
 > **Never use a single orchestrator for all agents. Research confirms that overloaded single orchestrators accumulate cascading failures (5.3 failure modes/trace), lose conversation history (24% of traces), and suffer reasoning-action disconnect (94% of traces). One domain agent per business function. Gateway routes intent only — owns zero tools. Each domain agent manages ≤ 8–10 specialist agents with a bounded tool set and dynamic task ledger. This architecture scales from 10 to 200 agents without redesign.**
+{: .recommendation}
 
 ---

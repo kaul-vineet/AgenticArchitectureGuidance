@@ -46,9 +46,11 @@ nav_order: 8
 - [Microsoft Agent 365](https://www.microsoft.com/en-us/microsoft-agent-365)
 - [Agent 365 Announcement](https://www.microsoft.com/en-us/microsoft-365/blog/2025/11/18/microsoft-agent-365-the-control-plane-for-ai-agents/)
 - [Power Platform CoE Starter Kit](https://learn.microsoft.com/en-us/power-platform/guidance/coe/starter-kit)
+{: .ref-grid}
 
 ### 🏆 Recommendation
 > **Deploy CoE Toolkit immediately — free, GA, provides full inventory foundation for 100 agents. Enroll in Agent 365 Frontier now. Skip Agent Framework for CS agents — it adds developer complexity where no-code suffices. Use it only for Foundry agents requiring deterministic routing or custom evaluation.**
+{: .recommendation}
 
 
 

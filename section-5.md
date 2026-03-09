@@ -157,8 +157,10 @@ Mixed / Preview acceptable:
 - [DeepLearning.AI — Agent Memory](https://www.deeplearning.ai/short-courses/llms-as-operating-systems-agent-memory/)
 - [mem-agent Persistent Memory Research](https://huggingface.co/blog/driaforall/mem-agent)
 - [Dataverse Capacity for Agents](https://www.microsoft.com/en-us/power-platform/blog/2025/12/04/dataverse-capacity/)
+{: .ref-grid}
 
 ### 🏆 Recommendation
 > **User profile store follows architecture lean — provision one store, not one per agent type. CS-heavy: Dataverse is the only store needed (transcripts auto-written, profiles via PA flow, session state in variables). Foundry-heavy: CosmosDB covers transcripts, agent steps, and profiles in one store; add Redis for low-latency session state. Preview acceptable: Foundry Memory Feature replaces CosmosDB for profiles with zero infrastructure. Do not mix profile stores across agent types — pick based on where your architecture leans and stay consistent.**
+{: .recommendation}
 
 ---
