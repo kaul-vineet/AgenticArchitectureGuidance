@@ -3,6 +3,8 @@ layout: default
 title: Enterprise Multi-Agent Architecture
 nav_order: 1
 has_children: true
+nav_fold: true
+has_toc: false
 permalink: /
 ---
 

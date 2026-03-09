@@ -23,13 +23,15 @@ nav_sort: order   # use nav_order in front matter
 # Colours
 color_scheme: light   # light | dark
 
-# Aux links (top-right header)
-aux_links:
-  "Microsoft Power CAT":
-    - "https://aka.ms/powercat"
-
 # Footer
 footer_content: "kaul-vineet · Principal PM Architect · Microsoft"
+
+# Suppress Sass deprecation warnings from just-the-docs gem (darken/lighten)
+sass:
+  silence_deprecations:
+    - color-functions
+    - import
+    - global-builtin
 
 # Markdown
 markdown: kramdown
@@ -44,3 +46,5 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - "*.bak"
+  - "*.py"
