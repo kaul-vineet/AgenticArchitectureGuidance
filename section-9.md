@@ -222,11 +222,11 @@ Ambiguity handling:
 - [ ] Registered in Agent 365 / CoE Toolkit inventory
 
 ### 📚 References
-- Copilot Studio — ALM Strategy: https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/alm
-- Copilot Studio — Agent Templates: https://learn.microsoft.com/en-us/microsoft-copilot-studio/faqs-templates
-- Microsoft Entra Agent ID: https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents
-- DeepLearning.AI — Evaluating AI Agents: https://www.deeplearning.ai/short-courses/evaluating-ai-agents/
-- HuggingFace — Agent Leaderboard: https://huggingface.co/blog/pratikbhavsar/agent-leaderboard
-- Power Platform — Component Collections: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-export-import-copilot-components
+- [Copilot Studio — ALM Strategy](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/alm)
+- [Copilot Studio — Agent Templates](https://learn.microsoft.com/en-us/microsoft-copilot-studio/faqs-templates)
+- [Microsoft Entra Agent ID](https://learn.microsoft.com/en-us/entra/agent-id/identity-professional/microsoft-entra-agent-identities-for-ai-agents)
+- [DeepLearning.AI — Evaluating AI Agents](https://www.deeplearning.ai/short-courses/evaluating-ai-agents/)
+- [HuggingFace — Agent Leaderboard](https://huggingface.co/blog/pratikbhavsar/agent-leaderboard)
+- [Power Platform — Component Collections](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-export-import-copilot-components)
 
 ---

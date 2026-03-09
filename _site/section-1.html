@@ -1,0 +1,296 @@
+<h2 id="1-️-representative-architecture">1. 🏗️ Representative Architecture</h2>
+
+<h3 id="platform-stack">Platform Stack</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  👤 END USERS
+  Teams · M365 Copilot · SharePoint · Web · Mobile
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🚪 GATEWAY / MASTER AGENT (Copilot Studio)
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │  Routes intent to domain agents · Entra Agent ID                       │
+  │  Can also call Specialist Connected Agents directly via A2A             │
+  └──────────────┬──────────────────────────────────────────┬───────────────┘
+                 │ primary                                  │ direct A2A
+━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━
+  📦 DOMAIN AGENTS  (one per business domain · MSFT platforms only)        │
+  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────────────┐ │
+  │  🟦 HR Domain    │  │  🟦 Finance      │  │  🟦 IT / Ops             │ │
+  │  Copilot Studio  │  │  Copilot Studio  │  │  Copilot Studio          │ │
+  │                  │  │                  │  │  + 🟧 Foundry            │ │
+  └────────┬─────────┘  └────────┬─────────┘  └──────────────┬───────────┘ │
+  ┌────────┴──────────────────────┴────────────────────────────┴───────────┐│
+  │  🟦 CS domain agents      ──► child agents + connected agents          ││
+  │  🟧 Foundry domain agents ──► Foundry / non-MSFT agents (A2A/REST)     ││
+  └──────────────────────────────────┬───────────────────────────────────────┘│
+                                    │                                         │
+                                    ▼                                         │
+━━━━━━━━━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━━━━━━━━━┿
+ 🔧 SPECIALIST     │  🔗 SPECIALIST CONNECTED        │  🟧🟥 FOUNDRY /
+ CHILD AGENTS      │  AGENTS                         │  NON-MSFT AGENTS
+ (CS only)         │  (CS · Foundry · non-MSFT · A2A)│  (A2A / REST)
+ CS domain         │  CS domain agents only          │  Foundry domain
+ agents only       │                                 │  agents only
+ ┌───────────────┐ │  ┌───────────────────────────┐  │  ┌───────────────────┐
+ │ 🟦 Leave Mgmt │ │  │ 🟦 Benefits Bot            │  │  │ 🟧 Code Interp.   │
+ │ 🟦 HR Policy  │ │  │ 🟧 Analytics Agent         │  │  │ 🟥 Agentforce     │
+ │ 🟦 Expenses   │ │  │ 🟥 Agentforce              │  │  │ 🟥 ServiceNow     │
+ └───────────────┘ │  └───────────────────────────┘  │  └───────────────────┘
+━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🔌 TOOL LAYER
+  ┌────────────┬──────────────┬─────────────┬─────────────┐
+  │⚡ Power     │🌐 APIs via   │🔗 MCP       │🛠️ Built-in  │
+  │  Automate  │  Azure APIM  │  Servers    │  Tools      │
+  │🟧 Foundry  │              │             │  Code Interp│
+  │  Flows     │              │             │  File Search│
+  └────────────┴──────────────┴─────────────┴─────────────┘
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  💾 DATA LAYER
+  ┌──────────┬───────────┬──────────┬────────┬────────────┐
+  │📊        │⚡ Redis   │🟧 Cosmos │🔍 Azure│📁 Data     │
+  │Dataverse │(session   │  DB      │  AI    │  Lake      │
+  │(CS +     │ state,    │(Foundry  │  Search│(compliance │
+  │ admin)   │ hot cache)│ threads) │(RAG)   │ archive)   │
+  └──────────┴───────────┴──────────┴────────┴────────────┘
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🛡️ GOVERNANCE LAYER
+  ┌──────────────────────────────┐
+  │🏢 Agent 365                          │
+  │  + Purview + Defender + App Insights │
+  └──────────────────────────────┘
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  LEGEND
+  🟦 Copilot Studio   🟧 Azure AI Foundry   🟥 Non-Microsoft (Agentforce, ServiceNow…)
+</code></pre></div></div>
+
+<h3 id="-references">📚 References</h3>
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/">Microsoft CAF — AI Agents</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns">Azure Architecture Center — AI Agent Orchestration Patterns</a></li>
+  <li><a href="https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/">DeepLearning.AI — Agentic Design Patterns</a></li>
+  <li><a href="https://huggingface.co/blog/ibm-research/itbenchandmast">MAST — Why Enterprise Agents Fail</a></li>
+  <li><a href="https://huggingface.co/docs/smolagents/tutorials/building_good_agents">smolagents — Building Good Agents</a></li>
+  <li><a href="https://www.gartner.com/en/articles/multiagent-systems">Gartner — Multiagent Systems</a></li>
+  <li><a href="https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/">Microsoft Agent Factory Blog</a></li>
+</ul>
+
+<h3 id="-recommendation">🏆 Recommendation</h3>
+<blockquote>
+  <p>⚡🧩📈🏭🔵 <strong>Use Copilot Studio as gateway and domain agents with Dataverse as the operational data layer. Add Foundry only for specialist agents. This requires no custom infrastructure, deploys through Power Platform Pipelines, and lets domain teams own their agents using no-code tooling.</strong></p>
+</blockquote>
+
+<hr />
+
+<h3 id="-agent-orchestration">🎯 Agent Orchestration</h3>
+
+<h4 id="-recommended-gateway--domain-agent-hierarchy">✅ Recommended: Gateway → Domain Agent Hierarchy</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>👤 User
+    │
+    ▼
+🚪 Gateway (1 agent — routes only, owns zero tools)
+    │
+    ├──► 📦 HR Domain Agent      → manages ≤8 child/connected agents + tools
+    ├──► 📦 Finance Domain Agent  → manages ≤8 child/connected agents + tools
+    ├──► 📦 IT Domain Agent      → manages ≤8 child/connected agents + tools
+    └──► 📦 Sales Domain Agent   → manages ≤8 child/connected agents + tools
+
+Rules:
+  Each domain agent manages ≤ 8–10 specialist agents (child or connected)
+  Each domain agent has a bounded tool set — keep scope focused
+  Each domain agent has its own Entra identity + team owner
+  Each domain agent maintains a dynamic task ledger (auditable record
+    of subtask state — not just LLM mental model)
+</code></pre></div></div>
+
+<h4 id="-why-this-architecture-works--research-evidence">📐 Why This Architecture Works — Research Evidence</h4>
+
+<p>The Gateway → Domain hierarchy is the <strong>Orchestrator-Workers pattern</strong>, documented and validated across multiple independent research sources:</p>
+
+<blockquote>
+  <p><em>“In this workflow, a central LLM dynamically decomposes tasks, delegates them to worker agents, and synthesizes their outputs into coherent results.”</em>
+— HuggingFace, Design Patterns for Agentic Workflows</p>
+</blockquote>
+
+<blockquote>
+  <p><em>“By decomposing work, developers can tailor prompts for specific objectives… Many teams are getting good results with this method, and ablation studies show that multiple agents give superior performance to a single agent.”</em>
+— Andrew Ng, DeepLearning.AI</p>
+</blockquote>
+
+<blockquote>
+  <p><em>“When you use multiple AI agents, you can break down complex problems into specialized units of work or knowledge. Individual agents can focus on a specific domain or capability, which reduces code and prompt complexity.”</em>
+— Microsoft Azure Architecture Center</p>
+</blockquote>
+
+<blockquote>
+  <p><em>“Instead of expecting one AI to be an all-knowing expert (often unrealistic — akin to getting a high-school intern when you hoped for a PhD), multi-agent orchestrators break problems into smaller pieces and assign them to specialized agents.”</em>
+— HuggingFace, Neuro SAN</p>
+</blockquote>
+
+<p><strong>Four properties that make hierarchical orchestration reliable</strong> (Microsoft Azure Architecture Center):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>What It Means in Practice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Specialization</strong></td>
+      <td>Each domain agent has a focused prompt and bounded tool set — no competing priorities, no routing ambiguity</td>
+    </tr>
+    <tr>
+      <td><strong>Scalability</strong></td>
+      <td>Agents can be added or modified without redesigning the entire system — new domain = one new domain agent</td>
+    </tr>
+    <tr>
+      <td><strong>Maintainability</strong></td>
+      <td>Testing and debugging focused on individual agents — failures isolated, not system-wide</td>
+    </tr>
+    <tr>
+      <td><strong>Optimization</strong></td>
+      <td>Each domain agent can use distinct models, tools, and compute appropriate to its workload</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Key performance evidence:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Finding</th>
+      <th>Data</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Agent loop vs. zero-shot single pass</td>
+      <td>GPT-3.5 with agent loop: <strong>95.1%</strong> vs GPT-4 zero-shot: <strong>67%</strong> on HumanEval</td>
+      <td>DeepLearning.AI</td>
+    </tr>
+    <tr>
+      <td>Tool accuracy as #1 differentiator</td>
+      <td>Top agents: <strong>94%</strong> tool accuracy vs low performers: <strong>61%</strong> — 33pp gap</td>
+      <td>AssetOpsBench (IBM)</td>
+    </tr>
+    <tr>
+      <td>Ambiguity causes accuracy collapse</td>
+      <td>Explicit intent: <strong>90%</strong> success → ambiguous intent: <strong>40%</strong> success (−50pp)</td>
+      <td>OpenEnv/Turing (HuggingFace)</td>
+    </tr>
+    <tr>
+      <td>Context history loss at scale</td>
+      <td>Overloaded model: <strong>24%</strong> of traces lose conversation history vs <strong>0%</strong> for focused agents</td>
+      <td>MAST/ITBench (IBM)</td>
+    </tr>
+    <tr>
+      <td>Reasoning disconnect in overloaded agents</td>
+      <td><strong>94%</strong> of traces show reasoning-action decoupling in overloaded systems</td>
+      <td>MAST/ITBench (IBM)</td>
+    </tr>
+    <tr>
+      <td>Failure mode density</td>
+      <td>Clean agents: <strong>2.6</strong> failure modes/trace · Collapsed systems: <strong>5.3</strong> failure modes/trace</td>
+      <td>MAST/ITBench (IBM)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h4 id="-the-star-topology-anti-pattern-one-master-agent-for-all-domains">❌ The Star Topology Anti-Pattern (One Master Agent for All Domains)</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    ANTI-PATTERN
+    HR Agent ─────────┐
+    Finance Agent ────┤
+    IT Agent ─────────┤──► ⚠️ SINGLE SHARED ORCHESTRATOR
+    Sales Agent ──────┤         (handles all 100 agents)
+    ... 95 more ───────┘
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>⚠️ Disadvantage</th>
+      <th>What Happens in Practice</th>
+      <th>Research Backing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>🔴 <strong>Tool overload collapses routing quality</strong></td>
+      <td>A single orchestrator for 100 agents accumulates hundreds of tools. LLM routing accuracy drops sharply as tool count grows — the orchestrator cannot reliably select the right agent.</td>
+      <td><em>“As the number of knowledge sources and tools increases, it becomes difficult to provide a predictable agent experience.”</em> — Microsoft Azure Architecture Center</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>Context window floods with unrelated history</strong></td>
+      <td>All domain interactions accumulate in one shared thread. Finance queries appear in HR context. Attention dilutes across irrelevant history. Directly causes FM-1.4 (Loss of Conversation History — 24% of traces in overloaded systems).</td>
+      <td><em>“Context windows can grow rapidly because each agent adds its own reasoning, tool results, and intermediate outputs.”</em> — Microsoft Azure Architecture Center · MAST FM-1.4</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>Routing classification fails under scope growth</strong></td>
+      <td>A single orchestrator must classify every intent across all 100 domains from one prompt. Misclassification sends the request to the wrong domain.</td>
+      <td><em>“If a task is misclassified, it might be sent to the wrong agent, leading to inefficiency or incorrect results.”</em> — HuggingFace, Design Patterns for Agentic Workflows</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>One rate limit ceiling for all domains</strong></td>
+      <td>All 100 agents share one model endpoint’s TPM quota. A Finance spike throttles HR users simultaneously.</td>
+      <td><em>“Evaluate how using a single MaaS endpoint can result in rate limiting when agents run concurrently.”</em> — Microsoft Azure Architecture Center</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>Security trimming cannot be enforced</strong></td>
+      <td>HR and Finance queries share context and identity. Per-domain data access cannot be scoped. Over-privileged identities are the highest-impact incident category.</td>
+      <td><em>“Security trimming must be implemented in every agent, not only at the gateway.”</em> — Microsoft Azure Architecture Center · Microsoft Tech Community</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>Chain composition creates unreviewed capabilities</strong></td>
+      <td>Tools approved individually compose into capabilities nobody reviewed.</td>
+      <td><em>“Read data, create ticket, send message — all approved individually. Put together, it becomes a capability nobody reviewed.”</em> — Microsoft Tech Community</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>One failure = full outage for all domains</strong></td>
+      <td>A prompt change, model degradation, or bug takes all 100 agents offline simultaneously. Failure modes cascade — overloaded systems accumulate 5.3 failure modes per failed trace vs 2.6 in focused systems.</td>
+      <td>MAST/ITBench (IBM) — Cascading Collapse</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>ALM becomes impossible at scale</strong></td>
+      <td>Updating any domain requires regression testing the shared orchestrator against all 100 agents. Deployment frequency drops to near zero.</td>
+      <td>Microsoft Azure Architecture Center — Maintainability principle</td>
+    </tr>
+    <tr>
+      <td>🔴 <strong>No team ownership — governance fails</strong></td>
+      <td>Ownership ambiguity means no team is accountable for quality or incidents. Shadow agents proliferate.</td>
+      <td>Microsoft CAF — Principle 27 (Maintain agent inventory)</td>
+    </tr>
+    <tr>
+      <td>🟡 <strong>Unpredictable and inefficient cost</strong></td>
+      <td>Simple FAQ queries invoke the same full-context orchestrator as complex multi-step financial workflows.</td>
+      <td>Azure Architecture Center — Optimization principle</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="-references-1">📚 References</h4>
+<ul>
+  <li><a href="https://huggingface.co/blog/dcarpintero/design-patterns-for-building-agentic-workflows">HuggingFace — Design Patterns for Agentic Workflows</a></li>
+  <li><a href="https://huggingface.co/blog/ibm-research/itbenchandmast">HuggingFace — IBM MAST Failure Taxonomy</a></li>
+  <li><a href="https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face">HuggingFace — IBM AssetOpsBench</a></li>
+  <li><a href="https://huggingface.co/blog/danyoung/neuro-san-is-all-you-need">HuggingFace — Neuro SAN Decentralized Routing</a></li>
+  <li><a href="https://huggingface.co/blog/openenv-turing">HuggingFace — OpenEnv/Turing Tool + Routing Evaluation</a></li>
+  <li><a href="https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-5-multi-agent-collaboration/">DeepLearning.AI — Multi-Agent Collaboration</a></li>
+  <li><a href="https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/">DeepLearning.AI — How Agents Improve LLM Performance</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns">Azure Architecture Center — AI Agent Orchestration Patterns</a></li>
+  <li><a href="https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848">Microsoft Tech Community — AI Didn’t Break Your Production</a></li>
+  <li><a href="https://arxiv.org/abs/2503.13657">MAST Paper (arXiv)</a></li>
+</ul>
+
+<h4 id="-recommendation-1">🏆 Recommendation</h4>
+<blockquote>
+  <p><strong>Never use a single orchestrator for all agents. Research confirms that overloaded single orchestrators accumulate cascading failures (5.3 failure modes/trace), lose conversation history (24% of traces), and suffer reasoning-action disconnect (94% of traces). One domain agent per business function. Gateway routes intent only — owns zero tools. Each domain agent manages ≤ 8–10 specialist agents with a bounded tool set and dynamic task ledger. This architecture scales from 10 to 200 agents without redesign.</strong></p>
+</blockquote>
+
+<hr />

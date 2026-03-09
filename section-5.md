@@ -147,16 +147,16 @@ Mixed / Preview acceptable:
 ```
 
 ### 📚 References
-- Copilot Studio — Transcript Controls: https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-transcript-controls
-- Foundry — Threads, Runs, Messages: https://learn.microsoft.com/en-us/azure/ai-foundry/agents/concepts/threads-runs-messages
-- Foundry — Memory: https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/what-is-memory
-- Foundry Standard Agent Setup: https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/standard-agent-setup
-- Cosmos DB Foundry Integration: https://learn.microsoft.com/en-us/azure/cosmos-db/gen-ai/azure-agent-service
-- Introducing Memory in Foundry: https://devblogs.microsoft.com/foundry/introducing-memory-in-foundry-agent-service/
-- Forge RL — Context Compaction: https://huggingface.co/blog/MiniMax-AI/forge-scalable-agent-rl-framework-and-algorithm
-- DeepLearning.AI — Agent Memory: https://www.deeplearning.ai/short-courses/llms-as-operating-systems-agent-memory/
-- mem-agent Persistent Memory Research: https://huggingface.co/blog/driaforall/mem-agent
-- Dataverse Capacity for Agents: https://www.microsoft.com/en-us/power-platform/blog/2025/12/04/dataverse-capacity/
+- [Copilot Studio — Transcript Controls](https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-transcript-controls)
+- [Foundry — Threads, Runs, Messages](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/concepts/threads-runs-messages)
+- [Foundry — Memory](https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/what-is-memory)
+- [Foundry Standard Agent Setup](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/standard-agent-setup)
+- [Cosmos DB Foundry Integration](https://learn.microsoft.com/en-us/azure/cosmos-db/gen-ai/azure-agent-service)
+- [Introducing Memory in Foundry](https://devblogs.microsoft.com/foundry/introducing-memory-in-foundry-agent-service/)
+- [Forge RL — Context Compaction](https://huggingface.co/blog/MiniMax-AI/forge-scalable-agent-rl-framework-and-algorithm)
+- [DeepLearning.AI — Agent Memory](https://www.deeplearning.ai/short-courses/llms-as-operating-systems-agent-memory/)
+- [mem-agent Persistent Memory Research](https://huggingface.co/blog/driaforall/mem-agent)
+- [Dataverse Capacity for Agents](https://www.microsoft.com/en-us/power-platform/blog/2025/12/04/dataverse-capacity/)
 
 ### 🏆 Recommendation
 > **User profile store follows architecture lean — provision one store, not one per agent type. CS-heavy: Dataverse is the only store needed (transcripts auto-written, profiles via PA flow, session state in variables). Foundry-heavy: CosmosDB covers transcripts, agent steps, and profiles in one store; add Redis for low-latency session state. Preview acceptable: Foundry Memory Feature replaces CosmosDB for profiles with zero infrastructure. Do not mix profile stores across agent types — pick based on where your architecture leans and stay consistent.**

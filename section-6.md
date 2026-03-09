@@ -61,10 +61,10 @@ Preview acceptable (either lean):
 ```
 
 ### 📚 References
-- Foundry Agent Setup Options: https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/standard-agent-setup
-- Azure Cache for Redis: https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/
-- Azure AI Search: https://learn.microsoft.com/en-us/azure/search/semantic-search-overview
-- Cosmos DB Foundry: https://learn.microsoft.com/en-us/azure/cosmos-db/gen-ai/azure-agent-service
+- [Foundry Agent Setup Options](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/standard-agent-setup)
+- [Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/)
+- [Azure AI Search](https://learn.microsoft.com/en-us/azure/search/semantic-search-overview)
+- [Cosmos DB Foundry](https://learn.microsoft.com/en-us/azure/cosmos-db/gen-ai/azure-agent-service)
 
 ### 🏆 Recommendation
 > **Infrastructure follows architecture lean — provision for your dominant platform, not per agent type. CS-heavy: Dataverse only — no Redis, no Cosmos DB, no Foundry Memory Feature. Foundry-heavy: Cosmos DB (transcripts + agent steps + user profiles) + Redis (session state) — no Foundry Memory Feature needed. Preview acceptable: Foundry Memory Feature replaces Cosmos DB for profiles only; Cosmos DB is still required for transcripts and agent step recording. Every component must be justified by the architecture — not assumed as a default.**

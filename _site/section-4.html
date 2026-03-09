@@ -1,0 +1,125 @@
+<h2 id="4-️-copilot-studio-vs-foundry--as-child--connected-agent">4. ⚖️ Copilot Studio vs. Foundry — As Child / Connected Agent</h2>
+
+<h3 id="-copilot-studio-as-child">🟦 Copilot Studio as Child</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>✅ Pros</th>
+      <th>❌ Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>· Shared container with CS parent — variables, auth, Dataverse, PA connectors natively shared <em>(inline child agents only)</em></td>
+      <td>· Separate transcript — must correlate by session ID <em>(connected agents only; inline child agents share parent transcript)</em></td>
+    </tr>
+    <tr>
+      <td>· Typed I/O contracts (YAML) — structured, parseable return values</td>
+      <td>· Citation propagation — known limitation with knowledge sources</td>
+    </tr>
+    <tr>
+      <td>· Independent ALM lifecycle — version and deploy without touching parent <em>(connected agents only)</em></td>
+      <td>· One extra orchestration hop — marginal latency cost</td>
+    </tr>
+    <tr>
+      <td>· Reusable across multiple parent agents</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>· Team ownership — domain experts own end to end <em>(connected agents only)</em></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>· Inline option — zero-latency, zero-boundary for tightly scoped sub-tasks <em>(child agents only)</em></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-foundry-as-child">🟧 Foundry as Child</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>✅ Pros</th>
+      <th>❌ Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>· Complex computation — Code Interpreter, large RAG, multi-step chains</td>
+      <td>· Opaque to parent — text-only return, no typed variable contract</td>
+    </tr>
+    <tr>
+      <td>· Foundry Flows (low-code) — visual builder for agent sub-workflows</td>
+      <td>· Max depth 2 — cannot chain further Foundry sub-agents</td>
+    </tr>
+    <tr>
+      <td>· Native Memory (preview) — cross-session without custom code</td>
+      <td>· CS → Foundry integration still in preview</td>
+    </tr>
+    <tr>
+      <td>· BYO Cosmos DB for PII-regulated outputs</td>
+      <td>· Infrastructure awareness — Standard setup requires Cosmos DB config</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-references">📚 References</h3>
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-add-other-agents">Copilot Studio — Add Other Agents</a></li>
+  <li><a href="https://microsoft.github.io/mcscatblog/posts/copilot-studio-child-connected-agents-inputs-outputs/">Copilot Studio — Child/Connected Agent I/O</a></li>
+  <li><a href="https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/building-a-digital-workforce-with-multi-agents-in-azure-ai-foundry-agent-service/4414671">Foundry — Multi-Agent Workflows</a></li>
+  <li><a href="https://www.salesforce.com/blog/agent-interoperability/">Salesforce — Agentforce A2A</a></li>
+</ul>
+
+<h3 id="-recommendation">🏆 Recommendation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Inline Child Agent</th>
+      <th>Connected Agent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⚡ Speed</td>
+      <td>Fastest — no boundary, no hop</td>
+      <td>Fast — team builds independently in hours</td>
+    </tr>
+    <tr>
+      <td>🧩 No-code</td>
+      <td>✅ CS Topics — fully no-code</td>
+      <td>✅ CS — fully no-code</td>
+    </tr>
+    <tr>
+      <td>📈 Scale</td>
+      <td>Tightly scoped sub-tasks only</td>
+      <td>✅ Reusable across multiple parents, independent ALM</td>
+    </tr>
+    <tr>
+      <td>🏭 100+ agents</td>
+      <td>Not a factory unit — embedded in parent</td>
+      <td>✅ Factory model — one per domain function, template-based</td>
+    </tr>
+    <tr>
+      <td>🔵 Reduced complexity</td>
+      <td>Shared transcript, shared container — zero extra infra</td>
+      <td>Own transcript (correlationId required), own ALM</td>
+    </tr>
+    <tr>
+      <td>🔗 Agent connectivity</td>
+      <td>CS domain agents only</td>
+      <td>CS domain agents (A2A) · Foundry domain agents cannot call CS connected</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Use CS inline topics for tightly scoped sub-tasks within the same domain where shared context and zero-latency matter. Use CS connected agents when the sub-domain needs independent governance, team ownership, or reuse across multiple parents. Foundry agents are always in the connected tier (A2A) — never inline. Non-MSFT agents (Agentforce, ServiceNow) are connected tier only. Target ratio: 60% CS inline child, 25% CS connected, 10% Foundry connected, 5% non-MSFT connected.</strong></p>
+</blockquote>
+
+<hr />

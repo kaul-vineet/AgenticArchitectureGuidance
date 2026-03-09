@@ -63,11 +63,11 @@ nav_order: 3
 | Tool argument malformed (>50% of failures per HuggingFace) | Structured error responses with format examples on every connector |
 
 ### 📚 References
-- Copilot Studio — Multi-Agent Patterns: https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/multi-agent-patterns
-- AssetOpsBench — Enterprise Agent Benchmarking: https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face
-- OpenEnv — Tool-Using Agents Evaluation: https://huggingface.co/blog/openenv-turing
-- DeepLearning.AI — Tool Use Pattern: https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-3-tool-use/
-- A2A Protocol: https://a2a-protocol.org/latest/
+- [Copilot Studio — Multi-Agent Patterns](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/multi-agent-patterns)
+- [AssetOpsBench — Enterprise Agent Benchmarking](https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face)
+- [OpenEnv — Tool-Using Agents Evaluation](https://huggingface.co/blog/openenv-turing)
+- [DeepLearning.AI — Tool Use Pattern](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-3-tool-use/)
+- [A2A Protocol](https://a2a-protocol.org/latest/)
 
 ### 🏆 Recommendation
 > ⚡🔵 **This flow requires zero custom code. CS Topics handle routing, Power Automate handles tool calls, A2A/REST handles Agentforce. Build this in 1–2 sprints per domain. Do not add reflection or planning until the basic deterministic flow is stable and evaluated.**

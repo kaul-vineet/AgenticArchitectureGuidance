@@ -36,10 +36,10 @@ nav_order: 4
 > 💡 **Foundry is low-code too.** Foundry Agent Service includes a visual Flows designer, pre-built connectors, and a portal UI for agent creation. The distinction from Copilot Studio is target audience and depth of control, not code vs. no-code.
 
 ### 📚 References
-- Microsoft — Copilot Studio vs Foundry: https://techcommunity.microsoft.com/blog/microsoft-security-blog/microsoft-copilot-studio-vs-microsoft-foundry-building-ai-agents-and-apps/4483160
-- Microsoft CAF — Platform Selection: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/technology-solutions-plan-strategy
-- Foundry — Flows and Workflows: https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/
-- Microsoft Inside Track — CS or Foundry: https://www.microsoft.com/insidetrack/blog/customer-questions-answered-should-i-use-copilot-studio-or-azure-ai-foundry-to-build-my-agent/
+- [Microsoft — Copilot Studio vs Foundry](https://techcommunity.microsoft.com/blog/microsoft-security-blog/microsoft-copilot-studio-vs-microsoft-foundry-building-ai-agents-and-apps/4483160)
+- [Microsoft CAF — Platform Selection](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/technology-solutions-plan-strategy)
+- [Foundry — Flows and Workflows](https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/)
+- [Microsoft Inside Track — CS or Foundry](https://www.microsoft.com/insidetrack/blog/customer-questions-answered-should-i-use-copilot-studio-or-azure-ai-foundry-to-build-my-agent/)
 
 ### 🏆 Recommendation
 

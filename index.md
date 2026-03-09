@@ -58,21 +58,21 @@ permalink: /
 | 2️⃣8️⃣ | **Externalize and version-control prompts** | Azure Well-Architected Framework | Treat prompts as versioned configuration, not inline code. Implement controlled rollout for prompt changes. |
 
 ### 📚 References
-- DeepLearning.AI — Agentic Design Patterns: https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/
-- MAST Failure Taxonomy: https://huggingface.co/blog/ibm-research/itbenchandmast
-- AssetOpsBench: https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face
-- HuggingFace — Design Patterns for Agentic Workflows: https://huggingface.co/blog/dcarpintero/design-patterns-for-building-agentic-workflows
-- smolagents: https://huggingface.co/blog/smolagents
-- OpenEnv — Tool Argument Failures: https://huggingface.co/blog/openenv-turing
-- Neuro SAN — Side Channel Pattern: https://huggingface.co/blog/danyoung/neuro-san-is-all-you-need
-- Agent Leaderboard — Tool Quality Benchmarks: https://huggingface.co/blog/pratikbhavsar/agent-leaderboard
-- Azure Architecture Center — AI Agent Orchestration Patterns: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns
-- Microsoft CAF — Governance and Security for AI Agents: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization
-- Azure Well-Architected Framework — Application Design for AI Workloads: https://learn.microsoft.com/en-us/azure/well-architected/ai/application-design
-- Microsoft Copilot Studio — Multi-Agent Patterns: https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/architecture/multi-agent-patterns
-- Microsoft Azure Blog — Agent Observability Best Practices: https://azure.microsoft.com/en-us/blog/agent-factory-top-5-agent-observability-best-practices-for-reliable-ai/
-- Microsoft Tech Community — AI Production Architecture: https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848
-- Microsoft for Developers — Designing Multi-Agent Intelligence: https://developer.microsoft.com/blog/designing-multi-agent-intelligence
+- [DeepLearning.AI — Agentic Design Patterns](https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/)
+- [MAST Failure Taxonomy](https://huggingface.co/blog/ibm-research/itbenchandmast)
+- [AssetOpsBench](https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face)
+- [HuggingFace — Design Patterns for Agentic Workflows](https://huggingface.co/blog/dcarpintero/design-patterns-for-building-agentic-workflows)
+- [smolagents](https://huggingface.co/blog/smolagents)
+- [OpenEnv — Tool Argument Failures](https://huggingface.co/blog/openenv-turing)
+- [Neuro SAN — Side Channel Pattern](https://huggingface.co/blog/danyoung/neuro-san-is-all-you-need)
+- [Agent Leaderboard — Tool Quality Benchmarks](https://huggingface.co/blog/pratikbhavsar/agent-leaderboard)
+- [Azure Architecture Center — AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns)
+- [Microsoft CAF — Governance and Security for AI Agents](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization)
+- [Azure Well-Architected Framework — Application Design for AI Workloads](https://learn.microsoft.com/en-us/azure/well-architected/ai/application-design)
+- [Microsoft Copilot Studio — Multi-Agent Patterns](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/architecture/multi-agent-patterns)
+- [Microsoft Azure Blog — Agent Observability Best Practices](https://azure.microsoft.com/en-us/blog/agent-factory-top-5-agent-observability-best-practices-for-reliable-ai/)
+- [Microsoft Tech Community — AI Production Architecture](https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848)
+- [Microsoft for Developers — Designing Multi-Agent Intelligence](https://developer.microsoft.com/blog/designing-multi-agent-intelligence)
 
 ---
 

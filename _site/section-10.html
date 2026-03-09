@@ -1,0 +1,129 @@
+<h2 id="10-️-design-considerations">10. ⚠️ Design Considerations</h2>
+
+<blockquote>
+  <p>Open items identified during architecture review. To be resolved before production scale-out.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="dc-1--gateway-routing-capacity-at-scale">DC-1 · Gateway Routing Capacity at Scale</h3>
+
+<p><strong>Gap:</strong> The CS instruction limit is 8,000 characters. At 8–12 domain agents, each requiring a precise routing description plus system safety instructions, the gateway prompt approaches this ceiling. The star topology anti-pattern section correctly warns that routing accuracy collapses as scope grows — but the gateway itself faces this exact problem.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Route by intent taxonomy using a structured CS topic with a bounded decision tree — not open-ended LLM prompt matching</li>
+  <li>Externalise routing descriptions to a Dataverse lookup table; inject only the matched description at runtime</li>
+  <li>Measure token consumption of the gateway prompt at 6, 9, and 12 domain agents before committing to a pattern</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-2--dependent-cross-domain-workflows">DC-2 · Dependent Cross-Domain Workflows</h3>
+
+<p><strong>Gap:</strong> The architecture handles independent multi-domain calls correctly (leave + Salesforce: gateway calls HR domain, calls Agentforce, composes — no issue). The gap is specifically <em>dependent</em> cross-domain workflows: where steps have ordering constraints, shared state, compensation requirements, or duration exceeding the CS session limit (60 min / 100 turns).</p>
+
+<p><strong>Example:</strong> Employee offboarding — IT access revocation must complete before HR records close; Finance final payroll depends on HR confirmation; if Finance fails, HR records must be reopened across an already-closed CS session.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Classify intents at the gateway as “independent multi-domain” (current pattern) vs. “dependent multi-domain” (needs orchestration)</li>
+  <li>Power Automate workflow as orchestrator for dependent processes — no session limits, native compensation branches, PA approval flows for human gates</li>
+  <li>Foundry Workflow (state machine) for compliance-grade processes requiring CMK or full audit trail</li>
+  <li>Define a Workflow Registry in Dataverse (parallel to Agent Registry): named workflows with ordered steps, compensating actions, timeout policies, and correlationId prefix per workflow</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-3--indirect-prompt-injection">DC-3 · Indirect Prompt Injection</h3>
+
+<p><strong>Gap:</strong> Content safety is applied at user input and agent output, but not specifically at tool <em>response</em> ingestion. At 100 agents making tool calls against enterprise systems (SharePoint, HRIS, CRM, Jira), a malicious document or record can embed adversarial instructions that hijack the agent’s next action — without triggering output-layer content safety.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Add a response sanitisation step between tool response and LLM context re-entry — distinct from output content safety</li>
+  <li>Add to the Agent Design Template tool checklist: “Is the tool response from a user-writable system? If yes, sanitisation required.”</li>
+  <li>Evaluate Azure Content Safety prompt shield for indirect injection detection on tool responses</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-4--preview-dependency-on-foundry-memory-feature">DC-4 · Preview Dependency on Foundry Memory Feature</h3>
+
+<p><strong>Gap:</strong> Cross-session user profile storage for Foundry agents is built on Memory Feature (preview). A 100-agent factory deployment targeting 6–12 months ships before GA is confirmed. API or behaviour changes in preview would require rebuilding the user profile layer across all Foundry agents.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Build with Redis + Cosmos DB as the durable profile store now; add Memory Feature as a retrieval layer when GA</li>
+  <li>Gate Foundry agents on Memory Feature only after it reaches GA or a committed preview SLA is confirmed</li>
+  <li>Define a profile store abstraction so the underlying store can be swapped without rewriting agent logic</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-5--model-selection-locked-in-copilot-studio">DC-5 · Model Selection Locked in Copilot Studio</h3>
+
+<p><strong>Gap:</strong> Architectural Principle 16 recommends right-sizing the model per agent role (smaller models for classification, extraction, formatting). CS — recommended for 80–90% of agents — locks to Microsoft-managed models with no selection control. The principle is correct; the platform does not support it for the majority of agents.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Explicitly document this as a CS tradeoff in the platform selection section</li>
+  <li>Route classification and extraction agents that would benefit from smaller models to Foundry instead of CS</li>
+  <li>Monitor whether CS adds model selection capability; treat Principle 16 as Foundry-only for now</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-6--llm-as-judge-calibration">DC-6 · LLM-as-Judge Calibration</h3>
+
+<p><strong>Gap:</strong> LLM-as-Judge is recommended as the evaluation gate for routing accuracy and response quality. Known biases (positional, verbosity, self-enhancement) mean the judge can produce systematically wrong quality signals — giving false confidence before production promotion — unless calibrated against human annotations first.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Establish human annotation agreement threshold (e.g., &gt;80% agreement) as a prerequisite before LLM-as-Judge is used as an automated gate</li>
+  <li>Calibrate the judge during the Month 3–4 pilot wave, not after Month 5 scale-out begins</li>
+  <li>Use ensemble judging (multiple model judges + human spot-check) for high-stakes routing decisions</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-7--no-circuit-breaker-or-tool-degradation-pattern">DC-7 · No Circuit Breaker or Tool Degradation Pattern</h3>
+
+<p><strong>Gap:</strong> A 90% tool accuracy threshold exists as a deployment gate but there is no defined behaviour for tools that degrade below threshold after they are in production. A failing tool will continue to be called, accumulating errors and potentially corrupting downstream state across multiple agents.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Define a degradation mode per agent: fallback to read-only / FAQ-only if agentic tools fail above a configurable error rate threshold</li>
+  <li>Add error rate monitoring in App Insights per tool per agent with an alert threshold and automatic tool disablement trigger</li>
+  <li>Leverage Principle 20 (kill switch) explicitly: document the per-tool disablement procedure as part of every Agent Design Template entry</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-8--error-propagation-through-the-agent-hierarchy">DC-8 · Error Propagation Through the Agent Hierarchy</h3>
+
+<p><strong>Gap:</strong> In a 4-hop chain (Gateway → Domain Agent → Specialist Agent → Tool), there is no defined contract for how a tool failure propagates back to the user with enough context to be meaningful. Intermediate agents typically either swallow the error (wrong) or re-interpret it (introduces hallucination risk).</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Define a typed error envelope passed upstream untouched: <code class="language-plaintext highlighter-rouge">{ errorCode, errorMessage, retryable, agentId, stepId, correlationId }</code></li>
+  <li>Only the gateway translates the error envelope into user-facing language — intermediate agents forward, never interpret</li>
+  <li>Add error envelope to the Agent Design Template I/O contract section as a mandatory output field</li>
+</ul>
+
+<hr />
+
+<h3 id="dc-9--correlationid-enforcement">DC-9 · correlationId Enforcement</h3>
+
+<p><strong>Gap:</strong> The correlationId pattern (<code class="language-plaintext highlighter-rouge">{domainCode}-{agentId}-{sessionTimestamp}</code>) is a naming convention, not an enforced contract. In heterogeneous systems (CS + Foundry + Agentforce), propagation breaks silently — there is no validation step that rejects responses missing the expected correlationId.</p>
+
+<p><strong>Options to evaluate:</strong></p>
+<ul>
+  <li>Add gateway-level validation: any agent response without a matching correlationId is treated as an error, not passed to the user</li>
+  <li>Define correlationId as a required field in the A2A payload schema, not an optional header</li>
+  <li>Add correlationId propagation test to the Agent Design Template Definition of Done checklist (already partially there — make it a gate, not a checkbox)</li>
+</ul>
+
+<hr />
+
+<p><em>Last reviewed: March 2026 · Owner: Vineet Kaul</em></p>

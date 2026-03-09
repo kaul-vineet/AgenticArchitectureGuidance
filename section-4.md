@@ -28,10 +28,10 @@ nav_order: 5
 | · BYO Cosmos DB for PII-regulated outputs | · Infrastructure awareness — Standard setup requires Cosmos DB config |
 
 ### 📚 References
-- Copilot Studio — Add Other Agents: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-add-other-agents
-- Copilot Studio — Child/Connected Agent I/O: https://microsoft.github.io/mcscatblog/posts/copilot-studio-child-connected-agents-inputs-outputs/
-- Foundry — Multi-Agent Workflows: https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/building-a-digital-workforce-with-multi-agents-in-azure-ai-foundry-agent-service/4414671
-- Salesforce — Agentforce A2A: https://www.salesforce.com/blog/agent-interoperability/
+- [Copilot Studio — Add Other Agents](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-add-other-agents)
+- [Copilot Studio — Child/Connected Agent I/O](https://microsoft.github.io/mcscatblog/posts/copilot-studio-child-connected-agents-inputs-outputs/)
+- [Foundry — Multi-Agent Workflows](https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/building-a-digital-workforce-with-multi-agents-in-azure-ai-foundry-agent-service/4414671)
+- [Salesforce — Agentforce A2A](https://www.salesforce.com/blog/agent-interoperability/)
 
 ### 🏆 Recommendation
 

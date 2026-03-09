@@ -1,0 +1,141 @@
+<h2 id="6--infrastructure-requirements--definitive-answer">6. 🔌 Infrastructure Requirements — Definitive Answer</h2>
+
+<h3 id="-required-managed--minimal-setup">✅ Required (Managed — Minimal Setup)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Infrastructure</th>
+      <th>Required?</th>
+      <th>When</th>
+      <th>Setup Effort</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Dataverse</strong></td>
+      <td>✅ Always</td>
+      <td>CS transcripts (auto) · agent metadata · governance · admin config · user profiles when CS-heavy</td>
+      <td>Zero — auto-provisioned</td>
+    </tr>
+    <tr>
+      <td><strong>Redis</strong></td>
+      <td>✅ For Foundry agents</td>
+      <td>Low latency session state: userId→threadId lookups during active sessions</td>
+      <td>Medium — Azure Cache for Redis</td>
+    </tr>
+    <tr>
+      <td><strong>Azure AI Search</strong></td>
+      <td>✅ If RAG needed</td>
+      <td>Knowledge base &gt; 500 docs or semantic similarity retrieval</td>
+      <td>Low — add as knowledge source</td>
+    </tr>
+    <tr>
+      <td><strong>Azure APIM</strong></td>
+      <td>✅ For production</td>
+      <td>External REST API governance — rate limiting, auth, logging</td>
+      <td>Low — managed service</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Data Lake</strong></td>
+      <td>✅ If compliance</td>
+      <td>Transcript retention &gt; 30 days</td>
+      <td>Low — Synapse Link connector</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-conditional--driven-by-architecture-lean">🟡 Conditional — Driven by Architecture Lean</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Infrastructure</th>
+      <th>When Needed</th>
+      <th>When NOT Needed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cosmos DB</strong></td>
+      <td><strong>Foundry-heavy architecture</strong> — transcripts + agent step recording + user profiles in one store · OR compliance mandate (CMK, data residency, full LLM audit trail)</td>
+      <td>CS-heavy architecture — Dataverse covers all storage needs. Never needed for CS.</td>
+    </tr>
+    <tr>
+      <td><strong>Foundry Memory Feature</strong></td>
+      <td><strong>Preview acceptable</strong> — replaces Cosmos DB for user profiles with zero infrastructure; AI-driven extraction and semantic retrieval</td>
+      <td>CS-heavy (Dataverse covers profiles) · Foundry-heavy (Cosmos DB covers profiles) · any architecture where preview dependency is a production risk</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-not-required--explicitly-ruled-out">❌ Not Required — Explicitly Ruled Out</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Infrastructure</th>
+      <th>Why Not Needed</th>
+      <th>What Replaces It</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>SQL Server / Azure SQL</strong></td>
+      <td>Dataverse handles admin/governance data; Cosmos DB handles Foundry agent data; no role for a separate SQL tier</td>
+      <td>Dataverse (admin) · Cosmos DB (Foundry)</td>
+    </tr>
+    <tr>
+      <td><strong>Custom vector DB</strong></td>
+      <td>Azure AI Search is the managed vector store with no custom infra</td>
+      <td>Azure AI Search</td>
+    </tr>
+    <tr>
+      <td><strong>Custom audit database</strong></td>
+      <td>Agent 365 + Purview + App Insights + Cosmos DB agent-entity-store cover all audit needs</td>
+      <td>Agent 365 + Purview + App Insights</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-infrastructure-matrix">📊 Infrastructure Matrix</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CS-heavy architecture (most agents on Copilot Studio):
+    ✅ Dataverse          → REQUIRED (transcripts auto · user profiles · metadata)
+    ✅ Azure AI Search    → IF knowledge base &gt; 500 docs
+    ✅ Azure APIM         → FOR external API governance
+    ✅ Azure Data Lake    → IF compliance requires &gt;30 day retention
+    ❌ Redis              → NOT REQUIRED
+    ❌ Cosmos DB          → NOT REQUIRED
+    ❌ Foundry Memory     → NOT REQUIRED
+
+Foundry-heavy architecture (most agents on Foundry):
+    ✅ Dataverse          → Governance metadata · CS agent transcripts if any
+    ✅ Cosmos DB          → REQUIRED (transcripts + agent steps + user profiles)
+    ✅ Redis              → REQUIRED (low latency userId→threadId session state)
+    ✅ Azure AI Search    → IF knowledge base &gt; 500 docs
+    ✅ Azure APIM         → FOR external API governance
+    ✅ Azure Data Lake    → IF compliance requires &gt;30 day retention
+    ❌ Foundry Memory     → NOT REQUIRED (Cosmos DB covers profiles)
+
+Preview acceptable (either lean):
+    ✅ Foundry Memory     → Replaces Cosmos DB for user profiles · zero infra · ⚠️ Preview
+    ✅ Cosmos DB          → Still REQUIRED for transcripts + agent steps (Foundry Standard)
+                           NOT REQUIRED for profiles if Foundry Memory is used
+    ✅ Redis              → REQUIRED for Foundry agents (session state)
+</code></pre></div></div>
+
+<h3 id="-references">📚 References</h3>
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/standard-agent-setup">Foundry Agent Setup Options</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/">Azure Cache for Redis</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/search/semantic-search-overview">Azure AI Search</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/cosmos-db/gen-ai/azure-agent-service">Cosmos DB Foundry</a></li>
+</ul>
+
+<h3 id="-recommendation">🏆 Recommendation</h3>
+<blockquote>
+  <p><strong>Infrastructure follows architecture lean — provision for your dominant platform, not per agent type. CS-heavy: Dataverse only — no Redis, no Cosmos DB, no Foundry Memory Feature. Foundry-heavy: Cosmos DB (transcripts + agent steps + user profiles) + Redis (session state) — no Foundry Memory Feature needed. Preview acceptable: Foundry Memory Feature replaces Cosmos DB for profiles only; Cosmos DB is still required for transcripts and agent step recording. Every component must be justified by the architecture — not assumed as a default.</strong></p>
+</blockquote>
+
+<hr />

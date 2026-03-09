@@ -72,13 +72,13 @@ nav_order: 2
 ```
 
 ### 📚 References
-- Microsoft CAF — AI Agents: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/
-- Azure Architecture Center — AI Agent Orchestration Patterns: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns
-- DeepLearning.AI — Agentic Design Patterns: https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/
-- MAST — Why Enterprise Agents Fail: https://huggingface.co/blog/ibm-research/itbenchandmast
-- smolagents — Building Good Agents: https://huggingface.co/docs/smolagents/tutorials/building_good_agents
-- Gartner — Multiagent Systems: https://www.gartner.com/en/articles/multiagent-systems
-- Microsoft Agent Factory Blog: https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/
+- [Microsoft CAF — AI Agents](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/)
+- [Azure Architecture Center — AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns)
+- [DeepLearning.AI — Agentic Design Patterns](https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/)
+- [MAST — Why Enterprise Agents Fail](https://huggingface.co/blog/ibm-research/itbenchandmast)
+- [smolagents — Building Good Agents](https://huggingface.co/docs/smolagents/tutorials/building_good_agents)
+- [Gartner — Multiagent Systems](https://www.gartner.com/en/articles/multiagent-systems)
+- [Microsoft Agent Factory Blog](https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/)
 
 ### 🏆 Recommendation
 > ⚡🧩📈🏭🔵 **Use Copilot Studio as gateway and domain agents with Dataverse as the operational data layer. Add Foundry only for specialist agents. This requires no custom infrastructure, deploys through Power Platform Pipelines, and lets domain teams own their agents using no-code tooling.**
@@ -171,16 +171,16 @@ The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, docume
 | 🟡 **Unpredictable and inefficient cost** | Simple FAQ queries invoke the same full-context orchestrator as complex multi-step financial workflows. | Azure Architecture Center — Optimization principle |
 
 #### 📚 References
-- HuggingFace — Design Patterns for Agentic Workflows: https://huggingface.co/blog/dcarpintero/design-patterns-for-building-agentic-workflows
-- HuggingFace — IBM MAST Failure Taxonomy: https://huggingface.co/blog/ibm-research/itbenchandmast
-- HuggingFace — IBM AssetOpsBench: https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face
-- HuggingFace — Neuro SAN Decentralized Routing: https://huggingface.co/blog/danyoung/neuro-san-is-all-you-need
-- HuggingFace — OpenEnv/Turing Tool + Routing Evaluation: https://huggingface.co/blog/openenv-turing
-- DeepLearning.AI — Multi-Agent Collaboration: https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-5-multi-agent-collaboration/
-- DeepLearning.AI — How Agents Improve LLM Performance: https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/
-- Azure Architecture Center — AI Agent Orchestration Patterns: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns
-- Microsoft Tech Community — AI Didn't Break Your Production: https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848
-- MAST Paper (arXiv): https://arxiv.org/abs/2503.13657
+- [HuggingFace — Design Patterns for Agentic Workflows](https://huggingface.co/blog/dcarpintero/design-patterns-for-building-agentic-workflows)
+- [HuggingFace — IBM MAST Failure Taxonomy](https://huggingface.co/blog/ibm-research/itbenchandmast)
+- [HuggingFace — IBM AssetOpsBench](https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face)
+- [HuggingFace — Neuro SAN Decentralized Routing](https://huggingface.co/blog/danyoung/neuro-san-is-all-you-need)
+- [HuggingFace — OpenEnv/Turing Tool + Routing Evaluation](https://huggingface.co/blog/openenv-turing)
+- [DeepLearning.AI — Multi-Agent Collaboration](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-5-multi-agent-collaboration/)
+- [DeepLearning.AI — How Agents Improve LLM Performance](https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/)
+- [Azure Architecture Center — AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns)
+- [Microsoft Tech Community — AI Didn't Break Your Production](https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848)
+- [MAST Paper (arXiv)](https://arxiv.org/abs/2503.13657)
 
 #### 🏆 Recommendation
 > **Never use a single orchestrator for all agents. Research confirms that overloaded single orchestrators accumulate cascading failures (5.3 failure modes/trace), lose conversation history (24% of traces), and suffer reasoning-action disconnect (94% of traces). One domain agent per business function. Gateway routes intent only — owns zero tools. Each domain agent manages ≤ 8–10 specialist agents with a bounded tool set and dynamic task ledger. This architecture scales from 10 to 200 agents without redesign.**

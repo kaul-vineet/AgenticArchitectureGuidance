@@ -1,7 +1,9 @@
 title: Enterprise Multi-Agent Architecture
 description: Bajaj — Enterprise AI Agent Architecture Reference · Vineet Kaul · Microsoft
 
-remote_theme: just-the-docs/just-the-docs@v0.10.0
+# Local development — use 'theme'
+# For GitHub Pages deployment, swap to: remote_theme: just-the-docs/just-the-docs@v0.10.0
+theme: just-the-docs
 
 # Site URL — update this when publishing to GitHub Pages
 # url: https://<your-github-username>.github.io

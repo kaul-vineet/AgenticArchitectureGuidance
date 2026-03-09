@@ -1,0 +1,166 @@
+<h2 id="8--final-summary">8. 📌 Final Summary</h2>
+
+<h3 id="-what-to-build-with">✅ What to Build With</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Technology</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>🚪 Gateway + Domain Agents</td>
+      <td><strong>Copilot Studio</strong></td>
+      <td>No-code, fastest time to agent</td>
+    </tr>
+    <tr>
+      <td>🔧 Specialist child agents</td>
+      <td><strong>Copilot Studio</strong> (inline or connected)</td>
+      <td>CS domain agents only · shared container, typed I/O</td>
+    </tr>
+    <tr>
+      <td>🔗 Specialist connected agents</td>
+      <td><strong>Foundry Agent Service</strong> (A2A)</td>
+      <td>Complex reasoning, code execution, large RAG — connected tier only</td>
+    </tr>
+    <tr>
+      <td>🔗 Non-MSFT connected agents</td>
+      <td><strong>Agentforce / ServiceNow</strong> (A2A/REST)</td>
+      <td>Connected tier only — never child agents</td>
+    </tr>
+    <tr>
+      <td>⚡ Workflows</td>
+      <td><strong>Power Automate</strong> + <strong>Foundry Flows</strong></td>
+      <td>No-code, 1,400+ connectors</td>
+    </tr>
+    <tr>
+      <td>🔌 Shared tools</td>
+      <td><strong>MCP servers</strong> + <strong>Azure APIM</strong></td>
+      <td>One integration per enterprise system</td>
+    </tr>
+    <tr>
+      <td>💾 CS agent data</td>
+      <td><strong>Dataverse</strong></td>
+      <td>Transcripts (auto), metadata, admin config</td>
+    </tr>
+    <tr>
+      <td>⚡ Foundry session state</td>
+      <td><strong>Redis</strong></td>
+      <td>Low latency userId→threadId, hot cache</td>
+    </tr>
+    <tr>
+      <td>👤 Foundry cross-session memory</td>
+      <td><strong>Memory Feature</strong> (preview)</td>
+      <td>User profiles, session summaries</td>
+    </tr>
+    <tr>
+      <td>🗄️ Foundry full transcript + audit</td>
+      <td><strong>Cosmos DB</strong> (compliance only)</td>
+      <td>CMK / data residency / LLM audit trail</td>
+    </tr>
+    <tr>
+      <td>🔍 Large-scale RAG</td>
+      <td><strong>Azure AI Search</strong></td>
+      <td>Knowledge base &gt; 500 docs</td>
+    </tr>
+    <tr>
+      <td>📁 Long-term archive</td>
+      <td><strong>Azure Data Lake</strong> (Synapse Link)</td>
+      <td>Compliance retention &gt; 30 days</td>
+    </tr>
+    <tr>
+      <td>🛡️ Governance</td>
+      <td><strong>Agent 365 + CoE Toolkit + Entra Agent ID</strong></td>
+      <td>No custom audit infra needed</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-what-to-avoid">❌ What to Avoid</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>❌ Avoid</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single orchestrator for all agents (star topology)</td>
+      <td>Unusable at 30+ agents, catastrophic at 100</td>
+    </tr>
+    <tr>
+      <td>Cosmos DB for CS agents</td>
+      <td>Dataverse is the correct store; Cosmos DB is Foundry Standard only</td>
+    </tr>
+    <tr>
+      <td>SQL Server</td>
+      <td>No role — Dataverse covers admin data; Cosmos DB covers Foundry agent data</td>
+    </tr>
+    <tr>
+      <td>Redis for CS-only architecture</td>
+      <td>Not needed when Dataverse covers session state adequately</td>
+    </tr>
+    <tr>
+      <td>Agent Framework for CS agents</td>
+      <td>Dev complexity where no-code suffices</td>
+    </tr>
+    <tr>
+      <td>Free multi-agent peer-to-peer chaining</td>
+      <td>Least reliable pattern; orchestrator-controlled delegation only</td>
+    </tr>
+    <tr>
+      <td>Planning for known deterministic workflows</td>
+      <td>Use CS Topics / Foundry Workflows instead</td>
+    </tr>
+    <tr>
+      <td>Agent self-verification of its own output</td>
+      <td>FM-3.3: agents hallucinate success states — always use external verification</td>
+    </tr>
+    <tr>
+      <td>Building before defining termination conditions</td>
+      <td>FM-1.5: agents that do not know when to stop are the #1 failure predictor</td>
+    </tr>
+    <tr>
+      <td>Promoting tools below 90% accuracy</td>
+      <td>HuggingFace: 33-point accuracy gap; tool quality is the biggest performance lever</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="️-100-agent-delivery-timeline">🗓️ 100-Agent Delivery Timeline</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Month 1–2:   Platform foundation
+             ├── Dev / Test / Prod environments (per domain)
+             ├── ALM pipelines (Power Platform Pipelines)
+             ├── 3–5 agent templates
+             │     Gateway · Domain Agent · FAQ Specialist
+             │     Task Specialist · Integration Specialist
+             ├── CoE Toolkit deployment
+             ├── Entra Agent ID strategy
+             └── Agent 365 Frontier enrollment
+
+Month 3–4:   Pilot wave (10–15 agents)
+             ├── Gateway + 2–3 domain agents
+             ├── Validate architecture, verification gates,
+             │   correlationId pattern, termination logic
+             ├── Establish LLM-as-a-Judge evaluation baseline
+             └── Validate Agent 365 telemetry
+
+Month 5–12:  Factory mode (8–12 agents/month)
+             ├── Domain teams clone templates and configure
+             ├── CoE reviews each agent before Test promotion
+             ├── ALM pipeline promotes Test → Prod automatically
+             └── Agent 365 registry grows with each release
+</code></pre></div></div>
+
+<hr />
+
+<p><em>Last updated: March 2026</em>
+<em>Sources: Microsoft Cloud Adoption Framework · Azure Architecture Center · DeepLearning.AI Agentic Design Patterns · HuggingFace / MAST / smolagents / AssetOpsBench / mem-agent · Gartner Multiagent Systems Research · Microsoft Agent Factory Blog Series</em></p>
+
+<hr />

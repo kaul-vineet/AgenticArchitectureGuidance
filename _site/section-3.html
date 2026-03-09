@@ -1,0 +1,142 @@
+<h2 id="3-️-copilot-studio-vs-foundry--as-parent--master-agent">3. ⚖️ Copilot Studio vs. Foundry — As Parent / Master Agent</h2>
+
+<h3 id="-copilot-studio-as-parent">🟦 Copilot Studio as Parent</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>✅ Pros</th>
+      <th>❌ Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>· No-code authoring — teams own independently</td>
+      <td>· Sequential orchestration — child agents called one-at-a-time</td>
+    </tr>
+    <tr>
+      <td>· Native M365 channels — Teams, SharePoint, M365 Copilot zero-setup</td>
+      <td>· Session limits — 30 min idle, 60 min total, 100 turns</td>
+    </tr>
+    <tr>
+      <td>· Shared container for CS children — variables, auth, Dataverse natively shared</td>
+      <td>· Instructions size limit — hard cap of 8,000 characters</td>
+    </tr>
+    <tr>
+      <td>· 1,400+ connectors out of the box</td>
+      <td>· Model selection limited — locked to Microsoft-managed models</td>
+    </tr>
+    <tr>
+      <td>· Agent templates + Component Collections — repeatable factory model</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>· Power Platform Pipelines — built-in Dev→Test→Prod ALM</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>· Fastest time-to-first-agent across all platforms</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>· Agent 365 + CoE Toolkit governed natively in M365 Admin Center</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="-foundry-agent-service-as-parent">🟧 Foundry Agent Service as Parent</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>✅ Pros</th>
+      <th>❌ Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>· Parallel agent invocation via Foundry Workflows — fan-out/fan-in</td>
+      <td>· Slower time-to-agent vs CS even with low-code tools</td>
+    </tr>
+    <tr>
+      <td>· Foundry Flows (low-code) — visual drag-and-drop workflow designer</td>
+      <td>· Foundry Connected Agents: max depth = 2 (hard limit)</td>
+    </tr>
+    <tr>
+      <td>· OOB Foundry connectors to Azure, M365, and partner services</td>
+      <td>· Session management — threadId registry pattern required</td>
+    </tr>
+    <tr>
+      <td>· Deterministic Workflows — state machines for regulated processes</td>
+      <td>· PaaS licensing cost on top of token costs</td>
+    </tr>
+    <tr>
+      <td>· Native Memory (preview) — automatic cross-session user profiles</td>
+      <td>· Foundry → CS child integration still in preview</td>
+    </tr>
+    <tr>
+      <td>· BYO Cosmos DB for data sovereignty (Standard setup only)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>· Full OpenTelemetry distributed tracing</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>· Code Interpreter + File Search built in</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>💡 <strong>Foundry is low-code too.</strong> Foundry Agent Service includes a visual Flows designer, pre-built connectors, and a portal UI for agent creation. The distinction from Copilot Studio is target audience and depth of control, not code vs. no-code.</p>
+</blockquote>
+
+<h3 id="-references">📚 References</h3>
+<ul>
+  <li><a href="https://techcommunity.microsoft.com/blog/microsoft-security-blog/microsoft-copilot-studio-vs-microsoft-foundry-building-ai-agents-and-apps/4483160">Microsoft — Copilot Studio vs Foundry</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/technology-solutions-plan-strategy">Microsoft CAF — Platform Selection</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/">Foundry — Flows and Workflows</a></li>
+  <li><a href="https://www.microsoft.com/insidetrack/blog/customer-questions-answered-should-i-use-copilot-studio-or-azure-ai-foundry-to-build-my-agent/">Microsoft Inside Track — CS or Foundry</a></li>
+</ul>
+
+<h3 id="-recommendation">🏆 Recommendation</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Verdict</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>⚡ Speed</td>
+      <td><strong>Copilot Studio wins</strong> — hours to first agent vs. days</td>
+    </tr>
+    <tr>
+      <td>🧩 No-code</td>
+      <td><strong>Copilot Studio wins</strong> — no-code native</td>
+    </tr>
+    <tr>
+      <td>📈 Scale</td>
+      <td><strong>Copilot Studio wins</strong> — agent templates, Component Collections, PP Pipelines</td>
+    </tr>
+    <tr>
+      <td>🏭 100+ agents</td>
+      <td><strong>Copilot Studio wins</strong> — factory model built for this scale</td>
+    </tr>
+    <tr>
+      <td>🔵 Reduced complexity</td>
+      <td><strong>Copilot Studio wins</strong> — single platform, Dataverse only, no extra infra</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Use Copilot Studio as the parent/master agent. Introduce Foundry as parent only for domains requiring parallel execution, deterministic state-machine workflows, or compliance-grade BYO storage. Target fewer than 3 Foundry-parent domains out of your total agent estate.</strong></p>
+</blockquote>
+
+<hr />
