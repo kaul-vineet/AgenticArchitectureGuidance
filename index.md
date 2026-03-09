@@ -27,12 +27,12 @@ permalink: /
   <span class="pill">🔀 Orchestration across 100+ agents</span>
   <span class="pill">🏢 Rapid LOB system integration</span>
   <span class="pill">📱 Multi-channel exposure — web, mobile, Teams</span>
-  <span class="pill pill-p1">🥇 P1 · Complex agent instructions &amp; supervision</span>
-  <span class="pill pill-p1">🥇 P1 · Supervisor pattern</span>
-  <span class="pill pill-p1">🥇 P1 · Supervisor-as-tool pattern</span>
-  <span class="pill pill-p1">🥇 P1 · Hierarchical orchestration pattern</span>
-  <span class="pill pill-p2">🥈 P2 · Custom orchestration pattern</span>
-  <span class="pill pill-p2">🥈 P2 · Network / mesh agent pattern</span>
+  <span class="pill">🥇 Complex agent instructions &amp; supervision</span>
+  <span class="pill">🥇 Supervisor pattern</span>
+  <span class="pill">🥇 Supervisor-as-tool pattern</span>
+  <span class="pill">🥇 Hierarchical orchestration pattern</span>
+  <span class="pill">🥈 Custom orchestration pattern</span>
+  <span class="pill">🥈 Network / mesh agent pattern</span>
 </div>
 
 > *Informed by: Microsoft CAF · Azure Architecture Center · DeepLearning.AI · HuggingFace Research · Gartner · MAST · smolagents*
@@ -112,12 +112,12 @@ Every recommendation is evaluated against the following criteria:
 | 🔀 | **Orchestration at Scale** | Capable of routing and managing 100+ agents across domains without creating a single-orchestrator bottleneck |
 | 🏢 | **LOB System Integration** | Ability to quickly connect to line-of-business systems (SAP, Salesforce, ServiceNow, Dynamics 365, Oracle) with minimal custom code |
 | 📱 | **Multi-Channel Exposure** | Agents reachable across web, mobile, Teams, SharePoint, M365 Copilot, and custom surfaces without rebuilding per channel |
-| 🥇 | **P1 — Complex Agent Instructions** | Platform must support rich, detailed system prompts and instructions per agent; agents handling multi-step, conditional, or domain-complex tasks must not be constrained by instruction size or expressiveness |
-| 🥇 | **P1 — Supervisor Pattern** | A central supervisor agent must be able to route tasks to specialist sub-agents, evaluate their outputs, and decide next steps — without hardcoded routing logic |
-| 🥇 | **P1 — Supervisor-as-Tool Pattern** | The supervisor must itself be callable as a tool by a higher-level orchestrator — enabling composable, multi-level delegation where any agent can act as both orchestrator and sub-agent |
-| 🥇 | **P1 — Hierarchical Orchestration Pattern** | Architecture must support multi-tier hierarchies (Gateway → Domain → Specialist) where each layer manages its own sub-agents independently; depth must scale without a single shared context |
-| 🥈 | **P2 — Custom Orchestration Pattern** | For engineering-owned domains, the platform must allow fully custom orchestration logic (SDK-level code, state machines, conditional branching) when declarative patterns are insufficient |
-| 🥈 | **P2 — Network / Mesh Pattern** | Architecture should support peer-to-peer agent collaboration where agents can call each other laterally (not only top-down) for cross-domain tasks — with appropriate guardrails to prevent unbounded recursion |
+| 🥇 | **Complex Agent Instructions** | Platform must support rich, detailed system prompts and instructions per agent; agents handling multi-step, conditional, or domain-complex tasks must not be constrained by instruction size or expressiveness |
+| 🥇 | **Supervisor Pattern** | A central supervisor agent must be able to route tasks to specialist sub-agents, evaluate their outputs, and decide next steps — without hardcoded routing logic |
+| 🥇 | **Supervisor-as-Tool Pattern** | The supervisor must itself be callable as a tool by a higher-level orchestrator — enabling composable, multi-level delegation where any agent can act as both orchestrator and sub-agent |
+| 🥇 | **Hierarchical Orchestration Pattern** | Architecture must support multi-tier hierarchies (Gateway → Domain → Specialist) where each layer manages its own sub-agents independently; depth must scale without a single shared context |
+| 🥈 | **Custom Orchestration Pattern** | For engineering-owned domains, the platform must allow fully custom orchestration logic (SDK-level code, state machines, conditional branching) when declarative patterns are insufficient |
+| 🥈 | **Network / Mesh Pattern** | Architecture should support peer-to-peer agent collaboration where agents can call each other laterally (not only top-down) for cross-domain tasks — with appropriate guardrails to prevent unbounded recursion |
 
 ---
 

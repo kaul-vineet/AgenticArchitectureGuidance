@@ -21,9 +21,9 @@ nav_order: 4
 | · **Power Platform Pipelines** — built-in Dev→Test→Prod ALM; no custom CI/CD required | · **CS → Foundry connected agent in preview** — not production-ready; citation gaps and black-box orchestration |
 | · **Fastest time-to-first-agent** — hours to first live agent vs. days in Foundry | · **No deep orchestration patterns** — Magentic, Group Chat, Concurrent patterns not available; routing is generative/sequential only |
 | · **Agent 365 + CoE Toolkit** — unified agent registry, governance, and audit natively in M365 Admin Center | |
-| · **Supervisor pattern (P1)** — CS parent acts as supervisor routing to CS specialist child/connected agents; routing logic in generative Topics or explicit Topic conditions | |
-| · **Supervisor-as-tool (P1)** — CS agent can be published as an A2A endpoint and called as a tool by higher-level Foundry or non-MSFT orchestrators | |
-| · **Hierarchical pattern (P1)** — Gateway → Domain → Specialist hierarchy fully supported; each tier is an independent CS agent with own ALM | |
+| · **Supervisor pattern** — CS parent acts as supervisor routing to CS specialist child/connected agents; routing logic in generative Topics or explicit Topic conditions | |
+| · **Supervisor-as-tool** — CS agent can be published as an A2A endpoint and called as a tool by higher-level Foundry or non-MSFT orchestrators | |
+| · **Hierarchical pattern** — Gateway → Domain → Specialist hierarchy fully supported; each tier is an independent CS agent with own ALM | |
 
 <h4 style="color:#5c2d91;font-weight:700;border-left:3px solid #5c2d91;padding-left:0.5rem;margin-top:1.2rem;">🤝 Agent Connectivity — What CS Parent Supports</h4>
 
@@ -61,13 +61,13 @@ A CS parent can call any agent that exposes an A2A-compliant endpoint — includ
 |---|---|
 | · **Five orchestration patterns (GA)** — Sequential, Concurrent (fan-out/fan-in), Handoff, Group Chat, Magentic (supervisor) | · **Slower time-to-first-agent** — portal setup, infra provisioning, and Workflow YAML required |
 | · **Concurrent pattern** — all sub-agents execute simultaneously on same input; results auto-aggregated; configurable timeouts | · **Classic Connected Agents deprecated** — `ConnectedAgentToolDefinition` retires March 31, 2027; must migrate to Workflows |
-| · **Magentic pattern (Supervisor, P1)** — manager agent dynamically selects which specialist executes next; stall detection; replanning; optional human-in-the-loop | · **Magentic pattern Python-only** — C# SDK does not yet support Magentic orchestration |
-| · **Supervisor-as-tool (P1)** — Foundry agent callable as A2A tool by any higher-level orchestrator; parent retains control across delegation | · **Session management overhead** — threadId registry pattern required; per-agent thread context must be explicitly designed |
-| · **Hierarchical pattern (P1)** — Workflow nodes chain into Gateway → Domain → Specialist tiers; no hard depth limit in Workflows (unlike deprecated Classic limit of 2) | · **PaaS licensing cost** — Foundry Standard requires Cosmos DB, Azure AI Search, Azure Functions on top of token costs |
+| · **Magentic pattern (Supervisor)** — manager agent dynamically selects which specialist executes next; stall detection; replanning; optional human-in-the-loop | · **Magentic pattern Python-only** — C# SDK does not yet support Magentic orchestration |
+| · **Supervisor-as-tool** — Foundry agent callable as A2A tool by any higher-level orchestrator; parent retains control across delegation | · **Session management overhead** — threadId registry pattern required; per-agent thread context must be explicitly designed |
+| · **Hierarchical pattern** — Workflow nodes chain into Gateway → Domain → Specialist tiers; no hard depth limit in Workflows (unlike deprecated Classic limit of 2) | · **PaaS licensing cost** — Foundry Standard requires Cosmos DB, Azure AI Search, Azure Functions on top of token costs |
 | · **A2A Tool (GA)** — calls cross-project Foundry agents, CS agents, Agentforce, ServiceNow, any A2A-compliant endpoint; enterprise auth (Managed Identity, OAuth, API key) | · **Infrastructure overhead** — Cosmos DB (BYO for Standard), Redis (session state), Azure Functions (tools) required |
 | · **Full OpenTelemetry + App Insights** — distributed tracing across all agent hops, tool calls, and handoffs; parent-child messages traceable end-to-end | · **No native CS child agents** — Foundry cannot call CS as a native child; requires CS to publish as A2A endpoint (preview) |
 | · **Deterministic Workflows** — YAML/Power Fx state machines; Human-in-the-loop approval nodes built-in | · **No unified agent registry** — no equivalent of Agent 365; governance requires custom Azure Policy + Entra + App Insights setup |
-| · **Custom orchestration (P2)** — full SDK access (Python, C#, JS, Java) for custom orchestration logic, state machines, conditional branching | |
+| · **Custom orchestration** — full SDK access (Python, C#, JS, Java) for custom orchestration logic, state machines, conditional branching | |
 | · **Code Interpreter + File Search** — built-in tools; no custom integration required | |
 | · **Native Memory (preview)** — automatic cross-session user profiles without custom code | |
 | · **BYO Cosmos DB** — data sovereignty, CMK, compliance-grade audit trail per agent | |
@@ -113,8 +113,6 @@ Foundry as parent supports four connectivity types and five orchestration patter
 
 <h3 style="color:#107c10;font-weight:700;border-left:4px solid #107c10;padding-left:0.6rem;margin-top:1.5rem;">🏆 Recommendation</h3>
 
-Evaluated against all Recommendation Criteria including orchestration pattern priorities (P1/P2):
-
 | Criterion | 🟦 Copilot Studio as Parent | 🟧 Foundry as Parent |
 |---|---|---|
 | ⚡ Speed | ✅ **Wins** — hours to first agent vs. days | ⚠️ Slower — Workflow YAML + infra provisioning required |
@@ -128,12 +126,12 @@ Evaluated against all Recommendation Criteria including orchestration pattern pr
 | 🔀 Orchestration at scale (100+ agents) | ⚠️ Sequential only; domain hierarchy required to avoid star-topology bottleneck | ✅ **Wins** — Concurrent fan-out, Magentic supervisor, Group Chat, Handoff all GA |
 | 🏢 LOB system integration | ✅ **Wins** — 1,400+ PA connectors; SAP, Dynamics 365, Oracle, Salesforce, ServiceNow with no custom code | ⚠️ Foundry connectors available; LOB typically requires Azure Functions or OpenAPI tool definitions |
 | 📱 Multi-channel exposure | ✅ **Wins** — Teams, SharePoint, M365 Copilot, web, mobile, Direct Line zero-config | ⚠️ API endpoint only; channel routing requires custom front-end or CS wrapper |
-| 🥇 P1 — Complex agent instructions | ⚠️ 8,000 char limit; complex domain prompts require compression | ✅ **Wins** — no system prompt size limit; full parameter control (temperature, top-p, max tokens) |
-| 🥇 P1 — Supervisor pattern | ✅ CS Topics act as generative supervisor routing to specialist agents | ✅ Magentic pattern — dynamic specialist selection, stall detection, replanning |
-| 🥇 P1 — Supervisor-as-tool | ✅ CS published as A2A endpoint; callable by Foundry or non-MSFT orchestrators | ✅ Foundry agent callable as A2A tool; parent retains full control across delegation |
-| 🥇 P1 — Hierarchical orchestration | ✅ Gateway → Domain → Specialist fully supported; each tier is independent CS agent with own ALM | ✅ Workflow nodes chain into multi-tier hierarchies; no depth limit in Workflows (unlike deprecated Classic) |
-| 🥈 P2 — Custom orchestration | ❌ No SDK access; Topics only | ✅ **Wins** — full Python, C#, JS, Java SDK; custom state machines and conditional branching |
-| 🥈 P2 — Network / mesh pattern | ⚠️ Possible via A2A connected agents but no peer-to-peer routing; always orchestrator-controlled | ⚠️ Group Chat pattern supports multi-agent lateral collaboration; pure peer-to-peer not recommended (36% hallucination rate in unstructured ReAct per AgentArch benchmark) |
+| 🥇 Complex agent instructions | ⚠️ 8,000 char limit; complex domain prompts require compression | ✅ **Wins** — no system prompt size limit; full parameter control (temperature, top-p, max tokens) |
+| 🥇 Supervisor pattern | ✅ CS Topics act as generative supervisor routing to specialist agents | ✅ Magentic pattern — dynamic specialist selection, stall detection, replanning |
+| 🥇 Supervisor-as-tool | ✅ CS published as A2A endpoint; callable by Foundry or non-MSFT orchestrators | ✅ Foundry agent callable as A2A tool; parent retains full control across delegation |
+| 🥇 Hierarchical orchestration | ✅ Gateway → Domain → Specialist fully supported; each tier is independent CS agent with own ALM | ✅ Workflow nodes chain into multi-tier hierarchies; no depth limit in Workflows (unlike deprecated Classic) |
+| 🥈 Custom orchestration | ❌ No SDK access; Topics only | ✅ **Wins** — full Python, C#, JS, Java SDK; custom state machines and conditional branching |
+| 🥈 Network / mesh pattern | ⚠️ Possible via A2A connected agents but no peer-to-peer routing; always orchestrator-controlled | ⚠️ Group Chat pattern supports multi-agent lateral collaboration; pure peer-to-peer not recommended (36% hallucination rate in unstructured ReAct per AgentArch benchmark) |
 
 > **Use Copilot Studio as the parent/master agent** for the majority of your 100+ agent estate. CS wins on speed, no-code authoring, governance, LOB integration, multi-channel exposure, and factory-scale ALM — all critical requirements for enterprise delivery at pace. All P1 orchestration patterns (Supervisor, Supervisor-as-tool, Hierarchical) are fully supported in CS through generative Topics and A2A connected agents. Agent 365 + CoE Toolkit provide enterprise-grade governance without custom infrastructure. 1,400+ Power Automate connectors eliminate custom LOB integration work. The factory model — agent templates, Component Collections, Power Platform Pipelines — scales from 1 to 100+ agents without re-architecting. Avoid unstructured peer-to-peer (network/mesh) patterns on any platform — AgentArch benchmark shows 36% hallucination rate in unstructured multi-agent ReAct vs. 0% in orchestrator-led configurations.
 {: .recommendation}
