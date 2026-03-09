@@ -24,7 +24,7 @@ nav_order: 5
 | · **Reusable connected agents** — one CS child can serve multiple CS parent agents independently | |
 | · **Independent ALM for connected agents** — child can be versioned and deployed without touching the parent | |
 
-#### Scenario 2 — CS Child / Connected Agent where Master Agent is Foundry
+#### **Scenario 2 — CS Child / Connected Agent where Master Agent is Foundry**
 
 | ✅ Pros | ❌ Cons |
 |---|---|
@@ -59,7 +59,7 @@ CS connects to a Foundry agent via a native platform connector using the Foundry
 | | · **Reuse restriction** — an agent with connected agents cannot itself be used as a connected agent to another parent; limits certain multi-tier topologies |
 | | · **Responsible use burden** — when connecting to agents outside CS, the implementer is responsible for data flows, security, permissions, and output quality |
 
-#### Scenario 2 — Foundry as Child when Master Agent is Foundry (Foundry-to-Foundry)
+#### **Scenario 2 — Foundry as Child when Master Agent is Foundry** (Foundry-to-Foundry)
 
 A parent Foundry agent invokes a child Foundry agent as a tool call using `ConnectedAgentToolDefinition`. The parent uses natural language routing to decide which child to call. Microsoft now recommends migrating to the **Workflows** feature (visual, declarative orchestration) over the classic Connected Agents API, which is deprecated and will be retired on **March 31, 2027**.
 
