@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "⚖️ 3. Copilot Studio vs. Foundry"
+title: "⚖️ 3. Master & Domain Agents — Platform Recommendation"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 4
 ---
 
-## 3. ⚖️ Copilot Studio vs. Foundry
+## 3. ⚖️ Master & Domain Agents — Platform Recommendation
 
 ---
 
