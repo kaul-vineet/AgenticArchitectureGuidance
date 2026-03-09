@@ -135,3 +135,10 @@ ul.ref-grid {
   table tbody tr:nth-child(odd) { background: #f7faff !important; -webkit-print-color-adjust: exact; }
   a[href]::after { content: " (" attr(href) ")"; font-size: 0.75rem; color: #666; }
 }
+// ---------------------------------------------
+// 13. ADHERENCE BADGES
+// ---------------------------------------------
+.adh-full    { display:inline-block; background:#107c10; color:#fff; border-radius:3px; padding:1px 7px; font-size:0.78rem; font-weight:600; white-space:nowrap; }
+.adh-partial { display:inline-block; background:#8a6a00; color:#fff; border-radius:3px; padding:1px 7px; font-size:0.78rem; font-weight:600; white-space:nowrap; }
+.adh-maybe   { display:inline-block; background:#e07a10; color:#fff; border-radius:3px; padding:1px 7px; font-size:0.78rem; font-weight:600; white-space:nowrap; }
+.adh-no      { display:inline-block; background:#c53b3b; color:#fff; border-radius:3px; padding:1px 7px; font-size:0.78rem; font-weight:600; white-space:nowrap; }
