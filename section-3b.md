@@ -11,7 +11,7 @@ nav_order: 5
 
 ### 🟦 Copilot Studio as Child / Connected Agent
 
-#### Scenario 1 — CS Child / Connected Agent where Master Agent is Copilot Studio
+#### **Scenario 1 — CS Child / Connected Agent where Master Agent is Copilot Studio**
 
 | ✅ Pros | ❌ Cons |
 |---|---|
@@ -41,7 +41,7 @@ nav_order: 5
 
 ### 🟧 Foundry as Child / Connected Agent
 
-#### Scenario 1 — Foundry as Connected Agent where Master Agent is Copilot Studio
+#### **Scenario 1 — Foundry as Connected Agent where Master Agent is Copilot Studio**
 
 CS connects to a Foundry agent via a native platform connector using the Foundry project endpoint URL and Agent ID. This is distinct from the open A2A protocol — it uses Microsoft's internal CS-to-Foundry integration.
 
