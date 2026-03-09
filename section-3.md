@@ -56,7 +56,7 @@ nav_order: 4
 
 ### 🔗 As Child / Connected Agent
 
-#### 🟦 Copilot Studio as Child
+#### 🟦 Copilot Studio as Child / Connected Agent
 
 | ✅ Pros | ❌ Cons |
 |---|---|
