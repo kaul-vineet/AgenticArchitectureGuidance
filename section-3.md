@@ -24,6 +24,34 @@ nav_order: 4
 | · Fastest time-to-first-agent across all platforms | |
 | · Agent 365 + CoE Toolkit governed natively in M365 Admin Center | |
 
+#### 🤝 Agent Connectivity — What CS Parent Supports
+
+Copilot Studio as parent supports two tiers of agent connectivity: **any Copilot Studio agent as a child agent** and **any A2A-compliant agent as a connected agent**.
+
+**Child Agents — Any Copilot Studio Agent**
+
+A CS parent can embed any other Copilot Studio agent as an inline child agent directly within its topic flow.
+
+| ✅ Pros | ❌ Cons |
+|---|---|
+| · **Any CS agent is eligible** — any agent built in Copilot Studio can be added as a child; no special configuration required | · **CS agents only** — non-MSFT agents (Agentforce, ServiceNow) and Foundry agents cannot be child agents; connected tier only |
+| · **Shared container** — child inherits parent's variables, auth context, Dataverse connections, and Power Automate connectors with zero extra config | · **Sequential invocation** — child agents are called one at a time; no parallel fan-out within the child tier |
+| · **Zero-latency inline execution** — child runs in the same session and transcript as the parent; no orchestration hop | · **Session chain limits apply** — the 30 min idle / 60 min total / 100 turn cap covers the full parent + child chain |
+| · **Native identity inheritance** — same Entra connection, same Dataverse row-level security row across parent and child | · **Instructions cap (8,000 chars)** — child agent system prompts must stay within limit |
+| · **Unified ALM** — Power Platform Pipelines promotes parent and child together through Dev → Test → Prod | · **Model selection locked** — both parent and child are bound to Microsoft-managed models |
+
+**Connected Agents — Any A2A-Compliant Agent**
+
+A CS parent can call any agent that exposes an A2A-compliant endpoint as a connected agent — including other CS agents, Foundry agents, Agentforce, and ServiceNow Virtual Agent.
+
+| ✅ Pros | ❌ Cons |
+|---|---|
+| · **Cross-platform reach** — CS parent can delegate to CS, Foundry, Agentforce, or ServiceNow agents via the A2A protocol | · **Separate session context** — connected agent runs its own thread; correlationId must be injected to link parent and child traces |
+| · **Independent ALM** — connected agents are versioned and deployed independently; upgrading a connected agent does not require touching the parent | · **Text-only return (non-CS agents)** — Foundry and non-MSFT connected agents return plain text; no typed variable contract |
+| · **Reusable** — a single connected agent can serve multiple CS parent agents simultaneously | · **Preview limitations** — CS → Foundry and CS → non-MSFT A2A connections are in preview; subject to breaking changes |
+| · **Team separation** — domain teams own connected agents; platform team owns the parent gateway | · **Citation propagation gap** — citations from a connected agent's knowledge sources may not surface in the parent response |
+| · **No rebuild required** — existing agents on any A2A-compatible platform can be onboarded as connected agents without rewriting | · **Latency overhead** — A2A hop adds 200–500 ms per connected agent invocation vs inline child |
+
 #### 🟧 Foundry Agent Service as Parent
 
 | ✅ Pros | ❌ Cons |
