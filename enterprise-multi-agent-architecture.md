@@ -453,7 +453,7 @@ Rules:
 | ↓ | *Compaction step* | — | — | — | N turns or token threshold reached |
 | **Tier 2** | Session Store | Intermediate results · extracted entities · task state | Dataverse table written via PA flow | Redis (hot session state, userId→threadId) + Memory feature (preview) | Compaction step fires |
 | ↓ | *Archive step* | — | — | — | Session close |
-| **Tier 3** | Long-Term Storage | User preferences · past conversation summaries · learned facts | Dataverse custom table (read via PA flow on session start) | Memory feature — auto-extraction and retrieval | Session close |
+| **Tier 3** | Long-Term Storage | User preferences · past conversation summaries · learned facts | Dataverse custom table (read via PA flow on session start) | **CS-heavy:** Dataverse via PA flow · **Foundry-heavy:** CosmosDB · **Preview acceptable:** Foundry Memory Feature | Session close |
 
 ### 📝 Conversation Transcript Storage
 
@@ -471,7 +471,7 @@ Rules:
 
 ### Decision Matrix — Which Technology Serves Each Requirement
 
-*Products in scope: Redis (cache) · CosmosDB (session) · SQL Server (profile) · Dataverse · Foundry InMemory (Memory Feature)*
+*Products in scope: Redis (cache) · CosmosDB (session) · SQL Server (profile) · Dataverse · Foundry Memory Feature*
 
 ---
 
@@ -479,10 +479,10 @@ Rules:
 
 | Requirement | Storage Recommendation | Why — cannot be met by any other product |
 |---|---|---|
-| 📝 **Full conversation transcript** | **Dataverse** | • Auto-written by CS runtime to `ConversationTranscript` table — zero setup, no custom code<br>• Native 30-day retention; extend via Synapse Link → Azure Data Lake for compliance<br>• Redis: volatile by default — not durable for compliance transcripts<br>• CosmosDB: not in CS native stack; requires custom integration<br>• SQL Server: not in CS data path; requires custom connector<br>• Foundry InMemory: unavailable in CS context |
-| 👤 **User profile across sessions** | **Dataverse** | • Custom Dataverse table read via PA flow on session start — native, no extra infra<br>• Fully integrated with CS security model and Entra ID<br>• Redis: no native CS connector; volatile without persistence config<br>• SQL Server: possible but adds custom connector complexity; Dataverse already provisioned<br>• CosmosDB: not natively reachable from CS without custom code<br>• Foundry InMemory: not available in CS context |
-| 🔍 **Agent step recording** | **Dataverse** | • Custom table written via PA flow captures decision points and tool call outcomes<br>• Same managed identity and ALM lifecycle as the agent — no extra infrastructure<br>• Redis: not a durable audit log; evicts data without persistence config<br>• SQL Server: not natively accessible from CS Power Automate flows<br>• CosmosDB: no native CS integration path<br>• Foundry InMemory: not applicable to CS |
-| ⚡ **Low latency (< 50ms)** | **CS Native Session Variables** | • Within-session state is held in CS runtime memory — no external store needed, zero network hop<br>• None of the 5 products applies: all are external stores with network overhead<br>• Dataverse (200–500ms REST) is the closest listed option but exceeds the 50ms target<br>• Redis, CosmosDB, SQL Server, Foundry InMemory: not in the CS native data path |
+| 📝 **Full conversation transcript** | **Dataverse** | • Auto-written by CS runtime to `ConversationTranscript` table — zero setup, no custom code<br>• Native 30-day retention; extend via Synapse Link → Azure Data Lake for compliance<br>• Redis: volatile by default — not durable for compliance transcripts<br>• CosmosDB: not in CS native stack; requires custom integration<br>• SQL Server: not in CS data path; requires custom connector<br>• Foundry Memory Feature: unavailable in CS context |
+| 👤 **User profile across sessions** | **Dataverse** | • Custom Dataverse table read via PA flow on session start — native, no extra infra<br>• Fully integrated with CS security model and Entra ID<br>• Redis: no native CS connector; volatile without persistence config<br>• SQL Server: possible but adds custom connector complexity; Dataverse already provisioned<br>• CosmosDB: not natively reachable from CS without custom code<br>• Foundry Memory Feature: not available in CS context |
+| 🔍 **Agent step recording** | **Dataverse** | • Custom table written via PA flow captures decision points and tool call outcomes<br>• Same managed identity and ALM lifecycle as the agent — no extra infrastructure<br>• Redis: not a durable audit log; evicts data without persistence config<br>• SQL Server: not natively accessible from CS Power Automate flows<br>• CosmosDB: no native CS integration path<br>• Foundry Memory Feature: not applicable to CS |
+| ⚡ **Low latency (< 50ms)** | **CS Native Session Variables** | • Within-session state is held in CS runtime memory — no external store needed, zero network hop<br>• None of the 5 products applies: all are external stores with network overhead<br>• Dataverse (200–500ms REST) is the closest listed option but exceeds the 50ms target<br>• Redis, CosmosDB, SQL Server, Foundry Memory Feature: not in the CS native data path |
 
 ---
 
@@ -490,16 +490,16 @@ Rules:
 
 | Requirement | Storage Recommendation | Why — cannot be met by any other product |
 |---|---|---|
-| 📝 **Full conversation transcript** | **CosmosDB** | • `thread-message-store` stores every message verbatim<br>• `agent-entity-store` captures every LLM input/output with full payload and timestamp<br>• Redis: volatile — data lost on eviction without persistence config; not a durable transcript store<br>• SQL Server: no native schema for threaded conversations; concurrent writes degrade performance at scale<br>• Dataverse: 200–500ms REST overhead + service protection throttling — unsuitable for high-volume real-time writes<br>• Foundry InMemory: stores extracted summaries only; raw transcript is permanently lost |
-| 👤 **User profile across sessions** | **Foundry InMemory (Memory Feature)** | • Purpose-built for cross-session knowledge persistence — AI-driven auto-extraction and consolidation<br>• Hybrid search retrieval (semantic + keyword) for context-aware profile reads — zero custom code<br>• Zero infrastructure — portal toggle only<br>• Redis: volatile by default; no semantic retrieval; requires a separate durable backing store<br>• CosmosDB: can store profiles but requires custom extraction logic and no semantic consolidation<br>• SQL Server: structured storage only; no semantic retrieval; high setup effort<br>• Dataverse: 200–500ms REST latency exceeds the 50ms target |
-| 🔍 **Agent step recording** | **CosmosDB** | • `agent-entity-store` natively captures every reasoning step, tool call, and model decision with full payload and timestamp<br>• No custom schema required — Foundry writes this automatically in Standard setup<br>• Redis: not a durable audit log; data lost on eviction without persistence config<br>• SQL Server: high-volume concurrent agent writes strain relational engines at scale<br>• Dataverse: service protection limits and 200–500ms write latency unsuitable for high-frequency step logging<br>• Foundry InMemory: not designed for execution step capture; no equivalent audit structure |
-| ⚡ **Low latency (< 50ms)** | **Redis** | • Sub-millisecond key-value lookups — userId→threadId mapping resolved per request<br>• Hot user profile cache for prompt injection within a turn<br>• Scales horizontally with Azure Cache for Redis<br>• CosmosDB: single-digit ms — adequate for reads but not sub-ms for high-frequency per-turn lookups<br>• SQL Server: 10–100ms, degrades significantly under concurrent agent load<br>• Dataverse: 200–500ms REST overhead — fails the 50ms requirement<br>• Foundry InMemory: async extraction — not designed for real-time per-turn lookups |
+| 📝 **Full conversation transcript** | **CosmosDB** | • `thread-message-store` stores every message verbatim<br>• `agent-entity-store` captures every LLM input/output with full payload and timestamp<br>• Redis: volatile — data lost on eviction without persistence config; not a durable transcript store<br>• SQL Server: no native schema for threaded conversations; concurrent writes degrade performance at scale<br>• Dataverse: 200–500ms REST overhead + service protection throttling — unsuitable for high-volume real-time writes<br>• Foundry Memory Feature: stores extracted summaries only; raw transcript is permanently lost |
+| 👤 **User profile across sessions** | **Option 1: Foundry Memory Feature** ⚠️ Preview<br>**Option 2: CosmosDB** — Foundry-heavy architecture<br>**Option 3: Dataverse via PA flow** — CS-heavy architecture | **Option 1 — Foundry Memory Feature** *(when preview is acceptable)*<br>• Purpose-built for cross-session knowledge — AI-driven auto-extraction, zero custom code<br>• Hybrid search retrieval (semantic + keyword) for context-aware profile reads<br>• Zero infrastructure — portal toggle only<br>• ⚠️ Preview — not GA; do not use as sole production dependency<br><br>**Option 2 — CosmosDB** *(when most agents in the architecture are Foundry-based)*<br>• CosmosDB is already in the stack for transcript + step recording — no new infrastructure<br>• Durable, single-digit ms point reads by userId — direct SDK, no intermediary<br>• Structured profile schema — deterministic, no AI extraction needed for known enterprise fields<br>• GA — no preview risk<br><br>**Option 3 — Dataverse via PA flow** *(when most agents in the architecture are Copilot Studio-based)*<br>• Dataverse is already the dominant store — no new infrastructure<br>• Profile read once at session start — 200–500ms acceptable for session init, not mid-turn<br>• Requires PA flow intermediary (Foundry → PA → Dataverse); total ~1–2s at session start<br>• ⚠️ Validate Dataverse service protection limits at concurrent session scale |
+| 🔍 **Agent step recording** | **CosmosDB** | • `agent-entity-store` natively captures every reasoning step, tool call, and model decision with full payload and timestamp<br>• No custom schema required — Foundry writes this automatically in Standard setup<br>• Redis: not a durable audit log; data lost on eviction without persistence config<br>• SQL Server: high-volume concurrent agent writes strain relational engines at scale<br>• Dataverse: service protection limits and 200–500ms write latency unsuitable for high-frequency step logging<br>• Foundry Memory Feature: not designed for execution step capture; no equivalent audit structure |
+| ⚡ **Low latency (< 50ms)** | **Redis** | • Sub-millisecond key-value lookups — userId→threadId mapping resolved per request<br>• Hot user profile cache for prompt injection within a turn<br>• Scales horizontally with Azure Cache for Redis<br>• CosmosDB: single-digit ms — adequate for reads but not sub-ms for high-frequency per-turn lookups<br>• SQL Server: 10–100ms, degrades significantly under concurrent agent load<br>• Dataverse: 200–500ms REST overhead — fails the 50ms requirement<br>• Foundry Memory Feature: async extraction — not designed for real-time per-turn lookups |
 
 ---
 
 #### 🟥 Agentforce
 
-> ⚠️ Agentforce runs on Salesforce's own infrastructure. None of the five products (Redis, CosmosDB, SQL Server, Dataverse, Foundry InMemory) apply natively within Agentforce. Recommendations below follow Salesforce best practice. Integration with the Microsoft stack is via A2A/REST with `correlationId` propagation.
+> ⚠️ Agentforce runs on Salesforce's own infrastructure. None of the five products (Redis, CosmosDB, SQL Server, Dataverse, Foundry Memory Feature) apply natively within Agentforce. Recommendations below follow Salesforce best practice. Integration with the Microsoft stack is via A2A/REST with `correlationId` propagation.
 
 | Requirement | Storage Recommendation | Why — cannot be met by any other product |
 |---|---|---|
@@ -535,10 +535,13 @@ With low latency (< 50ms) as a hard requirement, Dataverse qualifies only where 
                         raw thread + LLM audit trail)
 
 👤 User profile across sessions
-    Foundry agents  →  Memory Feature (Preview) ← preferred
-                       Zero infra · AI-driven · fast retrieval
-                   OR  Redis (if Memory not yet GA)
-                       Sub-ms reads; back with Cosmos DB for durability
+    Architecture lean drives the choice — provision one store, not one per agent type:
+    CS-heavy        →  Dataverse (via PA flow on session start)
+                       Already the dominant store · zero new infra
+    Foundry-heavy   →  CosmosDB (already in stack for transcript + steps)
+                       Direct SDK read · single-digit ms · GA
+    Preview OK      →  Foundry Memory Feature
+                       AI-driven extraction · semantic retrieval · zero infra
 
 🔍 Agent step recording
     All Foundry     →  Cosmos DB agent-entity-store
@@ -552,18 +555,23 @@ With low latency (< 50ms) as a hard requirement, Dataverse qualifies only where 
 ### Updated Infrastructure Matrix
 
 ```
-Foundry Basic + Memory (Preview) — recommended for most cases:
-    ✅ Microsoft-managed thread storage  → NO Cosmos DB needed
-    ✅ Memory feature                    → Cross-session continuity, NO Cosmos DB
-    ✅ Redis                             → Low latency session state
-    ✅ App Insights + Agent 365          → Observability and governance
-    ❌ Cosmos DB                         → NOT REQUIRED
+CS-heavy architecture (most agents on Copilot Studio):
+    ✅ Dataverse          → Transcripts (auto) · user profiles · agent metadata
+    ✅ Redis              → NOT REQUIRED for CS-only
+    ❌ CosmosDB           → NOT REQUIRED
+    ❌ Foundry Memory     → NOT REQUIRED
 
-Foundry Standard — only when compliance mandates it:
-    ✅ Cosmos DB                         → REQUIRED (CMK / data residency / audit)
-    ✅ Memory feature                    → Can still be used ON TOP for user profiles
-    ✅ Redis                             → Low latency session state
-    ✅ CMK encryption configured
+Foundry-heavy architecture (most agents on Foundry):
+    ✅ CosmosDB           → Transcripts · agent step recording · user profiles
+    ✅ Redis              → Low latency session state (userId→threadId)
+    ✅ App Insights       → Observability and metrics
+    ❌ Foundry Memory     → NOT REQUIRED (CosmosDB covers profiles)
+
+Mixed / Preview acceptable:
+    ✅ Foundry Memory     → User profiles — AI-driven · zero infra · ⚠️ Preview
+    ✅ CosmosDB           → Transcripts + agent steps (if Foundry Standard)
+    ✅ Redis              → Low latency session state
+    ✅ Dataverse          → CS transcripts (auto) · governance metadata
 ```
 
 ### 📚 References
@@ -579,7 +587,7 @@ Foundry Standard — only when compliance mandates it:
 - Dataverse Capacity for Agents: https://www.microsoft.com/en-us/power-platform/blog/2025/12/04/dataverse-capacity/
 
 ### 🏆 Recommendation
-> **For Copilot Studio agents: Dataverse is the only data store needed — transcripts are auto-written, user profiles via PA flows, session state in variables. For Foundry agents: Cosmos DB (transcript + agent steps) + Memory Feature (user profile, cross-session) + Redis (hot session state) is the correct stack. Dataverse serves agent registry and governance metadata — not real-time agent storage. Only provision Cosmos DB when compliance explicitly requires CMK, data residency, or full LLM audit trail.**
+> **User profile store follows architecture lean — provision one store, not one per agent type. CS-heavy: Dataverse is the only store needed (transcripts auto-written, profiles via PA flow, session state in variables). Foundry-heavy: CosmosDB covers transcripts, agent steps, and profiles in one store; add Redis for low-latency session state. Preview acceptable: Foundry Memory Feature replaces CosmosDB for profiles with zero infrastructure. Do not mix profile stores across agent types — pick based on where your architecture leans and stay consistent.**
 
 ---
 
@@ -589,18 +597,18 @@ Foundry Standard — only when compliance mandates it:
 
 | Infrastructure | Required? | When | Setup Effort |
 |---|---|---|---|
-| **Dataverse** | ✅ Always | CS transcripts (auto), agent metadata, governance, admin config | Zero — auto-provisioned |
-| **Redis** | ✅ For Foundry agents | Low latency session state: userId→threadId, hot user profile cache | Medium — Azure Cache for Redis |
+| **Dataverse** | ✅ Always | CS transcripts (auto) · agent metadata · governance · admin config · user profiles when CS-heavy | Zero — auto-provisioned |
+| **Redis** | ✅ For Foundry agents | Low latency session state: userId→threadId lookups during active sessions | Medium — Azure Cache for Redis |
 | **Azure AI Search** | ✅ If RAG needed | Knowledge base > 500 docs or semantic similarity retrieval | Low — add as knowledge source |
 | **Azure APIM** | ✅ For production | External REST API governance — rate limiting, auth, logging | Low — managed service |
 | **Azure Data Lake** | ✅ If compliance | Transcript retention > 30 days | Low — Synapse Link connector |
 
-### 🟡 Conditional (Foundry Only)
+### 🟡 Conditional — Driven by Architecture Lean
 
 | Infrastructure | When Needed | When NOT Needed |
 |---|---|---|
-| **Cosmos DB** | Foundry Standard — CMK, data residency, or full LLM audit trail required | Foundry Basic (Memory feature handles cross-session). Never needed for CS. |
-| **Foundry Memory Feature** | Foundry agents needing cross-session user profiles | CS agents (Dataverse handles this) |
+| **Cosmos DB** | **Foundry-heavy architecture** — transcripts + agent step recording + user profiles in one store · OR compliance mandate (CMK, data residency, full LLM audit trail) | CS-heavy architecture — Dataverse covers all storage needs. Never needed for CS. |
+| **Foundry Memory Feature** | **Preview acceptable** — replaces Cosmos DB for user profiles with zero infrastructure; AI-driven extraction and semantic retrieval | CS-heavy (Dataverse covers profiles) · Foundry-heavy (Cosmos DB covers profiles) · any architecture where preview dependency is a production risk |
 
 ### ❌ Not Required — Explicitly Ruled Out
 
@@ -613,24 +621,29 @@ Foundry Standard — only when compliance mandates it:
 ### 📊 Infrastructure Matrix
 
 ```
-Copilot Studio-first (80–90% of agents):
-    ✅ Dataverse          → REQUIRED (zero setup, auto-provisioned)
+CS-heavy architecture (most agents on Copilot Studio):
+    ✅ Dataverse          → REQUIRED (transcripts auto · user profiles · metadata)
     ✅ Azure AI Search    → IF knowledge base > 500 docs
     ✅ Azure APIM         → FOR external API governance
     ✅ Azure Data Lake    → IF compliance requires >30 day retention
-    ❌ Redis              → NOT REQUIRED for CS-only
-    ❌ SQL Server         → NOT REQUIRED
+    ❌ Redis              → NOT REQUIRED
     ❌ Cosmos DB          → NOT REQUIRED
+    ❌ Foundry Memory     → NOT REQUIRED
 
-Add Foundry Basic + Memory (most Foundry scenarios):
-    ✅ All of the above
-    ✅ Redis              → REQUIRED for low latency session state
-    ✅ Memory Feature     → REQUIRED for cross-session user profiles
-    ❌ Cosmos DB          → NOT REQUIRED (Microsoft-managed thread storage)
+Foundry-heavy architecture (most agents on Foundry):
+    ✅ Dataverse          → Governance metadata · CS agent transcripts if any
+    ✅ Cosmos DB          → REQUIRED (transcripts + agent steps + user profiles)
+    ✅ Redis              → REQUIRED (low latency userId→threadId session state)
+    ✅ Azure AI Search    → IF knowledge base > 500 docs
+    ✅ Azure APIM         → FOR external API governance
+    ✅ Azure Data Lake    → IF compliance requires >30 day retention
+    ❌ Foundry Memory     → NOT REQUIRED (Cosmos DB covers profiles)
 
-Add Foundry Standard (compliance mandate only):
-    ✅ All of the above
-    ✅ Cosmos DB          → REQUIRED (CMK / data residency / LLM audit trail)
+Preview acceptable (either lean):
+    ✅ Foundry Memory     → Replaces Cosmos DB for user profiles · zero infra · ⚠️ Preview
+    ✅ Cosmos DB          → Still REQUIRED for transcripts + agent steps (Foundry Standard)
+                           NOT REQUIRED for profiles if Foundry Memory is used
+    ✅ Redis              → REQUIRED for Foundry agents (session state)
 ```
 
 ### 📚 References
@@ -640,7 +653,7 @@ Add Foundry Standard (compliance mandate only):
 - Cosmos DB Foundry: https://learn.microsoft.com/en-us/azure/cosmos-db/gen-ai/azure-agent-service
 
 ### 🏆 Recommendation
-> **For CS-first architecture: Dataverse is the only required data store — no Redis, no SQL, no Cosmos DB. For Foundry agents: add Redis for low latency session state and Memory feature for cross-session profiles; only introduce Cosmos DB when compliance explicitly mandates it. Every additional infrastructure component is a maintenance burden and a complexity multiplier.**
+> **Infrastructure follows architecture lean — provision for your dominant platform, not per agent type. CS-heavy: Dataverse only — no Redis, no Cosmos DB, no Foundry Memory Feature. Foundry-heavy: Cosmos DB (transcripts + agent steps + user profiles) + Redis (session state) — no Foundry Memory Feature needed. Preview acceptable: Foundry Memory Feature replaces Cosmos DB for profiles only; Cosmos DB is still required for transcripts and agent step recording. Every component must be justified by the architecture — not assumed as a default.**
 
 ---
 
