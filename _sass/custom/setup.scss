@@ -1,4 +1,12 @@
-// Variable overrides — must be set BEFORE the theme compiles
-$nav-width: 26.2rem;    // 20.16rem * 1.30 (+30%)
+// Variable overrides — loaded BEFORE theme compiles
+
+// Layout
+$nav-width:    26.2rem;
 $nav-width-md: 23rem;
-$content-width: 80rem;  // default 50rem — wider text area
+$content-width: 80rem;
+
+// Typography
+$body-font-family: "Inter", system-ui, -apple-system, sans-serif;
+$mono-font-family: "JetBrains Mono", "SFMono-Regular", menlo, consolas, monospace;
+$body-line-height: 1.6;
+$content-line-height: 1.7;

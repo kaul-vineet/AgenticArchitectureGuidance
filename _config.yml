@@ -21,7 +21,7 @@ search:
 nav_sort: order   # use nav_order in front matter
 
 # Colours
-color_scheme: light   # light | dark
+color_scheme: bajaj
 
 # Footer
 footer_content: "kaul-vineet · Principal PM Architect · Microsoft"

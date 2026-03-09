@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "2. How a User Instruction is Processed"
+title: "🔄 2. How a User Instruction is Processed"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 3
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "6. Infrastructure Requirements"
+title: "🔌 6. Infrastructure Requirements"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 7
 ---

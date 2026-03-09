@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "1. Representative Architecture"
+title: "🏗️ 1. Representative Architecture"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 2
 ---

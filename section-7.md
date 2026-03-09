@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "7. Agentic Framework and Agent 365"
+title: "🔧 7. Agentic Framework and Agent 365"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 8
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "5. Session Management"
+title: "💾 5. Session Management"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 6
 ---

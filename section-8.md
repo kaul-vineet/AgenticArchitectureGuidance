@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "8. Final Summary"
+title: "📌 8. Final Summary"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 9
 ---
