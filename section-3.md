@@ -56,16 +56,31 @@ nav_order: 4
 
 ### 🔗 As Child / Connected Agent
 
-#### 🟦 Copilot Studio as Child / Connected Agent
+#### 🟦 Scenario 1 — CS Child / Connected Agent where Master Agent is Copilot Studio
 
 | ✅ Pros | ❌ Cons |
 |---|---|
-| · Shared container with CS parent — variables, auth, Dataverse, PA connectors natively shared *(inline child agents only)* | · Separate transcript — must correlate by session ID *(connected agents only; inline child agents share parent transcript)* |
-| · Typed I/O contracts (YAML) — structured, parseable return values | · Citation propagation — known limitation with knowledge sources |
-| · Independent ALM lifecycle — version and deploy without touching parent *(connected agents only)* | · One extra orchestration hop — marginal latency cost |
-| · Reusable across multiple parent agents | |
-| · Team ownership — domain experts own end to end *(connected agents only)* | |
-| · Inline option — zero-latency, zero-boundary for tightly scoped sub-tasks *(child agents only)* | |
+| · **Shared container (inline)** — variables, auth, Dataverse, PA connectors natively shared with no extra config | · **Sequential invocation only** — CS parent calls child agents one at a time; no parallel fan-out |
+| · **Zero-latency inline option** — inline child agents have no orchestration hop; same session, same transcript | · **Session chain limits** — 30 min idle / 60 min total / 100 turns applies to the full parent + child chain |
+| · **Typed I/O contracts (YAML)** — structured, parseable return values for connected agents | · **Separate transcript for connected agents** — requires correlationId pattern to link parent and child sessions |
+| · **Native identity inheritance** — same Entra connection, same Dataverse row-level security; no cross-platform auth | · **Instructions cap (8,000 chars)** — limits child agent complexity; prompts must be concise |
+| · **Unified ALM** — Power Platform Pipelines promotes parent and child together through Dev→Test→Prod | · **Citation propagation gap** — known limitation when child uses knowledge sources; citations may not surface in parent response |
+| · **Agent 365 + CoE Toolkit** — full governance visibility over both parent and child in M365 Admin Center | · **Model selection locked** — both parent and child limited to Microsoft-managed models |
+| · **Reusable connected agents** — one CS child can serve multiple CS parent agents independently | |
+| · **Independent ALM for connected agents** — child can be versioned and deployed without touching the parent | |
+
+#### 🟦 Scenario 2 — CS Child / Connected Agent where Master Agent is Foundry
+
+| ✅ Pros | ❌ Cons |
+|---|---|
+| · **No-code child authoring** — domain teams build CS child agents with no code while Foundry handles orchestration | · **Not natively supported** — Foundry → CS calling requires Direct Line REST API workaround; no first-party A2A support from Foundry to CS |
+| · **1,400+ PA connectors** — CS child brings Power Automate connector library into a Foundry-orchestrated system | · **Text-only return** — CS returns plain text to Foundry; no typed variable contract, no structured JSON handoff |
+| · **M365 channel capability** — CS child handles Teams / SharePoint interactions that Foundry cannot natively address | · **Auth complexity** — Foundry must authenticate to CS via Direct Line channel secret; separate credential management |
+| · **Dataverse access** — CS child natively reads/writes Dataverse without custom connectors | · **Fully separate session context** — CS session and Foundry thread are independent; correlationId must be injected manually |
+| · **Team separation** — domain teams own CS child agents; platform team owns Foundry orchestration | · **Distributed debugging** — traces split across App Insights (Foundry) and Dataverse/CoE (CS); no unified trace |
+| · **Gradual migration path** — existing CS agents can be called from Foundry without rebuilding | · **ALM complexity** — separate pipelines (PP Pipelines for CS, Azure DevOps/GitHub Actions for Foundry) must stay in sync |
+| | · **Latency overhead** — REST call across platforms adds 200–500ms per child invocation vs native A2A |
+| | · **Preview / unsupported** — Direct Line integration is not an officially supported enterprise pattern; subject to breaking changes |
 
 #### 🟧 Foundry as Child
 
