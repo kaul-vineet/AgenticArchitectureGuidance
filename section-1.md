@@ -89,7 +89,7 @@ nav_order: 2
 
 ### 🎯 Agent Orchestration
 
-#### ✅ Recommended: Gateway → Domain Agent Hierarchy
+**✅ Recommended: Gateway → Domain Agent Hierarchy**
 
 ```
 👤 User
@@ -110,7 +110,7 @@ Rules:
     of subtask state — not just LLM mental model)
 ```
 
-#### 📐 Why This Architecture Works — Research Evidence
+**📐 Why This Architecture Works — Research Evidence**
 
 The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, documented and validated across multiple independent research sources:
 
@@ -148,7 +148,7 @@ The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, docume
 
 ---
 
-#### ❌ The Star Topology Anti-Pattern (One Master Agent for All Domains)
+**❌ The Star Topology Anti-Pattern (One Master Agent for All Domains)**
 
 ```
                     ANTI-PATTERN
@@ -172,7 +172,7 @@ The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, docume
 | 🔴 **No team ownership — governance fails** | Ownership ambiguity means no team is accountable for quality or incidents. Shadow agents proliferate. | Microsoft CAF — Principle 27 (Maintain agent inventory) |
 | 🟡 **Unpredictable and inefficient cost** | Simple FAQ queries invoke the same full-context orchestrator as complex multi-step financial workflows. | Azure Architecture Center — Optimization principle |
 
-#### 📚 References
+**📚 References**
 - [HuggingFace — Design Patterns for Agentic Workflows](https://huggingface.co/blog/dcarpintero/design-patterns-for-building-agentic-workflows)
 - [HuggingFace — IBM MAST Failure Taxonomy](https://huggingface.co/blog/ibm-research/itbenchandmast)
 - [HuggingFace — IBM AssetOpsBench](https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face)
@@ -185,7 +185,8 @@ The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, docume
 - [MAST Paper (arXiv)](https://arxiv.org/abs/2503.13657)
 {: .ref-grid}
 
-#### 🏆 Recommendation
+**🏆 Recommendation**
+
 > **Never use a single orchestrator for all agents. Research confirms that overloaded single orchestrators accumulate cascading failures (5.3 failure modes/trace), lose conversation history (24% of traces), and suffer reasoning-action disconnect (94% of traces). One domain agent per business function. Gateway routes intent only — owns zero tools. Each domain agent manages ≤ 8–10 specialist agents with a bounded tool set and dynamic task ledger. This architecture scales from 10 to 200 agents without redesign.**
 {: .recommendation}
 
