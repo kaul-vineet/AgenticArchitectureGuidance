@@ -2,7 +2,7 @@
 layout: default
 title: "🔧 6. Agentic Framework and Agent 365"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 8
+nav_order: 9
 ---
 
 ## 6. 🔧 Agentic Framework and Agent 365 — Where They Fit

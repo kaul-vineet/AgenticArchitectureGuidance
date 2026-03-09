@@ -2,7 +2,7 @@
 layout: default
 title: "👑 3. As Parent / Master Agent"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 4
+nav_order: 5
 ---
 
 ## 3. 👑 As Parent / Master Agent
@@ -138,6 +138,43 @@ Foundry as parent supports four connectivity types and five orchestration patter
 
 > **Introduce Foundry as parent only** for domains that explicitly require capabilities unavailable in CS: parallel fan-out to multiple agents simultaneously (Concurrent pattern), dynamic supervisor orchestration with stall detection and replanning (Magentic pattern), complex system prompts beyond the 8,000 character limit, full OpenTelemetry distributed tracing across deep agent chains, or compliance-grade BYO Cosmos DB storage with CMK. Accept the additional infrastructure overhead (Cosmos DB, Redis, Azure Functions), custom ALM pipelines, and the absence of an out-of-box agent registry. Target fewer than 3 Foundry-parent domains out of your total agent estate — and plan Foundry governance as a deliberate engineering investment, not an assumption.
 {: .recommendation}
+
+---
+
+<h3 style="color:#323130;font-weight:700;border-left:4px solid #323130;padding-left:0.6rem;margin-top:1.5rem;">📝 Design Notes — Alignment to Key Architectural Principles</h3>
+
+Both parent scenarios are evaluated against the 28 Key Architectural Principles. The table below shows how each principle is satisfied — or where trade-offs apply — for CS as Parent and Foundry as Parent.
+
+| # | Principle | 🟦 CS as Parent | 🟧 Foundry as Parent |
+|---|---|---|---|
+| 1 | Minimise LLM calls | CS Topics are deterministic — no LLM for routing; PA flows handle all tool calls | Workflow nodes can be deterministic; planning requires LLM — use Workflows, not Crews, as default |
+| 2 | Default to Flows, escalate to Crews | Topics + PA flows are the native default; Foundry is added only for open-ended tasks | Sequential / HITL Workflows for 80%; Magentic / Group Chat only for genuinely exploratory tasks |
+| 3 | Clarification before action | Disambiguation Topics built-in before every agentic branch | Custom tool or Workflow clarification node required; not a native no-code feature |
+| 4 | External verification — never self-check | PA flow read-back after every write action; separate tool call from the generating agent | Verification tool call in SDK orchestration code; structured JSON output enables deterministic checks |
+| 5 | Externalize termination logic | Topic conditions + session turn limits (100 turns, 60 min) enforced at platform level | Workflow termination nodes + SDK `max_steps`; never in LLM prompt |
+| 6 | Tool argument quality | PA connector schema + typed YAML I/O contracts for connected agents; structured error responses | Structured JSON output schemas per Workflow node; argument validation at every hop |
+| 7 | Consolidate tools | PA flows batch multiple operations into one connector call | Azure Functions or OpenAPI tool definitions can consolidate; no native merge primitive |
+| 8 | Multi-agent is a reliability tax | Child agents only at genuine domain seams; inline child adds zero extra hop | Each Workflow hop adds one LLM inference cost; accept only where parallel or specialist value is proven |
+| 9 | Context hygiene at scale | Inline child: parent context shared; connected agent: context reset at boundary; correlationId links | Per-thread context per sub-agent; explicit state passed across agent boundaries; compaction in SDK code |
+| 10 | Sensitive state in side channel | Key Vault via PA connector; Dataverse column-level security; credentials never in Topics | Managed Identity + Key Vault; credentials never in Workflow YAML or agent system prompt |
+| 11 | Tool accuracy > 90% as deployment gate | Deployment gate via CoE Toolkit quality metrics before each PP Pipelines promotion | App Insights evaluation threshold enforced before production promotion |
+| 12 | Human-in-the-loop for irreversible actions | PA approval flows as deterministic gates before write-backs to HR, CRM, financial systems | HITL Workflow node; approval gate before irreversible downstream writes |
+| 13 | Use lowest complexity | ✅ **Wins** — CS Topics + PA flows; Dataverse only; no extra infra for majority of agents | Only when CS cannot meet requirements (parallel fan-out, Magentic, deep traces, prompt > 8,000 chars) |
+| 14 | Justify every agent boundary | Domain hierarchy enforces boundaries; Gateway → Domain → Specialist; no lateral calls | Same hierarchy; each Workflow sub-agent boundary justified by domain isolation or compliance need |
+| 15 | Single responsibility per agent | Each CS agent has a narrow domain; CoE Toolkit detects agent overlap | Each Foundry agent scoped to one specialist task in the Workflow; App Insights flags redundant calls |
+| 16 | Right-size the model per agent role | Model locked to Microsoft-managed — consistent but no per-agent tuning | Per-child model selection; smaller models for extraction, classification, formatting |
+| 17 | Validate output before passing downstream | Typed YAML I/O contract for connected agents; Topic condition checks output quality | Structured JSON schema validation; orchestrator halts or retries on malformed output |
+| 18 | Surface errors explicitly | Connector structured error responses; Topic error branches; never silent failure | App Insights alerts; SDK try/except; errors propagated upward to orchestrator |
+| 19 | Idempotency for all writes | Idempotency key in PA flows; safe to re-trigger | Idempotency key in Azure Functions or OpenAPI tool definitions |
+| 20 | Kill switch | Agent disabled in CS portal; PA flow disabled independently; no redeployment needed | Foundry project or Workflow disabled via Azure Portal; no fleet-level kill-switch primitive |
+| 21 | Security trimming in every agent | Dataverse RLS per CS agent; agent cannot return data above user entitlement | Managed Identity RBAC per child agent; trimming enforced in each agent's response logic |
+| 22 | Content safety at every layer | AI Builder content safety filter per CS agent; applied at input and output | Azure AI Content Safety filter per Foundry agent; applied at every agent boundary |
+| 23 | Scope agent authority to operations | Topic-level permissions; PA connector scope limited to required operations | RBAC per Workflow node; rate limits and blast radius caps enforced in SDK orchestration code |
+| 24 | Instrument all handoffs | correlationId generated at Gateway and propagated to every hop; Dataverse logs each call | Full OpenTelemetry via App Insights; every agent hop, tool call, and handoff traceable end-to-end |
+| 25 | Automated evaluation in CI/CD | Power Platform Pipelines with solution validation and quality checks | Azure DevOps / GitHub Actions with automated evaluation step per agent before promotion |
+| 26 | Evaluate continuously in production | CoE Toolkit dashboards; intent resolution and tool accuracy monitoring | App Insights dashboards; custom evaluation queries; continuous production monitoring |
+| 27 | Maintain agent inventory | ✅ **Wins** — Agent 365 unified registry; every CS agent is registered, owned, and versioned | ⚠️ No native registry; custom Azure Policy + Entra tracking required to prevent shadow agents |
+| 28 | Externalize and version-control prompts | Agent instructions stored in CS solution and promoted via PP Pipelines; controlled rollout | Agent prompts in Azure DevOps / GitHub Actions; versioned separately from Workflow YAML |
 
 ---
 

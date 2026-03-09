@@ -2,7 +2,7 @@
 layout: default
 title: "📌 7. Final Summary"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 9
+nav_order: 10
 ---
 
 ## 7. 📌 Final Summary
