@@ -80,48 +80,6 @@ A parent Foundry agent invokes a child Foundry agent as a tool call using `Conne
 
 ---
 
-### 🏆 Recommendation
-
-#### 🟦 Copilot Studio as Child / Connected Agent
-
-CS can act as a child agent or connected agent depending on who the parent is. CS Child Agent mode is **only available when the parent is also MCS**. When the parent is Foundry, CS can only be called as a connected agent via an unsupported Direct Line workaround.
-
-| Criterion | CS Child Agent *(MCS parent only)* | CS Connected Agent *(MCS parent)* | CS Connected Agent *(Foundry parent — workaround)* |
-|---|---|---|---|
-| ⚡ Speed | Fastest — no hop, same session | Fast — independent team build | Slow — REST round-trip + auth overhead |
-| 🧩 Authoring | ✅ No-code CS Topics | ✅ No-code CS | ✅ CS authoring unchanged; integration work is on Foundry side |
-| 🏭 Production ready | ✅ GA | ✅ GA | ❌ Unsupported pattern — Direct Line only, subject to breaking changes |
-| 🗂️ Context sharing | ✅ Shared container — variables, auth, Dataverse natively inherited | ⚠️ Separate transcript — correlationId required | ❌ Fully separate session — manual correlationId injection |
-| 🔗 Return contract | ✅ Typed YAML I/O for connected; shared vars for inline | ✅ Typed YAML I/O | ❌ Plain text only — no typed variable handoff to Foundry |
-| 🔍 Observability | ✅ Unified CS transcript | ✅ CS transcript (correlationId links sessions) | ❌ Split — App Insights (Foundry) + Dataverse/CoE (CS); no unified trace |
-| 🔖 Citations | ✅ Reliable | ⚠️ Gap when child uses knowledge sources | ❌ Not applicable |
-| 🔗 Reuse across parents | ❌ Embedded in one parent's topic flow | ✅ One CS agent serves multiple MCS parents | ⚠️ Callable from Foundry but no official reuse pattern |
-| 🏗️ Supported architectures | Single-domain task delegation within one CS agent · Tightly coupled specialist topics sharing parent context | Hub-and-spoke: MCS gateway → multiple CS domain specialists · Independent domain agents with separate ALM · Reusable service agents (e.g., HR Policy, IT FAQ) shared across multiple parent agents | Hybrid CS+Foundry where Foundry orchestrates and CS handles M365 channels or Dataverse writes (accepted as tech debt — migrate when first-party support arrives) |
-
-> **Recommendation — CS as Child / Connected:** Use CS Child Agents for tightly scoped sub-tasks within the same MCS domain where shared context, zero latency, and unified ALM matter. Use CS Connected Agents under an MCS parent when the sub-domain needs independent team ownership, reuse across multiple parents, or its own deployment pipeline. Avoid using CS as a connected agent under a Foundry parent except as a transitional workaround for existing CS agents that cannot be rebuilt — plan migration when first-party Foundry → CS support becomes GA.
-{: .recommendation}
-
----
-
-#### 🟧 Foundry as Child / Connected Agent
-
-Foundry can act as a connected agent under an MCS parent (preview) or as a child agent under a Foundry parent. It cannot be an inline child of MCS — it is always in the connected tier.
-
-| Criterion | Foundry Connected Agent *(MCS parent)* | Foundry Child Agent *(Foundry parent)* | Non-MSFT Connected Agent *(Foundry parent, A2A)* |
-|---|---|---|---|
-| ⚡ Speed | Moderate — double LLM hop (CS + Foundry orchestration) | Moderate — tool-call overhead per hop | Moderate — A2A HTTP round-trip per hop |
-| 🧩 Authoring | ✅ CS wizard to add agent (no-code); Foundry agent setup required separately | ⚠️ Foundry Workflows visual builder (preview) or SDK | Depends on vendor — typically REST/OpenAPI config |
-| 🏭 Production ready | ❌ Public preview only — not for production | ❌ Multi-agent Workflows in preview; classic Connected Agents deprecated (retire Mar 2027) | ⚠️ A2A protocol is GA; vendor agent maturity varies |
-| 📈 Complex reasoning | ✅ Any Foundry model + Code Interpreter + File Search + Azure AI Search | ✅ Full Foundry toolset per agent — structured JSON output, Code Interpreter, RAG | Depends on vendor capability |
-| 🔀 Parallel execution | ❌ Sequential — CS orchestrator calls one agent at a time | ✅ Fan-out/fan-in via SDK (Python / .NET) — multiple children concurrently | ✅ Possible via parallel A2A calls in orchestration code |
-| 🗂️ Context sharing | ❌ Fully separate session — CS strips grounding references before passing responses | ⚠️ Per-agent thread context — explicit state design required | ❌ Fully external session — correlationId and state management required |
-| 🔍 Observability | ⚠️ Split — CS orchestration (black box) + Foundry App Insights | ✅ Full App Insights tracing — parent-child messages, tool calls, latency per hop | ⚠️ External agent opaque; only inbound/outbound visible in Foundry |
-| 🔖 Citations | ❌ Known limitation — not reliably passed back through CS | ❌ Not guaranteed across connected agents | ❌ Not applicable |
-| 🔗 Depth limit | N/A — one hop from MCS | ❌ Max depth = 2 — sub-agents cannot have their own sub-agents | N/A |
-| 🏗️ Supported architectures | CS front-end + Foundry heavy compute backend · Hybrid: CS handles Teams/M365/Dataverse; Foundry handles large RAG, code execution, or compliance-regulated processing | Domain expert mesh: Foundry orchestrator → multiple Foundry specialists · Parallel processing pipeline: fan-out to domain agents → fan-in synthesizer · Deterministic state-machine: Workflows with branching, conditions, human-in-the-loop approvals · Regulated: BYO Cosmos DB per agent, CMK, data residency per agent | Federated agents: Foundry delegates to Agentforce (Salesforce CRM), ServiceNow VA (ITSM), or custom A2A endpoints · Cross-cloud task delegation without rebuilding vendor agents |
-
-> **Recommendation — Foundry as Child / Connected:** Use Foundry as a Connected Agent under MCS only when the task requires complex reasoning, code execution, or large-scale RAG that exceeds CS model limits — and only when preview limitations and citation gaps are acceptable. Use Foundry Child Agents under a Foundry parent for engineering-owned domains requiring parallel execution, structured JSON output, or full end-to-end observability; prefer Foundry Workflows over the deprecated classic Connected Agents API and plan migration before March 2027. Use Non-MSFT A2A Connected Agents when the capability lives natively in another platform (Salesforce, ServiceNow) and rebuilding in Foundry is not justified. Keep Foundry-to-Foundry chains at depth 2 maximum.
-{: .recommendation}
 
 ---
 
