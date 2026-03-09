@@ -14,7 +14,7 @@ nav_order: 2
   👤 END USERS
   Teams · M365 Copilot · SharePoint · Web · Mobile
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🚪 GATEWAY / MASTER AGENT (Copilot Studio)
+  🚪 GATEWAY / MASTER AGENT
   ┌─────────────────────────────────────────────────────────────────────────┐
   │  Routes intent to domain agents · Entra Agent ID                       │
   │  Can also call Specialist Connected Agents directly via A2A             │
