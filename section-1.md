@@ -7,8 +7,6 @@ nav_order: 2
 
 ## 1. 🏗️ Representative Architecture
 
-![Enterprise Multi-Agent Architecture Diagram]({{ site.baseurl }}/assets/architecture-diagram.png)
-
 ### Platform Stack
 
 ```
