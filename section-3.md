@@ -71,15 +71,19 @@ A CS parent can call any agent that exposes an A2A-compliant endpoint as a conne
 
 ### 🏆 Recommendation
 
-| Criterion | Verdict |
-|---|---|
-| ⚡ Speed | **Copilot Studio wins** — hours to first agent vs. days |
-| 🧩 No-code | **Copilot Studio wins** — no-code native |
-| 📈 Scale | **Copilot Studio wins** — agent templates, Component Collections, PP Pipelines |
-| 🏭 100+ agents | **Copilot Studio wins** — factory model built for this scale |
-| 🔵 Reduced complexity | **Copilot Studio wins** — single platform, Dataverse only, no extra infra |
+| Criterion | Copilot Studio as Parent | Foundry as Parent |
+|---|---|---|
+| ⚡ Speed | ✅ **Wins** — hours to first agent vs. days | ⚠️ Slower — portal setup + infra provisioning required |
+| 🧩 No-code authoring | ✅ **Wins** — no-code native, domain teams self-serve | ⚠️ Low-code (Workflows builder) — requires more technical skill |
+| 📈 Scale to 100+ agents | ✅ **Wins** — agent templates, Component Collections, PP Pipelines built for factory-scale | ⚠️ Possible but requires custom ALM; no out-of-box factory model |
+| 🔵 Reduced complexity | ✅ **Wins** — single platform, Dataverse only, no extra infra | ❌ Requires Cosmos DB, Redis, Azure Functions, Azure AI Search |
+| 🔗 A2A / Agent interoperability | ✅ CS supports A2A connected agents — CS, Foundry, Agentforce, ServiceNow callable as connected agents | ✅ Foundry supports A2A via Workflows; connected agents callable across platforms |
+| 🌐 MSFT + non-MSFT interoperability | ✅ **Wins** — A2A protocol connects to Agentforce, ServiceNow, and any A2A-compliant agent from CS parent | ✅ A2A supported — Foundry can call non-MSFT agents; fewer native connectors than CS |
+| 🛡️ Governance | ✅ **Wins** — Agent 365 + CoE Toolkit + Entra Agent ID natively in M365 Admin Center; no custom audit infra | ⚠️ Governance via Azure Policy + Entra + App Insights; no unified agent registry out of box |
+| 📋 Logging & observability | ⚠️ CS transcript + Dataverse logging; limited distributed tracing across agent hops | ✅ **Wins** — full OpenTelemetry + App Insights distributed tracing across all agent-to-agent calls |
+| 🔀 Orchestration at scale (100+ agents) | ⚠️ Sequential orchestration — one agent at a time; domain hierarchy required to avoid star-topology bottleneck | ✅ **Wins** — parallel fan-out/fan-in via Workflows; deterministic state machines for complex multi-agent chains |
 
-> **Use Copilot Studio as the parent/master agent. Introduce Foundry as parent only for domains requiring parallel execution, deterministic state-machine workflows, or compliance-grade BYO storage. Target fewer than 3 Foundry-parent domains out of your total agent estate.**
+> **Use Copilot Studio as the parent/master agent.** CS wins on speed, no-code authoring, governance, scale, and interoperability — all critical for a 100+ agent estate. Its A2A support covers both MSFT (Foundry) and non-MSFT (Agentforce, ServiceNow) connected agents, and Agent 365 + CoE Toolkit provide enterprise-grade governance without custom infrastructure. **Introduce Foundry as parent only** for domains that explicitly require parallel orchestration, distributed tracing across a complex reasoning chain, or deterministic state-machine workflows — and accept the additional infrastructure and ALM overhead. Target fewer than 3 Foundry-parent domains out of your total agent estate.
 {: .recommendation}
 
 ---
