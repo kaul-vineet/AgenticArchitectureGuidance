@@ -20,6 +20,13 @@ permalink: /
   <span class="pill">🔵 Reduced complexity at every layer</span>
   <span class="pill">☁️ Managed services over custom infrastructure</span>
   <span class="pill">🎯 Simplest effective approach wins</span>
+  <span class="pill">🔗 A2A agent-to-agent interoperability</span>
+  <span class="pill">🌐 MSFT + non-MSFT interoperability</span>
+  <span class="pill">🛡️ Enterprise governance as a first-class requirement</span>
+  <span class="pill">📋 End-to-end logging and observability</span>
+  <span class="pill">🔀 Orchestration across 100+ agents</span>
+  <span class="pill">🏢 Rapid LOB system integration</span>
+  <span class="pill">📱 Multi-channel exposure — web, mobile, Teams</span>
 </div>
 
 > *Informed by: Microsoft CAF · Azure Architecture Center · DeepLearning.AI · HuggingFace Research · Gartner · MAST · smolagents*
@@ -83,7 +90,7 @@ permalink: /
 
 ## 📐 Recommendation Criteria
 
-Every recommendation is evaluated against five criteria:
+Every recommendation is evaluated against the following criteria:
 
 | | Criterion | Meaning |
 |---|---|---|
@@ -92,6 +99,13 @@ Every recommendation is evaluated against five criteria:
 | 📈 | **Scale Over Custom Dev** | Works for agent #1 and agent #100 without re-architecting |
 | 🏭 | **100+ Agents in 6–12 Months** | Agent factory — templates, ALM pipelines, domain reuse |
 | 🔵 | **Reduced Complexity** | Fewest moving parts, fewest technologies, fewest custom servers |
+| 🔗 | **A2A / Agent Interoperability** | Parent agent can call other agents via A2A or equivalent protocol; not limited to same-platform agents |
+| 🌐 | **MSFT + Non-MSFT Interoperability** | Architecture supports seamless integration between Microsoft agents (CS, Foundry) and non-Microsoft agents (Agentforce, ServiceNow, custom) |
+| 🛡️ | **Enterprise Governance** | Agent inventory, access control, policy enforcement, and audit trail without custom-built infrastructure |
+| 📋 | **Logging & Observability** | End-to-end tracing across all agent hops, tool calls, and handoffs — not just final output |
+| 🔀 | **Orchestration at Scale** | Capable of routing and managing 100+ agents across domains without creating a single-orchestrator bottleneck |
+| 🏢 | **LOB System Integration** | Ability to quickly connect to line-of-business systems (SAP, Salesforce, ServiceNow, Dynamics 365, Oracle) with minimal custom code |
+| 📱 | **Multi-Channel Exposure** | Agents reachable across web, mobile, Teams, SharePoint, M365 Copilot, and custom surfaces without rebuilding per channel |
 
 ---
 
