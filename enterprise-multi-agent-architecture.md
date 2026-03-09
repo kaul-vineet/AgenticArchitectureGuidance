@@ -1,5 +1,12 @@
+---
+layout: default
+title: Enterprise Multi-Agent Architecture
+nav_order: 1
+permalink: /
+---
+
 # 🤖 Enterprise Multi-Agent Architecture
-> ✍️ **Author**: Vineet Kaul · Principal PM Architect · vineetkaul@microsoft.com
+> ✍️ **Author**: kaul-vineet · Principal PM Architect · vineetkaul@microsoft.com
 
 ### Design Requirements/Priorities
 
@@ -206,6 +213,108 @@ RELIABILITY (most → least mature)
 
 ---
 
+### 🎯 Agent Orchestration
+
+#### ✅ Recommended: Gateway → Domain Agent Hierarchy
+
+```
+👤 User
+    │
+    ▼
+🚪 Gateway (1 agent — routes only, owns zero tools)
+    │
+    ├──► 📦 HR Domain Agent      → manages ≤8 child/connected agents + tools
+    ├──► 📦 Finance Domain Agent  → manages ≤8 child/connected agents + tools
+    ├──► 📦 IT Domain Agent      → manages ≤8 child/connected agents + tools
+    └──► 📦 Sales Domain Agent   → manages ≤8 child/connected agents + tools
+
+Rules:
+  Each domain agent manages ≤ 8–10 specialist agents (child or connected)
+  Each domain agent has a bounded tool set — keep scope focused
+  Each domain agent has its own Entra identity + team owner
+  Each domain agent maintains a dynamic task ledger (auditable record
+    of subtask state — not just LLM mental model)
+```
+
+#### 📐 Why This Architecture Works — Research Evidence
+
+The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, documented and validated across multiple independent research sources:
+
+> *"In this workflow, a central LLM dynamically decomposes tasks, delegates them to worker agents, and synthesizes their outputs into coherent results."*
+> — HuggingFace, Design Patterns for Agentic Workflows
+
+> *"By decomposing work, developers can tailor prompts for specific objectives... Many teams are getting good results with this method, and ablation studies show that multiple agents give superior performance to a single agent."*
+> — Andrew Ng, DeepLearning.AI
+
+> *"When you use multiple AI agents, you can break down complex problems into specialized units of work or knowledge. Individual agents can focus on a specific domain or capability, which reduces code and prompt complexity."*
+> — Microsoft Azure Architecture Center
+
+> *"Instead of expecting one AI to be an all-knowing expert (often unrealistic — akin to getting a high-school intern when you hoped for a PhD), multi-agent orchestrators break problems into smaller pieces and assign them to specialized agents."*
+> — HuggingFace, Neuro SAN
+
+**Four properties that make hierarchical orchestration reliable** (Microsoft Azure Architecture Center):
+
+| Property | What It Means in Practice |
+|---|---|
+| **Specialization** | Each domain agent has a focused prompt and bounded tool set — no competing priorities, no routing ambiguity |
+| **Scalability** | Agents can be added or modified without redesigning the entire system — new domain = one new domain agent |
+| **Maintainability** | Testing and debugging focused on individual agents — failures isolated, not system-wide |
+| **Optimization** | Each domain agent can use distinct models, tools, and compute appropriate to its workload |
+
+**Key performance evidence:**
+
+| Finding | Data | Source |
+|---|---|---|
+| Agent loop vs. zero-shot single pass | GPT-3.5 with agent loop: **95.1%** vs GPT-4 zero-shot: **67%** on HumanEval | DeepLearning.AI |
+| Tool accuracy as #1 differentiator | Top agents: **94%** tool accuracy vs low performers: **61%** — 33pp gap | AssetOpsBench (IBM) |
+| Ambiguity causes accuracy collapse | Explicit intent: **90%** success → ambiguous intent: **40%** success (−50pp) | OpenEnv/Turing (HuggingFace) |
+| Context history loss at scale | Overloaded model: **24%** of traces lose conversation history vs **0%** for focused agents | MAST/ITBench (IBM) |
+| Reasoning disconnect in overloaded agents | **94%** of traces show reasoning-action decoupling in overloaded systems | MAST/ITBench (IBM) |
+| Failure mode density | Clean agents: **2.6** failure modes/trace · Collapsed systems: **5.3** failure modes/trace | MAST/ITBench (IBM) |
+
+---
+
+#### ❌ The Star Topology Anti-Pattern (One Master Agent for All Domains)
+
+```
+                    ANTI-PATTERN
+    HR Agent ─────────┐
+    Finance Agent ────┤
+    IT Agent ─────────┤──► ⚠️ SINGLE SHARED ORCHESTRATOR
+    Sales Agent ──────┤         (handles all 100 agents)
+    ... 95 more ───────┘
+```
+
+| ⚠️ Disadvantage | What Happens in Practice | Research Backing |
+|---|---|---|
+| 🔴 **Tool overload collapses routing quality** | A single orchestrator for 100 agents accumulates hundreds of tools. LLM routing accuracy drops sharply as tool count grows — the orchestrator cannot reliably select the right agent. | *"As the number of knowledge sources and tools increases, it becomes difficult to provide a predictable agent experience."* — Microsoft Azure Architecture Center |
+| 🔴 **Context window floods with unrelated history** | All domain interactions accumulate in one shared thread. Finance queries appear in HR context. Attention dilutes across irrelevant history. Directly causes FM-1.4 (Loss of Conversation History — 24% of traces in overloaded systems). | *"Context windows can grow rapidly because each agent adds its own reasoning, tool results, and intermediate outputs."* — Microsoft Azure Architecture Center · MAST FM-1.4 |
+| 🔴 **Routing classification fails under scope growth** | A single orchestrator must classify every intent across all 100 domains from one prompt. Misclassification sends the request to the wrong domain. | *"If a task is misclassified, it might be sent to the wrong agent, leading to inefficiency or incorrect results."* — HuggingFace, Design Patterns for Agentic Workflows |
+| 🔴 **One rate limit ceiling for all domains** | All 100 agents share one model endpoint's TPM quota. A Finance spike throttles HR users simultaneously. | *"Evaluate how using a single MaaS endpoint can result in rate limiting when agents run concurrently."* — Microsoft Azure Architecture Center |
+| 🔴 **Security trimming cannot be enforced** | HR and Finance queries share context and identity. Per-domain data access cannot be scoped. Over-privileged identities are the highest-impact incident category. | *"Security trimming must be implemented in every agent, not only at the gateway."* — Microsoft Azure Architecture Center · Microsoft Tech Community |
+| 🔴 **Chain composition creates unreviewed capabilities** | Tools approved individually compose into capabilities nobody reviewed. | *"Read data, create ticket, send message — all approved individually. Put together, it becomes a capability nobody reviewed."* — Microsoft Tech Community |
+| 🔴 **One failure = full outage for all domains** | A prompt change, model degradation, or bug takes all 100 agents offline simultaneously. Failure modes cascade — overloaded systems accumulate 5.3 failure modes per failed trace vs 2.6 in focused systems. | MAST/ITBench (IBM) — Cascading Collapse |
+| 🔴 **ALM becomes impossible at scale** | Updating any domain requires regression testing the shared orchestrator against all 100 agents. Deployment frequency drops to near zero. | Microsoft Azure Architecture Center — Maintainability principle |
+| 🔴 **No team ownership — governance fails** | Ownership ambiguity means no team is accountable for quality or incidents. Shadow agents proliferate. | Microsoft CAF — Principle 27 (Maintain agent inventory) |
+| 🟡 **Unpredictable and inefficient cost** | Simple FAQ queries invoke the same full-context orchestrator as complex multi-step financial workflows. | Azure Architecture Center — Optimization principle |
+
+#### 📚 References
+- HuggingFace — Design Patterns for Agentic Workflows: https://huggingface.co/blog/dcarpintero/design-patterns-for-building-agentic-workflows
+- HuggingFace — IBM MAST Failure Taxonomy: https://huggingface.co/blog/ibm-research/itbenchandmast
+- HuggingFace — IBM AssetOpsBench: https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face
+- HuggingFace — Neuro SAN Decentralized Routing: https://huggingface.co/blog/danyoung/neuro-san-is-all-you-need
+- HuggingFace — OpenEnv/Turing Tool + Routing Evaluation: https://huggingface.co/blog/openenv-turing
+- DeepLearning.AI — Multi-Agent Collaboration: https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-5-multi-agent-collaboration/
+- DeepLearning.AI — How Agents Improve LLM Performance: https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/
+- Azure Architecture Center — AI Agent Orchestration Patterns: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns
+- Microsoft Tech Community — AI Didn't Break Your Production: https://techcommunity.microsoft.com/blog/educatordeveloperblog/ai-didn%E2%80%99t-break-your-production-%E2%80%94-your-architecture-did/4482848
+- MAST Paper (arXiv): https://arxiv.org/abs/2503.13657
+
+#### 🏆 Recommendation
+> **Never use a single orchestrator for all agents. Research confirms that overloaded single orchestrators accumulate cascading failures (5.3 failure modes/trace), lose conversation history (24% of traces), and suffer reasoning-action disconnect (94% of traces). One domain agent per business function. Gateway routes intent only — owns zero tools. Each domain agent manages ≤ 8–10 specialist agents with a bounded tool set and dynamic task ledger. This architecture scales from 10 to 200 agents without redesign.**
+
+---
+
 ## 2. 🔄 How a User Instruction is Processed
 
 ```
@@ -368,72 +477,7 @@ RELIABILITY (most → least mature)
 
 ---
 
-## 5. 🎯 Agent Orchestration — Domain Agents vs. Star Topology Anti-Pattern
-
-### ✅ Recommended: Domain-Level Agents (Hierarchical)
-
-```
-👤 User
-    │
-    ▼
-🚪 Gateway (1 agent — routes only, owns zero tools)
-    │
-    ├──► 📦 HR Domain Agent      → manages ≤8 child/connected agents + tools
-    ├──► 📦 Finance Domain Agent  → manages ≤8 child/connected agents + tools
-    ├──► 📦 IT Domain Agent      → manages ≤8 child/connected agents + tools
-    └──► 📦 Sales Domain Agent   → manages ≤8 child/connected agents + tools
-
-Rules:
-  Each domain agent manages ≤ 8–10 specialist agents (child or connected)
-  Each domain agent has a bounded tool set — keep scope focused
-  Each domain agent has its own Entra identity + team owner
-  Each domain agent maintains a dynamic task ledger (auditable record
-    of subtask state — not just LLM mental model)
-```
-
-### ❌ The Star Topology Anti-Pattern (Many Agents to One Orchestrator)
-
-```
-                    ANTI-PATTERN
-    HR Agent ─────────┐
-    Finance Agent ────┤
-    IT Agent ─────────┤──► ⚠️ SINGLE SHARED ORCHESTRATOR
-    Sales Agent ──────┤         (handles all 100 agents)
-    ... 95 more ───────┘
-```
-
-| ⚠️ Disadvantage | What Happens in Practice |
-|---|---|
-| 🔴 **Tool overload collapses quality** | LLM routing accuracy drops sharply as tool count grows. A single orchestrator for 100 agents accumulates hundreds of tools — routing becomes unreliable. |
-| 🔴 **Context window floods** | All agent interactions accumulate in one shared thread. Context fills with unrelated domain history. Research confirms this causes FM-1.4 (Loss of Conversation History). |
-| 🔴 **One rate limit ceiling for all** | All 100 agents share one model endpoint's TPM quota. A Finance spike throttles HR users. |
-| 🔴 **No domain security boundary** | HR and Finance queries share context. Per-domain security trimming cannot be enforced. |
-| 🔴 **One failure = full outage** | A bug takes all 100 agents offline simultaneously. |
-| 🔴 **ALM becomes impossible** | Updating any agent requires testing the shared orchestrator against all 100 agents. |
-| 🔴 **No team ownership** | Ownership ambiguity leads to governance failure at scale. |
-| 🟡 **Unpredictable cost** | Simple FAQ queries cost the same as complex multi-tool tasks. |
-
-### 📚 References
-- Azure Architecture Center — Agent Design Patterns: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns
-- AssetOpsBench — Multi-Agent Accuracy Penalty: https://huggingface.co/blog/ibm-research/assetopsbench-playground-on-hugging-face
-- DeepLearning.AI — Multi-Agent Collaboration: https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-5-multi-agent-collaboration/
-- Neuro SAN — Decentralized Routing: https://huggingface.co/blog/danyoung/neuro-san-is-all-you-need
-
-### 🏆 Recommendation
-
-| Criterion | Verdict |
-|---|---|
-| ⚡ Speed | Domain agents — each team owns and deploys independently |
-| 🧩 No-code | CS Topics handle routing — no code needed |
-| 📈 Scale | Domain model scales linearly — new domain = one new domain agent |
-| 🏭 100+ agents | 8–12 domain agents × 8–10 specialist agents = 64–120 agents; fits target |
-| 🔵 Reduced complexity | Each domain agent is simple; complexity stays local to its domain |
-
-> **Never use a single orchestrator for all agents. One domain agent per business function. Gateway routes intent only — owns zero tools. Each domain agent manages ≤ 8–10 specialist agents (child or connected) with a dynamic task ledger. This architecture scales from 10 to 200 agents without redesign.**
-
----
-
-## 6. 💾 Session Management, Transcript Storage & Persistent Storage
+## 5. 💾 Session Management, Transcript Storage & Persistent Storage
 
 ### 🔄 Session Management
 
@@ -591,7 +635,7 @@ Mixed / Preview acceptable:
 
 ---
 
-## 7. 🔌 Infrastructure Requirements — Definitive Answer
+## 6. 🔌 Infrastructure Requirements — Definitive Answer
 
 ### ✅ Required (Managed — Minimal Setup)
 
@@ -657,7 +701,7 @@ Preview acceptable (either lean):
 
 ---
 
-## 8. 🔧 Agentic Framework and Agent 365 — Where They Fit
+## 7. 🔧 Agentic Framework and Agent 365 — Where They Fit
 
 ### 🤖 Microsoft Agent Framework (Semantic Kernel + AutoGen)
 
@@ -706,7 +750,7 @@ Preview acceptable (either lean):
 
 ---
 
-## 9. 📌 Final Summary
+## 8. 📌 Final Summary
 
 ### ✅ What to Build With
 
@@ -775,7 +819,7 @@ Month 5–12:  Factory mode (8–12 agents/month)
 
 ---
 
-## 10. 📋 Agent Design Template
+## 9. 📋 Agent Design Template
 
 > Complete one card per agent before building. This is the factory input document.
 
@@ -1001,7 +1045,7 @@ Ambiguity handling:
 
 ---
 
-## 11. ⚠️ Design Considerations
+## 10. ⚠️ Design Considerations
 
 > Open items identified during architecture review. To be resolved before production scale-out.
 

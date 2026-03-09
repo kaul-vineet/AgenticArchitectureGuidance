@@ -1,0 +1,44 @@
+title: Enterprise Multi-Agent Architecture
+description: Bajaj — Enterprise AI Agent Architecture Reference · Vineet Kaul · Microsoft
+
+remote_theme: just-the-docs/just-the-docs@v0.10.0
+
+# Site URL — update this when publishing to GitHub Pages
+# url: https://<your-github-username>.github.io
+# baseurl: "/<repo-name>"
+
+# Search
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+
+# Navigation
+nav_sort: order   # use nav_order in front matter
+
+# Colours
+color_scheme: light   # light | dark
+
+# Aux links (top-right header)
+aux_links:
+  "Microsoft Power CAT":
+    - "https://aka.ms/powercat"
+
+# Footer
+footer_content: "kaul-vineet · Principal PM Architect · Microsoft"
+
+# Markdown
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
