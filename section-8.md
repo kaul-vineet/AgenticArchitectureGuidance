@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "📌 8. Final Summary"
+title: "📌 7. Final Summary"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 9
+nav_order: 8
 ---
 
-## 8. 📌 Final Summary
+## 7. 📌 Final Summary
 
 ### ✅ What to Build With
 

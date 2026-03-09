@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "⚠️ 10. Design Considerations"
+title: "⚠️ 9. Design Considerations"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 11
+nav_order: 10
 ---
 
-## 10. ⚠️ Design Considerations
+## 9. ⚠️ Design Considerations
 
 > Open items identified during architecture review. To be resolved before production scale-out.
 
