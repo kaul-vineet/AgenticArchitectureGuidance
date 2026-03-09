@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "⚖️ 3. CS vs Foundry — As Parent Agent"
+title: "👑 3. CS vs Foundry — As Parent Agent"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 4
 ---
