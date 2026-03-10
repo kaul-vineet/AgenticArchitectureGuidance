@@ -2,7 +2,7 @@
 layout: default
 title: "💾 4. Session Management"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 7
+nav_order: 9
 ---
 
 ## 4. 💾 Session Management, Transcript Storage & Persistent Storage

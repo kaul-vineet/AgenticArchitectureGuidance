@@ -155,3 +155,34 @@ ul.ref-grid {
   h3     { font-size: 1.44rem; }
   blockquote p { font-size: 1.1rem; }
 }
+
+// ---------------------------------------------
+// 15. COLORED BOLD HEADINGS
+// ---------------------------------------------
+h1 { font-weight: 700; color: #003087; }
+h2 { font-weight: 700; color: #0078d4; }
+h3 { font-weight: 700; color: #107c10; }
+h4 { font-weight: 700; color: #5c2e91; }
+
+// ---------------------------------------------
+// 16. SYSTEM DESCRIPTOR CALLOUT
+// ---------------------------------------------
+.system-descriptor {
+  background: linear-gradient(135deg, #001d4a 0%, #003087 100%);
+  color: #e8f0fe;
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  border: none;
+  strong { color: #7dd3fc; }
+}
+
+// ---------------------------------------------
+// 17. TIER PILL VARIANTS
+// ---------------------------------------------
+.pill-t1  { background: #003087; }
+.pill-t2  { background: #0078d4; }
+.pill-t3p1 { background: #107c10; }
+.pill-t3p2 { background: #5c2e91; }

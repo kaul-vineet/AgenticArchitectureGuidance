@@ -2,7 +2,7 @@
 layout: default
 title: "👑 3. As Parent / Master Agent"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 5
+nav_order: 7
 ---
 
 ## 3. 👑 As Parent / Master Agent

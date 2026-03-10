@@ -2,7 +2,7 @@
 layout: default
 title: "🎓 Academic Analysis — Sebastian Raschka"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 15
+nav_order: 17
 ---
 
 ## 🎓 Academic Analysis — Sebastian Raschka

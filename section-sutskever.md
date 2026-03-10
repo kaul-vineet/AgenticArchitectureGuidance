@@ -2,7 +2,7 @@
 layout: default
 title: "🎓 Academic Analysis — Ilya Sutskever"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 14
+nav_order: 16
 ---
 
 ## 🎓 Academic Analysis — Ilya Sutskever

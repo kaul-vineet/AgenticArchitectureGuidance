@@ -2,7 +2,7 @@
 layout: default
 title: "🎓 Academic Analysis — Noam Shazeer"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 16
+nav_order: 18
 ---
 
 ## 🎓 Academic Analysis — Noam Shazeer

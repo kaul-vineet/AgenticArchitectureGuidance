@@ -12,57 +12,64 @@ page_classes: home-xl
 # 🤖 Enterprise Multi-Agent Architecture
 > ✍️ **Author**: Vineet Kaul · Principal PM Architect · vineetkaul@microsoft.com
 
-### Design Requirements/Priorities
-
-<div class="req-pills">
-  <span class="pill">🧩 No-code over custom features</span>
-  <span class="pill">📈 Scale over custom development</span>
-  <span class="pill">🏭 100+ agents in 6–12 months</span>
-  <span class="pill">🔵 Reduced complexity at every layer</span>
-  <span class="pill">☁️ Managed services over custom infrastructure</span>
-  <span class="pill">🎯 Simplest effective approach wins</span>
-  <span class="pill">🔗 A2A agent-to-agent interoperability</span>
-  <span class="pill">🌐 MSFT + non-MSFT interoperability</span>
-  <span class="pill">🛡️ Enterprise governance as a first-class requirement</span>
-  <span class="pill">📋 End-to-end logging and observability</span>
-  <span class="pill">🔀 Orchestration across 100+ agents</span>
-  <span class="pill">🏢 Rapid LOB system integration</span>
-  <span class="pill">📱 Multi-channel exposure — web, mobile, Teams</span>
-  <span class="pill">🥇 Complex agent instructions &amp; supervision</span>
-  <span class="pill">🥇 Supervisor pattern</span>
-  <span class="pill">🥇 Supervisor-as-tool pattern</span>
-  <span class="pill">🥇 Hierarchical orchestration pattern</span>
-  <span class="pill">🥈 Custom orchestration pattern</span>
-  <span class="pill">🥈 Network / mesh agent pattern</span>
+<div class="system-descriptor">
+<strong>🎯 System Purpose</strong><br><br>
+This document evaluates an enterprise agent architecture built around a <strong>single point of entry</strong> — a gateway agent that receives every user request, determines intent, and routes it to the right specialist agent while preserving full session context across all hops.<br><br>
+Each agent in the hierarchy is independently equipped with <strong>tools, workflows, connectors, and MCP servers</strong> that it can invoke to retrieve information, execute business logic, or interact with line-of-business systems. No agent is a passive router — every agent at every tier can act.<br><br>
+The architecture is <strong>platform-agnostic by design</strong>. Any agent in the hierarchy — at the gateway tier, domain tier, or specialist tier — may be a <strong>Copilot Studio agent, an Azure AI Foundry agent, or any agent built on non-Microsoft technology</strong>. Platform choice per agent does not break the orchestration hierarchy; it is governed by what that agent needs to do, not by which platform built it.<br><br>
+The evaluation criteria, principles, and recommendations in this document are all anchored to this system model: one entry point, context-preserving routing, platform-agnostic agents, and enterprise-grade governance from day one.
 </div>
-
-> *Informed by: Microsoft CAF · Azure Architecture Center · DeepLearning.AI · HuggingFace Research · Gartner · MAST · smolagents*
 
 ---
 
-## 📐 Recommendation Criteria
+## 📋 Document Structure
 
-Every recommendation is evaluated against the following criteria:
-
-| | Criterion | Meaning |
+| Section | Title | Purpose |
 |---|---|---|
-| ⚡ | **High Speed of Development** | First agent ships in days, not weeks |
-| 🧩 | **No-Code Over Custom Features** | Platform-native features even at 80% coverage, rather than custom code for 100% |
-| 📈 | **Scale Over Custom Dev** | Works for agent #1 and agent #100 without re-architecting |
-| 🏭 | **100+ Agents in 6–12 Months** | Agent factory — templates, ALM pipelines, domain reuse |
-| 🔵 | **Reduced Complexity** | Fewest moving parts, fewest technologies, fewest custom servers |
-| 🔗 | **A2A / Agent Interoperability** | Parent agent can call other agents via A2A or equivalent protocol; not limited to same-platform agents |
-| 🌐 | **MSFT + Non-MSFT Interoperability** | Architecture supports seamless integration between Microsoft agents (CS, Foundry) and non-Microsoft agents (Agentforce, ServiceNow, custom) |
-| 🛡️ | **Enterprise Governance** | Agent inventory, access control, policy enforcement, and audit trail without custom-built infrastructure |
-| 📋 | **Logging & Observability** | End-to-end tracing across all agent hops, tool calls, and handoffs — not just final output |
-| 🔀 | **Orchestration at Scale** | Capable of routing and managing 100+ agents across domains without creating a single-orchestrator bottleneck |
-| 🏢 | **LOB System Integration** | Ability to quickly connect to line-of-business systems (SAP, Salesforce, ServiceNow, Dynamics 365, Oracle) with minimal custom code |
-| 📱 | **Multi-Channel Exposure** | Agents reachable across web, mobile, Teams, SharePoint, M365 Copilot, and custom surfaces without rebuilding per channel |
-| 🥇 | **Complex Agent Instructions** | Platform must support rich, detailed system prompts and instructions per agent; agents handling multi-step, conditional, or domain-complex tasks must not be constrained by instruction size or expressiveness |
-| 🥇 | **Supervisor Pattern** | A central supervisor agent must be able to route tasks to specialist sub-agents, evaluate their outputs, and decide next steps — without hardcoded routing logic |
-| 🥇 | **Supervisor-as-Tool Pattern** | The supervisor must itself be callable as a tool by a higher-level orchestrator — enabling composable, multi-level delegation where any agent can act as both orchestrator and sub-agent |
-| 🥇 | **Hierarchical Orchestration Pattern** | Architecture must support multi-tier hierarchies (Gateway → Domain → Specialist) where each layer manages its own sub-agents independently; depth must scale without a single shared context |
-| 🥈 | **Custom Orchestration Pattern** | For engineering-owned domains, the platform must allow fully custom orchestration logic (SDK-level code, state machines, conditional branching) when declarative patterns are insufficient |
-| 🥈 | **Network / Mesh Pattern** | Architecture should support peer-to-peer agent collaboration where agents can call each other laterally (not only top-down) for cross-domain tasks — with appropriate guardrails to prevent unbounded recursion |
+| [🎯 Design Requirements](./section-req) | **Design Requirements / Priorities** | The 19 non-negotiable requirements — organized into Engineering Philosophy, Enterprise Operations, and Orchestration Patterns — that every architectural recommendation must satisfy. Includes the icon audit resolving 6 duplicate icons. |
+| [📐 Recommendation Criteria](./section-criteria) | **Recommendation Criteria** | The 18-criterion evaluation framework applied to every platform comparison and architectural decision. Criteria are classified P0 (foundational), P1 (must-have), and P2 (important). |
+| [🧠 Key Principles](./section-principles) | **Key Architectural Principles** | 28 research-backed principles that govern every design decision — from minimising LLM calls and externalizing termination logic to idempotency, security trimming, and continuous evaluation. |
+| [🏗️ Section 1](./section-1) | **Representative Architecture** | The full 3-tier platform stack diagram (Gateway → Domain → Specialist), alignment to all 28 Key Architectural Principles, the orchestrator-workers research evidence, and the star topology anti-pattern analysis. |
+| [🔄 Section 2](./section-2) | **How a User Instruction is Processed** | End-to-end trace of a single user message — from channel entry through gateway routing, domain agent invocation, tool execution, and final response — with correlationId propagation at every hop. |
+| [👑 Section 3](./section-3) | **CS vs. Foundry — As Parent / Master Agent** | Direct comparison of Copilot Studio and Azure AI Foundry as the top-level orchestrator. Covers routing capability, instruction complexity, A2A support, ALM maturity, and governance. |
+| [🔗 Section 4](./section-3b) | **CS vs. Foundry — As Child / Connected Agent** | Direct comparison of CS and Foundry in the sub-agent role — inline child, connected agent, and external Foundry agent patterns with practical guidance on when to use each. |
+| [💾 Section 5](./section-5) | **Session Management & Persistent Storage** | Context architecture across three tiers (active session, session store, long-term memory), storage decisions per platform per requirement, and the infrastructure matrix driven by architecture lean. |
+| [🔌 Section 6](./section-6) | **Infrastructure Requirements** | The definitive answer on what infrastructure to build — driven by architecture lean (CS-heavy vs Foundry-heavy vs Preview acceptable). Rules out SQL Server; resolves CosmosDB, Redis, and Dataverse placement. |
+| [🔧 Section 7](./section-7) | **Agentic Framework and Agent 365** | Recommendation on agentic frameworks (Semantic Kernel, AutoGen, smolagents), the role of Agent 365 in governance, CoE Toolkit deployment, and Entra Agent ID. |
+| [📌 Section 8](./section-8) | **Final Summary** | What to build, what to avoid, and the month-by-month 100-agent delivery timeline. One-page decision guide for platform leads and architects. |
+| [📋 Section 9](./section-9) | **Agent Design Template** | The factory input card — 13 fields that must be completed before any agent is built. Covers identity, scope, I/O contract, tools, security, observability, ALM, and definition of done. |
+| [⚠️ Section 10](./section-10) | **Design Considerations** | 32 open items (DC-1 to DC-32) covering gaps in the current architecture, forward-looking decisions, and topics that require resolution before scale deployment. Sourced from Karpathy, Sutskever, Raschka, and Shazeer research gaps. |
+| [🎓 Karpathy](./section-karpathy) | **Academic Analysis — Andrej Karpathy** | Alignment of all 28 Key Principles against Karpathy's published positions on LLM OS, context engineering, autonomy sliders, Software 3.0, and evals-first development. |
+| [🎓 Sutskever](./section-sutskever) | **Academic Analysis — Ilya Sutskever** | Alignment against Sutskever's frameworks: jagged frontier, weak-to-strong generalization, SSI safety-first, and unpredictability-scales-with-reasoning. |
+| [🎓 Raschka](./section-raschka) | **Academic Analysis — Sebastian Raschka** | Alignment against Raschka's work on LLM evaluation, fine-tuning decision theory, model internals, and state-of-LLMs assessments. |
+| [🎓 Shazeer](./section-shazeer) | **Academic Analysis — Noam Shazeer** | Alignment against Shazeer's hardware-algorithm co-design philosophy: MQA, MoE, SwiGLU, CharacterFlywheel, and the Kaiju serving architecture. |
+
+---
+
+## 🎯 Design Requirements at a Glance
+
+<div class="req-pills">
+  <span class="pill pill-t1">🧩 No-code over custom features</span>
+  <span class="pill pill-t1">📈 Scale over custom development</span>
+  <span class="pill pill-t1">🏭 100+ agents in 6–12 months</span>
+  <span class="pill pill-t1">🔵 Reduced complexity at every layer</span>
+  <span class="pill pill-t1">☁️ Managed services over custom infrastructure</span>
+  <span class="pill pill-t1">🎯 Simplest effective approach wins</span>
+  <span class="pill pill-t2">🔗 A2A agent-to-agent interoperability</span>
+  <span class="pill pill-t2">🌐 MSFT + non-MSFT interoperability</span>
+  <span class="pill pill-t2">🛡️ Enterprise governance as a first-class requirement</span>
+  <span class="pill pill-t2">📋 End-to-end logging and observability</span>
+  <span class="pill pill-t2">🔀 Orchestration across 100+ agents</span>
+  <span class="pill pill-t2">🏢 Rapid LOB system integration</span>
+  <span class="pill pill-t2">📱 Multi-channel exposure — web, mobile, Teams</span>
+  <span class="pill pill-t3p1">📝 Complex agent instructions &amp; supervision</span>
+  <span class="pill pill-t3p1">👑 Supervisor pattern</span>
+  <span class="pill pill-t3p1">🔧 Supervisor-as-tool pattern</span>
+  <span class="pill pill-t3p1">🏛️ Hierarchical orchestration pattern</span>
+  <span class="pill pill-t3p2">⚙️ Custom orchestration pattern</span>
+  <span class="pill pill-t3p2">🕸️ Network / mesh agent pattern</span>
+</div>
+
+> *Informed by: Microsoft CAF · Azure Architecture Center · DeepLearning.AI · HuggingFace Research · Gartner · MAST · smolagents*
 
 ---

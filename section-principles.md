@@ -2,7 +2,7 @@
 layout: default
 title: "🧠 Key Architectural Principles"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 2
+nav_order: 4
 ---
 
 ## 🧠 Key Architectural Principles

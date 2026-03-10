@@ -2,7 +2,7 @@
 layout: default
 title: "⚠️ 9. Design Considerations"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 12
+nav_order: 14
 ---
 
 ## 9. ⚠️ Design Considerations

@@ -2,7 +2,7 @@
 layout: default
 title: "🎓 Academic Analysis — Andrej Karpathy"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 13
+nav_order: 15
 ---
 
 ## 🎓 Academic Analysis — Andrej Karpathy
