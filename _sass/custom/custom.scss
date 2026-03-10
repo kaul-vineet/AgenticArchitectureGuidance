@@ -186,3 +186,106 @@ h4 { font-weight: 700; color: #5c2e91; }
 .pill-t2  { background: #0078d4; }
 .pill-t3p1 { background: #107c10; }
 .pill-t3p2 { background: #5c2e91; }
+
+// ---------------------------------------------
+// 18. GLOBAL FOUNDATIONS
+// ---------------------------------------------
+html { scroll-behavior: smooth; }
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// ---------------------------------------------
+// 19. REFINED TABLE HEADERS + TRANSITIONS
+// ---------------------------------------------
+table th {
+  background: linear-gradient(135deg, #0a1628 0%, #1a3a72 100%);
+  letter-spacing: 0.025em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+table td { transition: background 0.12s ease; }
+
+// ---------------------------------------------
+// 20. LINK HOVER STATES
+// ---------------------------------------------
+a {
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+a:hover { opacity: 0.8; }
+
+// ---------------------------------------------
+// 21. REFINED CODE BLOCKS
+// ---------------------------------------------
+code:not([class]) {
+  background: #e4ecf8;
+  color: #0a1628;
+  border-radius: 4px;
+  padding: 0.12em 0.38em;
+  font-size: 0.87em;
+  border: 1px solid #c8d8ee;
+}
+pre.highlight, .highlighter-rouge {
+  border-radius: 8px;
+  border: 1px solid #dde4ef;
+  box-shadow: 0 2px 10px rgba(10,22,40,0.07);
+}
+
+// ---------------------------------------------
+// 22. SIDEBAR + HEADER POLISH
+// ---------------------------------------------
+.nav-list .nav-list-item .nav-list-link {
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.nav-list .nav-list-item .nav-list-link:hover {
+  background: #d8e5f5;
+  color: #0f6cbd;
+}
+.nav-list .nav-list-item .nav-list-link.active {
+  background: #d0e4f7;
+  color: #0f6cbd;
+  font-weight: 700;
+  border-left: 3px solid #0f6cbd;
+}
+
+// ---------------------------------------------
+// 23. BLOCKQUOTE DEPTH
+// ---------------------------------------------
+blockquote {
+  box-shadow: 0 1px 6px rgba(15,108,189,0.09);
+  transition: box-shadow 0.2s ease;
+}
+blockquote:hover {
+  box-shadow: 0 3px 14px rgba(15,108,189,0.15);
+}
+
+// ---------------------------------------------
+// 24. PILL HOVER LIFE
+// ---------------------------------------------
+.pill {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  letter-spacing: 0.01em;
+}
+.pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.22);
+}
+
+// ---------------------------------------------
+// 25. HEADING HIERARCHY (overrides rule 15)
+// ---------------------------------------------
+h1 { font-weight: 800; color: #0a1628; letter-spacing: -0.025em; }
+h2 { font-weight: 700; color: #0f6cbd; letter-spacing: -0.018em; }
+h3 { font-weight: 600; color: #0d7c0c; letter-spacing: -0.01em; }
+h4 { font-weight: 600; color: #5c2e91; letter-spacing: 0; }
+
+// ---------------------------------------------
+// 26. CUSTOM SCROLLBAR
+// ---------------------------------------------
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #edf1f8; }
+::-webkit-scrollbar-thumb { background: #aabcd8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #0f6cbd; }

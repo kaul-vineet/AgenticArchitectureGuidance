@@ -1,22 +1,22 @@
-// Bajaj — Microsoft-inspired colour scheme
+// Bajaj -- Refined Enterprise colour scheme
 $color-scheme: light;
 
 // Backgrounds
-$body-background-color: #ffffff;
-$sidebar-color:         #f3f6fb;   // light blue-grey sidebar
-$code-background-color: #f6f8fa;
+$body-background-color: #f6f8fc;   // warm blue-tinted white
+$sidebar-color:         #edf1f8;   // refined light blue-grey sidebar
+$code-background-color: #f0f4f9;
 $table-background-color: #ffffff;
 $search-background-color: #ffffff;
-$feedback-color:        #e8edf5;
-$base-button-color:     #e8edf5;
+$feedback-color:        #e3eaf5;
+$base-button-color:     #e3eaf5;
 
 // Text
-$body-text-color:       #323130;   // Microsoft Fluent dark
-$body-heading-color:    #003087;   // Microsoft dark blue headings
-$nav-child-link-color:  #444d58;
+$body-text-color:       #1d2433;   // rich ink -- deeper and warmer
+$body-heading-color:    #0a1628;   // deep navy
+$nav-child-link-color:  #3d4f6b;
 
 // Accent
-$link-color:            #0078d4;   // Microsoft blue
-$btn-primary-color:     #0078d4;
+$link-color:            #0f6cbd;   // Microsoft Fluent v2 blue
+$btn-primary-color:     #0f6cbd;
 
 @import "./vendor/OneLightJekyll/syntax";
