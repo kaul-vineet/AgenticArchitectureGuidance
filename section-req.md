@@ -93,6 +93,24 @@ This page defines the 19 non-negotiable requirements that every architectural de
 | ⚙️ | **Custom orchestration pattern** | Engineering-owned domains must be able to implement fully custom orchestration logic (SDK-level code, state machines, conditional branching) when declarative platform patterns are insufficient. |
 | 🕸️ | **Network / mesh agent pattern** | The architecture should support peer-to-peer agent collaboration where agents can call each other laterally — not only top-down — with guardrails to prevent unbounded recursion. |
 
+#### P3 — Does Not Matter (Score: 0 — Not Evaluated)
+
+*These patterns are explicitly out of scope for this architecture. They score 0 across all evaluation criteria and do not factor into any platform selection decision.*
+
+<div class="req-pills req-tier3p3">
+  <span class="pill pill-t3p3">🧪 Custom model training pipeline</span>
+  <span class="pill pill-t3p3">🌪️ Swarm / emergent agent coordination</span>
+  <span class="pill pill-t3p3">📡 Real-time agent peer messaging</span>
+  <span class="pill pill-t3p3">🏗️ On-premise agent runtime</span>
+</div>
+
+| Icon | Pattern | Why It Does Not Matter |
+|---|---|---|
+| 🧪 | **Custom model training pipeline** | This architecture uses managed models from the Azure AI Foundry catalog and Microsoft-managed models in Copilot Studio. No requirement exists to train, fine-tune, or operate a model training infrastructure. Model selection is a catalog decision. |
+| 🌪️ | **Swarm / emergent agent coordination** | Unstructured agent meshes where agents self-organise without a defined supervisor are explicitly ruled out. LLM routing accuracy collapses at 30+ agents without hierarchy. Star topology and swarm coordination are documented anti-patterns in this architecture. |
+| 📡 | **Real-time agent peer messaging** | Agents communicate through structured request-response (A2A / REST). Persistent real-time messaging channels between agents are not required; request-response is sufficient for all orchestration patterns in scope. |
+| 🏗️ | **On-premise agent runtime** | All compute, storage, and orchestration runs on managed Azure and Microsoft 365 cloud services. On-premise or hybrid agent runtimes introduce infrastructure ownership that directly violates the managed-services-over-custom-infrastructure requirement. |
+
 ---
 
 ### 📚 Sources
