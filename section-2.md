@@ -52,22 +52,7 @@ nav_order: 7
 👤 "Leave approved (Ref: L2026-441). Salesforce updated."
 ```
 
-### 📋 Key Safeguards in the Flow
-
-Each safeguard is grounded in a validated research finding or architectural requirement:
-
-| Risk | Safeguard Applied | Evidence |
-|---|---|---|
-| Agent verifies its own output (FM-3.3) | Deterministic read-back after every write action — separate tool call, not LLM confirmation | MAST/ITBench: 94% of failed traces show reasoning-action decoupling; self-verification is the #1 source of hallucinated success states |
-| Ambiguous user input causes wrong routing | Explicit disambiguation CS Topic before any agentic branch — ask and confirm before routing | OpenEnv/Turing: ambiguity causes 50pp accuracy collapse (90% → 40%); clarification is not optional at enterprise scale |
-| Agent loops without progress (FM-1.3) | Max step count + loop detector in orchestration code; never in LLM prompt | MAST FM-1.5: agents that do not know when to stop are the #1 failure predictor |
-| Agent does not know when to stop (FM-1.5) | Termination conditions externalised in code — max turns, task completion signal, escalation threshold | MAST FM-1.5: externalized termination is a required architectural control, not a prompt engineering technique |
-| Tool argument malformed | Structured error responses with explicit format examples on every connector; RFC3339 datetimes, typed enums | HuggingFace: >50% of agent failures trace to malformed tool arguments; argument quality is the single biggest performance lever |
-| Context overload at the Gateway | Gateway routes intent only — owns zero tools, maintains no domain state | AgentArch: 18pp accuracy advantage for domain-specialized agents vs. generalist; MAST FM-1.4: 24% context loss in overloaded agents |
-| Hallucination in cross-agent handoffs | All agent boundaries use typed I/O (YAML contracts for CS, structured JSON for Foundry); correlationId propagated end-to-end | AgentArch: 36% hallucination in unstructured peer-to-peer ReAct vs. 0% in orchestrator-led configurations |
-| Uncontrolled peer-to-peer agent calls | All delegation is orchestrator-controlled — Gateway delegates to Domain, Domain delegates to Specialist; no lateral agent-to-agent calls without supervisor knowledge | AgentArch: peer-to-peer ReAct 36% hallucination; Microsoft architecture guidance: "orchestrator-controlled delegation only" |
-| Context degradation beyond 12 tool turns | Each domain agent resets context at domain boundary — only domain-relevant context is passed; compaction step every N turns | LoCoBench/ReliabilityBench: beyond 12 tool turns, redundant operations emerge; 50% longer context → 3–5% efficiency loss |
-| No auditability across agent hops | correlationId generated at Gateway and propagated to every downstream agent call; App Insights / Dataverse log every hop | MAST: 5.3 failure modes per trace in overloaded systems are only diagnosable with per-hop tracing |
+> 📎 Every safeguard applied in this flow is grounded in the [Key Architectural Principles](../section-principles) — see principles 3️⃣ 4️⃣ 5️⃣ 6️⃣ 9️⃣ 1️⃣7️⃣ 2️⃣4️⃣ for the specific controls governing disambiguation, verification, termination, tool quality, context hygiene, output validation, and end-to-end tracing.
 
 ### 📚 References
 - [Copilot Studio — Multi-Agent Patterns](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/multi-agent-patterns)
