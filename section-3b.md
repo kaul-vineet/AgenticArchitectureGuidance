@@ -132,7 +132,7 @@ A parent Foundry agent invokes child Foundry agents via the **Workflows** featur
 
 ---
 
-> 📎 How each of the 28 Key Architectural Principles applies to CS and Foundry in the child agent role is mapped in [1a. Alignment to Key Architectural Principles](../section-align).
+> 📎 How each of the 62 Key Architectural Principles applies to CS and Foundry in the child agent role is mapped in [1a. Alignment to Key Architectural Principles](../section-align).
 
 ### 📚 References
 - [Copilot Studio — Add Other Agents](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-add-other-agents)

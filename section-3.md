@@ -141,7 +141,7 @@ Foundry as parent supports four connectivity types and five orchestration patter
 
 ---
 
-> 📎 How each of the 28 Key Architectural Principles applies to CS and Foundry in the parent agent role is mapped in [1a. Alignment to Key Architectural Principles](../section-align).
+> 📎 How each of the 62 Key Architectural Principles applies to CS and Foundry in the parent agent role is mapped in [1a. Alignment to Key Architectural Principles](../section-align).
 
 <h3 style="color:#323130;font-weight:700;margin-top:1.5rem;">📚 References</h3>
 

@@ -7,13 +7,13 @@ nav_order: 16
 
 ## 🎓 Academic Analysis — Andrej Karpathy
 
-*This page maps each of the 28 Key Architectural Principles against Andrej Karpathy's published positions on AI systems engineering. Karpathy's frameworks — Software 3.0, LLM OS, context engineering, march of nines, and jagged intelligence — provide independent empirical grounding for the architectural choices made in this document.*
+*This page maps each of the 62 Key Architectural Principles against Andrej Karpathy's published positions on AI systems engineering. Karpathy's frameworks — Software 3.0, LLM OS, context engineering, march of nines, and jagged intelligence — provide independent empirical grounding for the architectural choices made in this document.*
 
 > **Karpathy's core thesis ([Software 3.0](https://www.youtube.com/watch?v=LCEmiRjPEtQ)):** LLMs are a new computing primitive. The engineering discipline around them is still forming. The primary risks are not model capability — they are context quality, compound reliability collapse, and premature autonomy.
 
 ---
 
-### 🗂️ Alignment — 28 Key Architectural Principles vs. Karpathy
+### 🗂️ Alignment — 62 Key Architectural Principles vs. Karpathy
 
 | # | Principle | Alignment | Karpathy's Position & Nuance | Practical Implication for Your Architecture | Source |
 |---|---|---|---|---|---|
@@ -48,9 +48,9 @@ nav_order: 16
 
 ---
 
-### ❌ Principles Not in the 28 — Added to Design Considerations
+### ✅ Principles Incorporated into Key Architectural Principles (P38–P43)
 
-The following 6 principles emerge directly from Karpathy's published work but are not captured in the 28 Key Architectural Principles. They have been added to [Design Considerations](./section-10.html) as DC-10 through DC-15.
+The following 6 principles emerged from Karpathy's published work. They were previously captured as DC-10 through DC-15 and are now incorporated into the 62 Key Architectural Principles as **P38** (task-specific capability test), **P39** (eval distribution statistics), **P40** (HITL as UX), **P41** (orchestration layer as primary engineering surface), **P42** (eval harness Sprint 0), and **P43** (failure mode characterisation before deployment).
 
 | ID | Missing Principle | Karpathy's Position | Gap in Your Architecture |
 |---|---|---|---|

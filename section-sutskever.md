@@ -7,13 +7,13 @@ nav_order: 17
 
 ## 🎓 Academic Analysis — Ilya Sutskever
 
-*This page maps each of the 28 Key Architectural Principles against Ilya Sutskever's published positions on AI systems engineering. Sutskever's frameworks — the post-scaling thesis, safe-first superintelligence, weak-to-strong generalization, and the unpredictability of reasoning agents — provide independent theoretical grounding for the architectural conservatism built into this document.*
+*This page maps each of the 62 Key Architectural Principles against Ilya Sutskever's published positions on AI systems engineering. Sutskever's frameworks — the post-scaling thesis, safe-first superintelligence, weak-to-strong generalization, and the unpredictability of reasoning agents — provide independent theoretical grounding for the architectural conservatism built into this document.*
 
 > **Sutskever's core thesis ([NeurIPS 2024 Test of Time Talk](https://dlyog.com/papers/one_internet_v1) · [Dwarkesh Patel Interview, Nov 2025](https://www.dwarkesh.com/p/ilya-sutskever-2)):** The scaling era (2020–2025) is over. Current LLMs exhibit a "jagged frontier" — superhuman on benchmarks, unreliable in high-stakes deployment. The next generation of AI will be genuinely agentic, but with a fundamental consequence: the more a system reasons, the more unpredictable it becomes. Safety and reliability must be architectural properties, not post-hoc additions, especially in enterprise multi-agent deployments.
 
 ---
 
-### 🗂️ Alignment — 28 Key Architectural Principles vs. Sutskever
+### 🗂️ Alignment — 62 Key Architectural Principles vs. Sutskever
 
 | # | Principle | Alignment | Sutskever's Position & Nuance | Practical Implication for Your Architecture | Source |
 |---|---|---|---|---|---|
@@ -50,7 +50,7 @@ nav_order: 17
 
 ### ❌ Principles Not in the 28 — Candidates from Sutskever's Framework
 
-The following 6 principles emerge from Sutskever's published work but are not captured in the 28 Key Architectural Principles. They are proposed as DC-16 through DC-21 for addition to [Design Considerations](./section-10.html).
+The following 6 principles emerged from Sutskever's published work. They were previously captured as DC-16 through DC-21 and are now incorporated into the 62 Key Architectural Principles as **P43** (failure mode profile), **P44** (safety before capability), **P45** (reasoning depth), **P46** (adversarial alignment testing), **P47** (benchmark-to-deployment gap), and **P48** (model updates trigger eval re-run).
 
 | ID | Missing Principle | Sutskever's Position | Gap in Your Architecture |
 |---|---|---|---|

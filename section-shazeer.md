@@ -7,13 +7,13 @@ nav_order: 19
 
 ## 🎓 Academic Analysis — Noam Shazeer
 
-*This page maps each of the 28 Key Architectural Principles against Noam Shazeer's published positions on AI systems engineering. Shazeer is co-author of the original Transformer paper, inventor of Multi-Query Attention, Mixture of Experts gating, SwiGLU, and the CharacterFlywheel production evaluation methodology. His work provides the deepest published treatment of inference efficiency, context management at scale, and production-grade evaluation in the field.*
+*This page maps each of the 62 Key Architectural Principles against Noam Shazeer's published positions on AI systems engineering. Shazeer is co-author of the original Transformer paper, inventor of Multi-Query Attention, Mixture of Experts gating, SwiGLU, and the CharacterFlywheel production evaluation methodology. His work provides the deepest published treatment of inference efficiency, context management at scale, and production-grade evaluation in the field.*
 
 > **Shazeer's core thesis ([deeplearning.ai interview](https://www.deeplearning.ai/the-batch/ai-transformed/) · [Hot Chips 2025](https://hc2025.hotchips.org/assets/program/conference/day1/k1_GoogleDeepMind_Shazeer.pdf)):** Arithmetic is cheap; moving data is expensive. Every architectural decision — attention pattern, expert routing, quantisation, context length — must be co-designed with the hardware reality it runs on. Specialisation at scale is achievable within unified systems through conditional activation, not through architectural fragmentation. Production is the laboratory: fifteen model versions, seven-day A/B tests, and continuous engagement metrics are the engineering method.
 
 ---
 
-### 🗂️ Alignment — 28 Key Architectural Principles vs. Shazeer
+### 🗂️ Alignment — 62 Key Architectural Principles vs. Shazeer
 
 | # | Principle | Alignment | Shazeer's Position & Nuance | Practical Implication for Your Architecture | Source |
 |---|---|---|---|---|---|
@@ -48,9 +48,9 @@ nav_order: 19
 
 ---
 
-### ❌ Principles Not in the 28 — Added to Design Considerations
+### ✅ Principles Incorporated into Key Architectural Principles (P60–P62; DC-28 & DC-32 excluded)
 
-The following 5 principles emerge from Shazeer's published work and have no direct counterpart in the 28 Key Architectural Principles. They have been added to [Design Considerations](./section-10.html) as DC-28 through DC-32.
+3 of the 5 principles from Shazeer's published work are now incorporated into the 62 Key Architectural Principles as **P60** (inference cost as acceptance criterion), **P61** (lightweight input classifier for model tier), and **P62** (agent interfaces for capability discovery). DC-28 (hardware-algorithm co-design) and DC-32 (model-serving co-evolution) are excluded — they are ground-up model building/hardware engineering decisions not applicable to SaaS/PaaS deployment architecture.
 
 | ID | Missing Principle | Shazeer's Position | Gap in Your Architecture |
 |---|---|---|---|

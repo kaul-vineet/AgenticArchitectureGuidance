@@ -7,13 +7,13 @@ nav_order: 18
 
 ## 🎓 Academic Analysis — Sebastian Raschka
 
-*This page maps each of the 28 Key Architectural Principles against Sebastian Raschka's published positions on LLM engineering, fine-tuning, reasoning, and agentic systems. Raschka's frameworks — LLM engineering from first principles, fine-tuning decision theory, the four evaluation approaches, and the "State of LLMs" annual assessments — provide independent empirical grounding from a practitioner-researcher perspective for the engineering discipline built into this document.*
+*This page maps each of the 62 Key Architectural Principles against Sebastian Raschka's published positions on LLM engineering, fine-tuning, reasoning, and agentic systems. Raschka's frameworks — LLM engineering from first principles, fine-tuning decision theory, the four evaluation approaches, and the "State of LLMs" annual assessments — provide independent empirical grounding from a practitioner-researcher perspective for the engineering discipline built into this document.*
 
 > **Raschka's core thesis ([Build a Large Language Model From Scratch, Manning 2024](https://sebastianraschka.com/llms-from-scratch/) · [Ahead of AI newsletter](https://magazine.sebastianraschka.com/)):** Understanding LLMs from first principles — architecture, training, fine-tuning, and evaluation — is the foundation for making reliable engineering decisions. The primary risks in production LLM systems are not model capability gaps but evaluation gaps: teams that cannot measure system behaviour cannot improve it, cannot gate deployments reliably, and cannot detect regressions. The engineering discipline around LLMs is still forming; practitioner-grade understanding of internals separates teams that build reliable systems from teams that build fragile ones.
 
 ---
 
-### 🗂️ Alignment — 28 Key Architectural Principles vs. Raschka
+### 🗂️ Alignment — 62 Key Architectural Principles vs. Raschka
 
 | # | Principle | Alignment | Raschka's Position & Nuance | Practical Implication for Your Architecture | Source |
 |---|---|---|---|---|---|
@@ -50,7 +50,7 @@ nav_order: 18
 
 ### ❌ Principles Not in the 28 — Candidates from Raschka's Framework
 
-The following 6 principles emerge from Raschka's published work but are not captured in the 28 Key Architectural Principles. They are proposed as DC-22 through DC-27 for addition to [Design Considerations](./section-10.html).
+The following 6 principles emerged from Raschka's published work. They were previously captured as DC-22 through DC-27 and are now incorporated into the 62 Key Architectural Principles as **P49** (fine-tuning decision gate), **P34** (LLM-as-Judge calibration), **P50** (RAG retrieval quality), **P51** (multi-turn model validation), **P52** (eval methodology cadence), and **P53** (open-weight vs. hosted API).
 
 | ID | Missing Principle | Raschka's Position | Gap in Your Architecture |
 |---|---|---|---|
