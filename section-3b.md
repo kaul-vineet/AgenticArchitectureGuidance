@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "🔗 4. As Child / Connected Agent"
+title: "🔗 4. Child / Connected Agent"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 9
 ---
 
-## 4. 🔗 As Child / Connected Agent
+## 4. 🔗 Child / Connected Agent
 
 ---
 
