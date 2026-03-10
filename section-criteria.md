@@ -46,48 +46,6 @@ Every recommendation in this document is evaluated against 18 named criteria. Ea
 
 ---
 
-### **Criteria by Priority Group**
-
-#### P0 💎 — Foundational (5 criteria)
-
-These five criteria are evaluated first. A platform that cannot satisfy all five is eliminated regardless of its score on P1/P2 criteria.
-
-| Icon | Criterion | Minimum Bar |
-|---|---|---|
-| ⚡ | High Speed of Development | First agent live within 1 sprint (2 weeks) |
-| 🧩 | No-Code Over Custom Features | >70% of agent capability delivered via platform-native tooling |
-| 📈 | Scale Over Custom Dev | Same architecture at agent #1 and agent #100 |
-| 🏭 | 100+ Agents in 6–12 Months | Template-driven onboarding; no bespoke infrastructure per domain |
-| 🔵 | Reduced Complexity | Fewer than 5 distinct technology components in the core stack |
-
-#### P1 🥇 — Must-Have (12 criteria)
-
-These twelve criteria are non-negotiable for production readiness. A platform that scores below threshold on any P1 criterion requires a documented mitigation before go-live.
-
-| Icon | Criterion |
-|---|---|
-| 🔗 | A2A / Agent Interoperability |
-| 🌐 | MSFT + Non-MSFT Interoperability |
-| 🛡️ | Enterprise Governance |
-| 📋 | Logging & Observability |
-| 🔀 | Orchestration at Scale |
-| 🏢 | LOB System Integration |
-| 📱 | Multi-Channel Exposure |
-| 📝 | Complex Agent Instructions |
-| 👑 | Supervisor Pattern |
-| 🔧 | Supervisor-as-Tool Pattern |
-| 🏛️ | Hierarchical Orchestration Pattern |
-
-#### P2 🥈 — Important (2 criteria)
-
-These patterns are valuable and supported by the recommended architecture, but gaps require a mitigation plan rather than blocking go-live.
-
-| Icon | Criterion |
-|---|---|
-| ⚙️ | Custom Orchestration Pattern |
-| 🕸️ | Network / Mesh Pattern |
-
----
 
 ## 🎯 Scoring Strategy
 
