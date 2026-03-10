@@ -2,7 +2,7 @@
 layout: default
 title: "🔄 2. How a User Instruction is Processed"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 6
+nav_order: 7
 ---
 
 ## 2. 🔄 How a User Instruction is Processed

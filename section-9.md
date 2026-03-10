@@ -2,7 +2,7 @@
 layout: default
 title: "📋 8. Agent Design Template"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 13
+nav_order: 14
 ---
 
 ## 8. 📋 Agent Design Template

@@ -2,7 +2,7 @@
 layout: default
 title: "🔌 5. Infrastructure Requirements"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 10
+nav_order: 11
 ---
 
 ## 5. 🔌 Infrastructure Requirements — Definitive Answer
