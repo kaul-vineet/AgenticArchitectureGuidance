@@ -63,8 +63,8 @@ CS connects to a Foundry agent via a native platform connector using the Foundry
 | 📈 Complex reasoning / tools | ⚠️ CS model limits; no Code Interpreter | ✅ **Wins** — Code Interpreter, File Search, any Foundry model |
 | 🔗 A2A / Interoperability | ✅ CS child reusable across CS parents via A2A | ⚠️ CS → Foundry uses internal connector, not open A2A |
 | 🏢 LOB system integration | ✅ **Wins** — 1,400+ PA connectors; no custom code | ⚠️ Foundry LOB requires Azure Functions or OpenAPI tools |
-| 🥇 P1 — Supervisor pattern | ✅ CS parent acts as supervisor over CS child agents | ✅ CS parent delegates to Foundry for specialist tasks |
-| 🥇 P1 — Complex instructions | ⚠️ Child prompt capped at 8,000 chars | ✅ **Wins** — unlimited Foundry system prompt |
+| 👑 P1 — Supervisor pattern | ✅ CS parent acts as supervisor over CS child agents | ✅ CS parent delegates to Foundry for specialist tasks |
+| 📝 P1 — Complex instructions | ⚠️ Child prompt capped at 8,000 chars | ✅ **Wins** — unlimited Foundry system prompt |
 
 > **When your parent is CS, use CS child agents as the default** — they are GA, zero-config, governance-native, and factory-ready. Add Foundry as a connected agent only when the specific task exceeds what CS can deliver: complex reasoning beyond CS model limits, Code Interpreter, large-scale RAG, or a system prompt that cannot fit in 8,000 characters. Do not add Foundry as a connected agent for tasks that CS can handle — the preview status, double LLM hop, and citation gap are real production risks.
 {: .recommendation}
@@ -123,9 +123,9 @@ A parent Foundry agent invokes child Foundry agents via the **Workflows** featur
 | 📈 Complex reasoning / tools | ✅ CS brings PA connectors + Dataverse + M365 channels | ✅ **Wins** — Code Interpreter, File Search, Azure AI Search, structured JSON |
 | 🔀 Orchestration at scale | ❌ Sequential REST calls only; no parallel fan-out | ✅ **Wins** — Concurrent fan-out; Magentic supervisor; Group Chat |
 | 🏢 LOB system integration | ✅ **Wins** — 1,400+ PA connectors; Dataverse native; M365 channels | ⚠️ LOB via Azure Functions or OpenAPI tools; narrower connector library |
-| 🥇 P1 — Supervisor / Magentic | ❌ No supervisor capability; Foundry orchestrates one REST call | ✅ **Wins** — Magentic pattern: dynamic selection, stall detection, replanning |
-| 🥇 P1 — Complex instructions | ⚠️ CS child capped at 8,000 chars | ✅ **Wins** — no system prompt limit per Foundry child |
-| 🥈 P2 — Custom orchestration | ❌ No custom logic; text-only return | ✅ **Wins** — full Python/C#/JS/Java SDK; state machines; conditional branching |
+| 👑 P1 — Supervisor / Magentic | ❌ No supervisor capability; Foundry orchestrates one REST call | ✅ **Wins** — Magentic pattern: dynamic selection, stall detection, replanning |
+| 📝 P1 — Complex instructions | ⚠️ CS child capped at 8,000 chars | ✅ **Wins** — no system prompt limit per Foundry child |
+| ⚙️ P2 — Custom orchestration | ❌ No custom logic; text-only return | ✅ **Wins** — full Python/C#/JS/Java SDK; state machines; conditional branching |
 
 > **When your parent is Foundry, use Foundry-to-Foundry child agents via Workflows** — they deliver full observability, parallel execution, supervisor patterns (Magentic), structured JSON output, and independent governance per agent. The infrastructure overhead is the accepted cost of Foundry-parent domains. Use CS child agents via Direct Line only as a transitional workaround for existing CS agents handling M365 channel interactions or Dataverse writes that cannot be rebuilt in Foundry — treat it as technical debt and plan migration when first-party Foundry → CS support becomes GA. Never use the CS workaround for new agent builds.
 {: .recommendation}

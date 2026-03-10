@@ -11,37 +11,6 @@ This page defines the 19 non-negotiable requirements that every architectural de
 
 ---
 
-### 🔍 Icon Audit — Duplicate Detection & Resolution
-
-Before the requirements are presented, the following table audits all icons used across both the Design Requirements and Recommendation Criteria to identify and resolve duplicates. Every requirement must carry a unique icon so it can be referenced unambiguously across the document.
-
-| Icon | Requirement | Status | Action |
-|---|---|---|---|
-| 🧩 | No-code over custom features | ✅ Unique | No change |
-| 📈 | Scale over custom development | ✅ Unique | No change |
-| 🏭 | 100+ agents in 6–12 months | ✅ Unique | No change |
-| 🔵 | Reduced complexity at every layer | ✅ Unique | No change |
-| ☁️ | Managed services over custom infrastructure | ✅ Unique | No change |
-| 🎯 | Simplest effective approach wins | ✅ Unique | No change |
-| 🔗 | A2A agent-to-agent interoperability | ✅ Unique | No change |
-| 🌐 | MSFT + non-MSFT interoperability | ✅ Unique | No change |
-| 🛡️ | Enterprise governance as a first-class requirement | ✅ Unique | No change |
-| 📋 | End-to-end logging and observability | ✅ Unique | No change |
-| 🔀 | Orchestration across 100+ agents | ✅ Unique | No change |
-| 🏢 | Rapid LOB system integration | ✅ Unique | No change |
-| 📱 | Multi-channel exposure | ✅ Unique | No change |
-| ⚡ | High speed of development *(Criteria only)* | ✅ Unique | No change |
-| 🥇 | **Complex agent instructions & supervision** | ⚠️ **Duplicate — shared by 4 items** | **→ 📝** |
-| 🥇 | **Supervisor pattern** | ⚠️ **Duplicate — shared by 4 items** | **→ 👑** |
-| 🥇 | **Supervisor-as-tool pattern** | ⚠️ **Duplicate — shared by 4 items** | **→ 🔧** |
-| 🥇 | **Hierarchical orchestration pattern** | ⚠️ **Duplicate — shared by 4 items** | **→ 🏛️** |
-| 🥈 | **Custom orchestration pattern** | ⚠️ **Duplicate — shared by 2 items** | **→ ⚙️** |
-| 🥈 | **Network / mesh agent pattern** | ⚠️ **Duplicate — shared by 2 items** | **→ 🕸️** |
-
-> **Result:** 6 duplicate icons resolved. Priority level (P1 / P2) is now explicitly shown in the Tier 3 section below rather than implied by medal icons.
-
----
-
 ### **Tier 1 — Engineering Philosophy**
 
 *These six requirements govern how the platform is selected and how complexity is managed across the entire agent estate.*

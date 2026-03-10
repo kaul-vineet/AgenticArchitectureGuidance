@@ -77,9 +77,9 @@ This flow is the operational expression of the Gateway → Domain → Specialist
 |---|---|
 | 🧩 No-code over custom | CS Topics for Gateway routing and Domain routing; PA flows for all tool calls; zero custom orchestration code |
 | 🔀 Orchestration across 100+ agents | Gateway → HR Domain → Leave Specialist is a 3-tier hierarchy; adding domains requires zero Gateway changes |
-| 🥇 P1 Supervisor pattern | Gateway acts as supervisor — classifies intent, routes to correct domain, aggregates results |
-| 🥇 P1 Supervisor-as-tool | Gateway can itself be called as an A2A endpoint by an enterprise-level meta-orchestrator |
-| 🥇 P1 Hierarchical pattern | Gateway → Domain → Specialist is the exact pattern; each tier manages its own bounded context |
+| 👑 Supervisor pattern | Gateway acts as supervisor — classifies intent, routes to correct domain, aggregates results |
+| 🔧 Supervisor-as-tool | Gateway can itself be called as an A2A endpoint by an enterprise-level meta-orchestrator |
+| 🏛️ Hierarchical pattern | Gateway → Domain → Specialist is the exact pattern; each tier manages its own bounded context |
 | 🌐 MSFT + non-MSFT interoperability | Gateway calls Agentforce via A2A in the same flow as native CS agents — no architectural seam |
 | 🔗 A2A / Agent interoperability | correlationId + A2A payload links CS session and Agentforce session across platforms |
 | 🛡️ Enterprise governance | Every hop logged; correlationId enables end-to-end audit trail; Agent 365 tracks all CS agents |
