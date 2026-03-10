@@ -7,7 +7,7 @@ nav_order: 3
 
 ## 📐 Recommendation Criteria
 
-Every recommendation in this document is evaluated against 18 named criteria. Each criterion has a unique icon (see [Design Requirements / Priorities](../section-req) for the icon audit that resolved duplicates in the original set). The **Priority** column distinguishes must-have requirements (P1) from important-but-not-blocking ones (P2); P0 marks foundational platform criteria evaluated before any architecture decision.
+Every recommendation in this document is evaluated against 18 named criteria. Each criterion has a unique icon (see [Design Requirements / Priorities](../section-req) for the icon audit that resolved duplicates in the original set). The **Priority** column distinguishes must-have requirements (P1 🥇) from important-but-not-blocking ones (P2 🥈); P0 💎 marks foundational platform criteria evaluated before any architecture decision.
 
 ---
 
@@ -15,7 +15,7 @@ Every recommendation in this document is evaluated against 18 named criteria. Ea
 
 | Badge | Meaning |
 |---|---|
-| `P0` | Foundational — platform cannot be recommended without satisfying this |
+| `P0 💎` | Foundational — platform cannot be recommended without satisfying this |
 | `P1 🥇` | Must-have — architecture fails if this is not met |
 | `P2 🥈` | Important — gaps here require a mitigation plan |
 
@@ -25,11 +25,11 @@ Every recommendation in this document is evaluated against 18 named criteria. Ea
 
 | Icon | Priority | Criterion | Meaning |
 |---|---|---|---|
-| ⚡ | P0 | **High Speed of Development** | First agent ships in days, not weeks. A platform that requires weeks of infrastructure setup before any agent can be built does not qualify for this architecture. |
-| 🧩 | P0 | **No-Code Over Custom Features** | Platform-native features are accepted at 80% coverage rather than writing custom code for 100%. Every custom line is a maintenance liability at agent #100. |
-| 📈 | P0 | **Scale Over Custom Dev** | The architecture that works for agent #1 works unchanged for agent #100. No re-architecting, no platform migration, no new infrastructure tier. |
-| 🏭 | P0 | **100+ Agents in 6–12 Months** | The platform supports an agent factory: standard templates, ALM pipelines, domain reuse, and no-code onboarding for domain teams. Delivery rate: 8–12 agents per month from month 5 onward. |
-| 🔵 | P0 | **Reduced Complexity** | Fewest moving parts, fewest distinct technologies, fewest custom servers. Complexity is measured at agent #100, not agent #1. |
+| ⚡ | P0 💎 |**High Speed of Development** | First agent ships in days, not weeks. A platform that requires weeks of infrastructure setup before any agent can be built does not qualify for this architecture. |
+| 🧩 | P0 💎 |**No-Code Over Custom Features** | Platform-native features are accepted at 80% coverage rather than writing custom code for 100%. Every custom line is a maintenance liability at agent #100. |
+| 📈 | P0 💎 |**Scale Over Custom Dev** | The architecture that works for agent #1 works unchanged for agent #100. No re-architecting, no platform migration, no new infrastructure tier. |
+| 🏭 | P0 💎 |**100+ Agents in 6–12 Months** | The platform supports an agent factory: standard templates, ALM pipelines, domain reuse, and no-code onboarding for domain teams. Delivery rate: 8–12 agents per month from month 5 onward. |
+| 🔵 | P0 💎 |**Reduced Complexity** | Fewest moving parts, fewest distinct technologies, fewest custom servers. Complexity is measured at agent #100, not agent #1. |
 | 🔗 | P1 🥇 | **A2A / Agent Interoperability** | Any agent can call any other agent via A2A protocol or equivalent — not limited to same-platform agents. Gateway → Domain → Specialist calls are all supported. |
 | 🌐 | P1 🥇 | **MSFT + Non-MSFT Interoperability** | Architecture integrates Copilot Studio, Azure AI Foundry, Agentforce, ServiceNow, and custom agents under one orchestration layer. Platform choice per agent does not break the hierarchy. |
 | 🛡️ | P1 🥇 | **Enterprise Governance** | Agent inventory, access control, policy enforcement, and audit trail without custom-built infrastructure. Agent 365 + Purview + Defender + CoE Toolkit are the governance stack. |
@@ -48,7 +48,7 @@ Every recommendation in this document is evaluated against 18 named criteria. Ea
 
 ### **Criteria by Priority Group**
 
-#### P0 — Foundational (5 criteria)
+#### P0 💎 — Foundational (5 criteria)
 
 These five criteria are evaluated first. A platform that cannot satisfy all five is eliminated regardless of its score on P1/P2 criteria.
 
