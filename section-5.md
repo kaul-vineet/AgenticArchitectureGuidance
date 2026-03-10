@@ -82,21 +82,6 @@ nav_order: 10
 
 ---
 
-### Can Dataverse Replace Any of These?
-
-With low latency (< 50ms) as a hard requirement, Dataverse qualifies only where it fully meets the requirement:
-
-| Technology | Replaceable by Dataverse? | Reason |
-|---|---|---|
-| 🗄️ **SQL Server** | ❌ No | Dataverse REST API latency exceeds 50ms target for agent-speed concurrent reads and writes. SQL Server outperforms Dataverse for concurrent agent workloads. |
-| 🧠 **Memory Feature** | ❌ No | Dataverse can store user profiles but cannot replicate AI-driven auto-extraction, semantic consolidation, or hybrid search retrieval. |
-| ⚡ **Redis** | ❌ No | Dataverse REST API (200–500ms) cannot match Redis sub-millisecond latency. |
-| 🟧 **Cosmos DB** | ❌ No | Dataverse cannot handle Foundry raw thread message volume, `agent-entity-store` LLM audit structure, or the latency requirements for real-time thread reads/writes. |
-
-> ⚠️ **With low latency as a hard requirement, Dataverse does not fully qualify as a replacement for any of the four storage technologies in a Foundry agent scenario.** Dataverse remains correct for non-latency-sensitive operations: agent registry metadata, governance configuration, and CS transcript storage (auto-written, not in the real-time agent response path).
-
----
-
 ### Recommended Storage Assignment
 
 ```
@@ -124,27 +109,7 @@ With low latency (< 50ms) as a hard requirement, Dataverse qualifies only where 
     User profile    →  Memory Feature retrieval OR Redis cache
 ```
 
-### Updated Infrastructure Matrix
-
-```
-CS-heavy architecture (most agents on Copilot Studio):
-    ✅ Dataverse          → Transcripts (auto) · user profiles · agent metadata
-    ✅ Redis              → NOT REQUIRED for CS-only
-    ❌ CosmosDB           → NOT REQUIRED
-    ❌ Foundry Memory     → NOT REQUIRED
-
-Foundry-heavy architecture (most agents on Foundry):
-    ✅ CosmosDB           → Transcripts · agent step recording · user profiles
-    ✅ Redis              → Low latency session state (userId→threadId)
-    ✅ App Insights       → Observability and metrics
-    ❌ Foundry Memory     → NOT REQUIRED (CosmosDB covers profiles)
-
-Mixed / Preview acceptable:
-    ✅ Foundry Memory     → User profiles — AI-driven · zero infra · ⚠️ Preview
-    ✅ CosmosDB           → Transcripts + agent steps (if Foundry Standard)
-    ✅ Redis              → Low latency session state
-    ✅ Dataverse          → CS transcripts (auto) · governance metadata
-```
+> 📎 The definitive infrastructure matrix — what to provision per architecture lean — is in [5. Infrastructure Requirements](../section-6).
 
 ### 📚 References
 - [Copilot Studio — Transcript Controls](https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-transcript-controls)

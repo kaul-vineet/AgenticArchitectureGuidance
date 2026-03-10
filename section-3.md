@@ -141,44 +141,7 @@ Foundry as parent supports four connectivity types and five orchestration patter
 
 ---
 
-<h3 style="color:#323130;font-weight:700;border-left:4px solid #323130;padding-left:0.6rem;margin-top:1.5rem;">📝 Design Notes — Alignment to Key Architectural Principles</h3>
-
-Both parent scenarios are evaluated against the 28 Key Architectural Principles. The table below shows how each principle is satisfied — or where trade-offs apply — for CS as Parent and Foundry as Parent.
-
-<p><span class="adh-full">✅ Full</span> Fully met — no workarounds required &nbsp;&nbsp; <span class="adh-partial">🟡 Partial</span> Met with minor gaps or config required &nbsp;&nbsp; <span class="adh-maybe">🔶 Maybe</span> Possible but requires significant custom work &nbsp;&nbsp; <span class="adh-no">❌ No</span> Not met — known platform limitation</p>
-
-| # | Principle | 🟦 CS as Parent | 🟧 Foundry as Parent |
-|---|---|---|---|
-| 1 | Minimise LLM calls | <span class="adh-full">✅ Full</span> CS Topics are deterministic — no LLM for routing; PA flows handle all tool calls | <span class="adh-partial">🟡 Partial</span> Workflow nodes can be deterministic; planning requires LLM — use Workflows, not Crews, as default |
-| 2 | Default to Flows, escalate to Crews | <span class="adh-full">✅ Full</span> Topics + PA flows are the native default; Foundry added only for open-ended tasks | <span class="adh-full">✅ Full</span> Sequential / HITL Workflows for 80%; Magentic / Group Chat only for genuinely exploratory tasks |
-| 3 | Clarification before action | <span class="adh-full">✅ Full</span> Disambiguation Topics built-in before every agentic branch | <span class="adh-maybe">🔶 Maybe</span> Custom tool or Workflow clarification node required; not a native no-code feature |
-| 4 | External verification — never self-check | <span class="adh-full">✅ Full</span> PA flow read-back after every write; separate tool call from the generating agent | <span class="adh-full">✅ Full</span> Verification tool call in SDK orchestration code; structured JSON enables deterministic checks |
-| 5 | Externalize termination logic | <span class="adh-full">✅ Full</span> Topic conditions + session turn limits (100 turns, 60 min) enforced at platform level | <span class="adh-full">✅ Full</span> Workflow termination nodes + SDK `max_steps`; never in LLM prompt |
-| 6 | Tool argument quality | <span class="adh-full">✅ Full</span> PA connector schema + typed YAML I/O contracts for connected agents; structured error responses | <span class="adh-full">✅ Full</span> Structured JSON output schemas per Workflow node; argument validation at every hop |
-| 7 | Consolidate tools | <span class="adh-full">✅ Full</span> PA flows batch multiple operations into one connector call | <span class="adh-partial">🟡 Partial</span> Azure Functions or OpenAPI tool definitions can consolidate; no native merge primitive |
-| 8 | Multi-agent is a reliability tax | <span class="adh-full">✅ Full</span> Child agents only at genuine domain seams; inline child adds zero extra hop | <span class="adh-full">✅ Full</span> Each Workflow hop adds one LLM inference cost; accept only where parallel or specialist value is proven |
-| 9 | Context hygiene at scale | <span class="adh-partial">🟡 Partial</span> Inline child: parent context shared; connected: context reset at boundary; correlationId links | <span class="adh-full">✅ Full</span> Per-thread context per sub-agent; explicit state passed; compaction in SDK code |
-| 10 | Sensitive state in side channel | <span class="adh-full">✅ Full</span> Key Vault via PA connector; Dataverse column-level security; credentials never in Topics | <span class="adh-full">✅ Full</span> Managed Identity + Key Vault; credentials never in Workflow YAML or agent system prompt |
-| 11 | Tool accuracy > 90% as deployment gate | <span class="adh-full">✅ Full</span> Deployment gate via CoE Toolkit quality metrics before each PP Pipelines promotion | <span class="adh-full">✅ Full</span> App Insights evaluation threshold enforced before production promotion |
-| 12 | Human-in-the-loop for irreversible actions | <span class="adh-full">✅ Full</span> PA approval flows as deterministic gates before write-backs to HR, CRM, financial systems | <span class="adh-full">✅ Full</span> HITL Workflow node; approval gate before irreversible downstream writes |
-| 13 | Use lowest complexity | <span class="adh-full">✅ Full</span> CS Topics + PA flows; Dataverse only; no extra infra for majority of agents | <span class="adh-maybe">🔶 Maybe</span> Only when CS cannot meet requirements (parallel fan-out, Magentic, deep traces, prompt > 8,000 chars) |
-| 14 | Justify every agent boundary | <span class="adh-full">✅ Full</span> Domain hierarchy enforces boundaries; Gateway → Domain → Specialist; no lateral calls | <span class="adh-full">✅ Full</span> Same hierarchy; each Workflow sub-agent boundary justified by domain isolation or compliance need |
-| 15 | Single responsibility per agent | <span class="adh-full">✅ Full</span> Each CS agent has a narrow domain; CoE Toolkit detects agent overlap | <span class="adh-full">✅ Full</span> Each Foundry agent scoped to one specialist task; App Insights flags redundant calls |
-| 16 | Right-size the model per agent role | <span class="adh-no">❌ No</span> Model locked to Microsoft-managed — consistent but no per-agent tuning | <span class="adh-full">✅ Full</span> Per-child model selection; smaller models for extraction, classification, formatting |
-| 17 | Validate output before passing downstream | <span class="adh-partial">🟡 Partial</span> Typed YAML I/O for connected agents; Topic conditions check quality; inline relies on LLM judgment | <span class="adh-full">✅ Full</span> Structured JSON schema validation; orchestrator halts or retries on malformed output |
-| 18 | Surface errors explicitly | <span class="adh-full">✅ Full</span> Connector structured error responses; Topic error branches; never silent failure | <span class="adh-full">✅ Full</span> App Insights alerts; SDK try/except; errors propagated upward to orchestrator |
-| 19 | Idempotency for all writes | <span class="adh-full">✅ Full</span> Idempotency key in PA flows; safe to re-trigger | <span class="adh-full">✅ Full</span> Idempotency key in Azure Functions or OpenAPI tool definitions |
-| 20 | Kill switch | <span class="adh-partial">🟡 Partial</span> Agent disabled in CS portal; PA flow disabled independently; no redeployment — but no fleet-level kill primitive | <span class="adh-partial">🟡 Partial</span> Foundry project or Workflow disabled via Azure Portal; no fleet-level kill-switch primitive |
-| 21 | Security trimming in every agent | <span class="adh-full">✅ Full</span> Dataverse RLS per CS agent; agent cannot return data above user entitlement | <span class="adh-full">✅ Full</span> Managed Identity RBAC per child agent; trimming enforced in each agent's response logic |
-| 22 | Content safety at every layer | <span class="adh-full">✅ Full</span> AI Builder content safety filter per CS agent; applied at input and output | <span class="adh-full">✅ Full</span> Azure AI Content Safety filter per Foundry agent; applied at every agent boundary |
-| 23 | Scope agent authority to operations | <span class="adh-partial">🟡 Partial</span> Topic-level permissions; PA connector scope limited but no blast radius caps | <span class="adh-full">✅ Full</span> RBAC per Workflow node; rate limits and blast radius caps enforced in SDK code |
-| 24 | Instrument all handoffs | <span class="adh-partial">🟡 Partial</span> correlationId + Dataverse log per hop; limited distributed tracing across deep chains | <span class="adh-full">✅ Full</span> Full OpenTelemetry via App Insights; every agent hop, tool call, and handoff traceable |
-| 25 | Automated evaluation in CI/CD | <span class="adh-full">✅ Full</span> Power Platform Pipelines with solution validation and quality checks | <span class="adh-full">✅ Full</span> Azure DevOps / GitHub Actions with automated evaluation step per agent |
-| 26 | Evaluate continuously in production | <span class="adh-full">✅ Full</span> CoE Toolkit dashboards; intent resolution and tool accuracy monitoring | <span class="adh-full">✅ Full</span> App Insights dashboards; custom evaluation queries; continuous production monitoring |
-| 27 | Maintain agent inventory | <span class="adh-full">✅ Full</span> Agent 365 unified registry; every CS agent registered, owned, and versioned | <span class="adh-maybe">🔶 Maybe</span> No native registry; custom Azure Policy + Entra tracking required to prevent shadow agents |
-| 28 | Externalize and version-control prompts | <span class="adh-full">✅ Full</span> Agent instructions in CS solution; promoted via PP Pipelines; controlled rollout | <span class="adh-full">✅ Full</span> Agent prompts in Azure DevOps / GitHub Actions; versioned separately from Workflow YAML |
-
----
+> 📎 How each of the 28 Key Architectural Principles applies to CS and Foundry in the parent agent role is mapped in [1a. Alignment to Key Architectural Principles](../section-align).
 
 <h3 style="color:#323130;font-weight:700;margin-top:1.5rem;">📚 References</h3>
 
