@@ -69,23 +69,6 @@ Each safeguard is grounded in a validated research finding or architectural requ
 | Context degradation beyond 12 tool turns | Each domain agent resets context at domain boundary — only domain-relevant context is passed; compaction step every N turns | LoCoBench/ReliabilityBench: beyond 12 tool turns, redundant operations emerge; 50% longer context → 3–5% efficiency loss |
 | No auditability across agent hops | correlationId generated at Gateway and propagated to every downstream agent call; App Insights / Dataverse log every hop | MAST: 5.3 failure modes per trace in overloaded systems are only diagnosable with per-hop tracing |
 
-### 📐 Alignment to Recommendation Criteria
-
-This flow is the operational expression of the Gateway → Domain → Specialist architecture evaluated against the full criteria set:
-
-| Criterion | How This Flow Satisfies It |
-|---|---|
-| 🧩 No-code over custom | CS Topics for Gateway routing and Domain routing; PA flows for all tool calls; zero custom orchestration code |
-| 🔀 Orchestration across 100+ agents | Gateway → HR Domain → Leave Specialist is a 3-tier hierarchy; adding domains requires zero Gateway changes |
-| 👑 Supervisor pattern | Gateway acts as supervisor — classifies intent, routes to correct domain, aggregates results |
-| 🔧 Supervisor-as-tool | Gateway can itself be called as an A2A endpoint by an enterprise-level meta-orchestrator |
-| 🏛️ Hierarchical pattern | Gateway → Domain → Specialist is the exact pattern; each tier manages its own bounded context |
-| 🌐 MSFT + non-MSFT interoperability | Gateway calls Agentforce via A2A in the same flow as native CS agents — no architectural seam |
-| 🔗 A2A / Agent interoperability | correlationId + A2A payload links CS session and Agentforce session across platforms |
-| 🛡️ Enterprise governance | Every hop logged; correlationId enables end-to-end audit trail; Agent 365 tracks all CS agents |
-| 📋 Logging & observability | correlationId propagated end-to-end; Dataverse logs CS transcript; App Insights available for Foundry/A2A hops |
-| 🏢 LOB system integration | PA flow calls HRIS (leave balance + submission) with no custom code; Agentforce handles CRM update via A2A |
-
 ### 📚 References
 - [Copilot Studio — Multi-Agent Patterns](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/multi-agent-patterns)
 - [AgentArch Benchmark — Multi-Agent Architectures (arXiv 2509.10769)](https://arxiv.org/abs/2509.10769)
