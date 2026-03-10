@@ -125,9 +125,10 @@ A curated repository of architecture-specific articles, papers, and guidance on 
 
 ### **Sebastian Raschka**
 
+*Entries applicable to SaaS/PaaS agent deployment architecture — model selection, evaluation methodology, and RAG design:*
+
 | Title | Date | Link | Position & Nuance |
 |---|---|---|---|
-| Build a Large Language Model From Scratch (Manning, 2024) | 2024 | [↗](https://sebastianraschka.com/llms-from-scratch/) | Understanding LLM internals from first principles is required to make reliable architecture decisions; teams without this foundation cannot distinguish architecture failures from prompt failures or model capability gaps |
 | State of LLMs 2025 | Dec 2025 | [↗](https://magazine.sebastianraschka.com/p/state-of-llms-2025) | Model architecture must be validated for multi-turn reasoning before approval for agentic roles; single-turn benchmark scores do not predict multi-turn agentic performance |
 | Understanding Reasoning LLMs | Feb 2025 | [↗](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms) | Reasoning models require evaluation methodology that tests boundary conditions and output distribution stability — not just median pass rate on a golden set |
 | The State of Reinforcement Learning for LLM Reasoning | 2025 | [↗](https://magazine.sebastianraschka.com/p/the-state-of-llm-reasoning-model-training) | RL-trained reasoning models must be evaluated differently from instruction-tuned models; standard benchmarks do not capture their failure distribution or the conditions under which reasoning diverges |
@@ -135,29 +136,46 @@ A curated repository of architecture-specific articles, papers, and guidance on 
 | The Big LLM Architecture Comparison | 2025 | [↗](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison) | Model architecture (MQA vs. MHA vs. GQA) must be evaluated as a serving efficiency criterion alongside quality benchmarks; hardware-aware architecture selection is a production requirement |
 | Beyond Standard LLMs: Architecture Variants and Design Decisions | 2024 | [↗](https://magazine.sebastianraschka.com/p/beyond-standard-llms) | RAG retrieval quality must be evaluated independently from generation quality; improving generation without measuring retrieval is misallocated engineering effort |
 | Finetuning Large Language Models | 2024 | [↗](https://magazine.sebastianraschka.com/p/finetuning-large-language-models) | Fine-tuning is justified only when prompting and RAG demonstrably cannot reach the required reliability threshold; fine-tuning without this gate creates maintenance burden without proportional reliability gains |
-| Practical Tips for Finetuning LLMs Using LoRA | 2024 | [↗](https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms) | Fine-tuning must follow a principled decision gate: measure in-context performance first; fine-tune only when in-context is demonstrably insufficient; document LoRA configuration and revalidation plan before approval |
 | Using and Finetuning Pretrained Transformers | 2023 | [↗](https://magazine.sebastianraschka.com/p/using-and-finetuning-pretrained-transformers) | In-context learning must be attempted and measured before fine-tuning is proposed; fine-tuning decisions must be evidence-based, not driven by preference for model ownership or team capability |
 | LLM Research Papers: The 2024 List | Jan 2025 | [↗](https://magazine.sebastianraschka.com/p/llm-research-papers-the-2024-list) | Evaluation methodology must be reviewed and updated on a defined cadence; an eval harness designed in Year 1 may be inadequate by Year 2 as failure modes and best practices evolve |
+
+#### 📖 Foundation Research — Model Training & Architecture Internals (Not Applicable to SaaS/PaaS Deployment)
+
+> ⚠️ The entries below cover model architecture internals and ground-up fine-tuning configuration. They are not applicable to this architecture, which uses managed models from the Azure AI Foundry catalog and Copilot Studio — no model training pipeline exists in scope.
+
+| Title | Date | Link | Why Excluded |
+|---|---|---|---|
+| Build a Large Language Model From Scratch (Manning, 2024) | 2024 | [↗](https://sebastianraschka.com/llms-from-scratch/) | Covers model architecture internals for model builders; not applicable when using managed catalog models |
+| Practical Tips for Finetuning LLMs Using LoRA | 2024 | [↗](https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms) | LoRA rank selection and revalidation configuration; relevant only when operating a fine-tuning pipeline |
 
 ---
 
 ### **Noam Shazeer**
 
+*Entries applicable to SaaS/PaaS agent deployment architecture — production evaluation, cost discipline, and scale as a design input:*
+
 | Title | Date | Link | Position & Nuance |
 |---|---|---|---|
-| Attention Is All You Need (arXiv 1706.03762) | Jun 2017 | [↗](https://arxiv.org/abs/1706.03762) | Attention-based transformer architecture enables parallelised context management at scale; the context window mechanism is the enabling infrastructure for agentic systems that need to track multi-turn state |
-| Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (arXiv 1701.06538) | Jan 2017 | [↗](https://arxiv.org/abs/1701.06538) | Conditional compute — routing each input to only the relevant model capacity — must be considered for high-volume agent workloads where full model activation per request is wasteful |
-| Fast Transformer Decoding: One Write-Head is All You Need — Multi-Query Attention (arXiv 1911.02150) | Nov 2019 | [↗](https://arxiv.org/abs/1911.02150) | Multi-query or grouped-query attention must be a model selection criterion for any agent requiring large context windows; KV cache size is a first-class serving constraint, not an implementation detail |
-| GLU Variants Improve Transformers — SwiGLU (arXiv 2002.05202) | Feb 2020 | [↗](https://arxiv.org/abs/2002.05202) | Hardware-aware architecture choices must be treated as first-class design decisions; arithmetic efficiency and serving compatibility must be evaluated alongside benchmark quality |
-| Switch Transformers: Scaling to Trillion Parameter Models (arXiv 2101.03961) | Jan 2021 | [↗](https://arxiv.org/abs/2101.03961) | Routing simplicity must be validated empirically — K=1 expert routing outperforms K=2 at scale; the simplest conditional compute architecture that achieves required quality must be preferred |
-| GQA: Training Generalised Multi-Query Transformer Models (arXiv 2305.13245) | May 2023 | [↗](https://arxiv.org/abs/2305.13245) | Grouped-query attention must be preferred over multi-head attention for agents with long context windows; the memory and bandwidth savings are material and must be part of model selection criteria for production agentic deployments |
 | CharacterFlywheel: Scaling Iterative Improvement of LLMs in Production (arXiv 2603.01973) | 2026 | [↗](https://arxiv.org/abs/2603.01973) | Production evaluation must use real user engagement metrics across multiple model versions simultaneously; 15 model variants tested in 7-day A/B cycles is the production-grade standard — synthetic benchmarks alone are insufficient |
-| Character.AI — Optimizing AI Inference at Scale (Part 1) | 2024 | [↗](https://research.character.ai/optimizing-inference/) | Serving infrastructure co-designed with model architecture achieves 33x cost reduction over two years; post-training optimisation alone cannot achieve the efficiency gains available from native architecture design |
 | Character.AI — Optimizing AI Inference at Scale (Part 2) | 2024 | [↗](https://research.character.ai/optimizing-ai-inference-at-character-ai-part-deux/) | Serving cost must be a primary product constraint, not an operational afterthought; systematic serving-model co-design at 20,000 QPS demonstrates that inference efficiency is an architectural decision, not an infrastructure one |
-| Inside Kaiju: Building Conversational Models at Scale | 2024 | [↗](https://blog.character.ai/inside-kaiju-building-conversational-models-at-scale/) | Models natively trained at serving precision (int8) must be preferred over models requiring post-training quantisation; training/serving distribution mismatch degrades quality in ways that post-training quantisation cannot fully recover |
 | a16z — Universally Accessible Intelligence (Shazeer interview) | 2024 | [↗](https://a16z.com/universally-accessible-intelligence/) | Specialisation at scale is achievable within unified systems through conditional activation; architectural fragmentation into many small models is unnecessary and adds operational overhead |
 | deeplearning.ai — How Shazeer Co-Created the AI Transformer | 2024 | [↗](https://www.deeplearning.ai/the-batch/ai-transformed/) | Inference efficiency targets must be defined as acceptance criteria alongside quality benchmarks; serving efficiency and model quality must be co-designed — not sequenced with efficiency as a later optimisation pass |
-| Hot Chips 2025 Keynote — Noam Shazeer, Google DeepMind | Aug 2025 | [↗](https://hc2025.hotchips.org/assets/program/conference/day1/k1_GoogleDeepMind_Shazeer.pdf) | Hardware-algorithm co-design is the primary efficiency lever at production scale; memory bandwidth — not arithmetic — is the bottleneck; every model architecture choice must be evaluated against its data movement cost |
 | Dwarkesh Podcast — Jeff Dean & Noam Shazeer: 25 Years at Google | 2024 | [↗](https://www.dwarkesh.com/p/jeff-dean-and-noam-shazeer) | Production scale forces architectural honesty; decisions that appear correct at small scale often reveal serving cost or reliability constraints only at 20,000+ QPS — scale must be a design input, not a deployment surprise |
+
+#### 📖 Foundation Research — Model Architecture & Hardware Co-Design (Not Applicable to SaaS/PaaS Deployment)
+
+> ⚠️ The entries below document transformer model architecture, hardware-algorithm co-design, and serving infrastructure built alongside model weights. They are not applicable to this architecture, which consumes managed models via hosted APIs. KV cache design, MoE routing, quantisation strategy, and hardware bandwidth optimisation are decisions made by the model provider, not the SaaS/PaaS consumer.
+
+| Title | Date | Link | Why Excluded |
+|---|---|---|---|
+| Attention Is All You Need (arXiv 1706.03762) | Jun 2017 | [↗](https://arxiv.org/abs/1706.03762) | Foundational transformer architecture paper; model design internals not applicable to hosted API consumers |
+| Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (arXiv 1701.06538) | Jan 2017 | [↗](https://arxiv.org/abs/1701.06538) | MoE routing at model parameter level; a model training and architecture decision, not an agent orchestration decision |
+| Fast Transformer Decoding: One Write-Head is All You Need — Multi-Query Attention (arXiv 1911.02150) | Nov 2019 | [↗](https://arxiv.org/abs/1911.02150) | KV cache architecture within the model; decided by the model provider, not the PaaS consumer |
+| GLU Variants Improve Transformers — SwiGLU (arXiv 2002.05202) | Feb 2020 | [↗](https://arxiv.org/abs/2002.05202) | Activation function selection for model training; hardware-aware model architecture decision |
+| Switch Transformers: Scaling to Trillion Parameter Models (arXiv 2101.03961) | Jan 2021 | [↗](https://arxiv.org/abs/2101.03961) | MoE routing simplicity at training scale; model training methodology |
+| GQA: Training Generalised Multi-Query Transformer Models (arXiv 2305.13245) | May 2023 | [↗](https://arxiv.org/abs/2305.13245) | Grouped-query attention training methodology; model architecture decision made by the model provider |
+| Character.AI — Optimizing AI Inference at Scale (Part 1) | 2024 | [↗](https://research.character.ai/optimizing-inference/) | Serving infrastructure co-designed with model weights; applicable only to teams operating their own model serving stack |
+| Inside Kaiju: Building Conversational Models at Scale | 2024 | [↗](https://blog.character.ai/inside-kaiju-building-conversational-models-at-scale/) | Training models at serving precision (int8 native); model training methodology |
+| Hot Chips 2025 Keynote — Noam Shazeer, Google DeepMind | Aug 2025 | [↗](https://hc2025.hotchips.org/assets/program/conference/day1/k1_GoogleDeepMind_Shazeer.pdf) | Hardware-algorithm co-design and memory bandwidth optimisation; chip-level engineering, not agent architecture |
 
 ---
