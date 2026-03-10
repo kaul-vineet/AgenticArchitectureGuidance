@@ -11,7 +11,7 @@ This page defines the 19 non-negotiable requirements that every architectural de
 
 ---
 
-### **Tier 1 — Engineering Philosophy**
+### **Tier 1 — Engineering**
 
 *These six requirements govern how the platform is selected and how complexity is managed across the entire agent estate.*
 
