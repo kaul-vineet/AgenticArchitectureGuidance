@@ -42,7 +42,6 @@ The evaluation criteria, principles, and recommendations in this document are al
 | [🎓 Karpathy](./section-karpathy) | **Academic Analysis — Andrej Karpathy** | Alignment of all 62 Key Principles against Karpathy's published positions on LLM OS, context engineering, autonomy sliders, Software 3.0, and evals-first development. |
 | [🎓 Sutskever](./section-sutskever) | **Academic Analysis — Ilya Sutskever** | Alignment against Sutskever's frameworks: jagged frontier, weak-to-strong generalization, SSI safety-first, and unpredictability-scales-with-reasoning. |
 | [🎓 Raschka](./section-raschka) | **Academic Analysis — Sebastian Raschka** | Alignment against Raschka's work on LLM evaluation, fine-tuning decision theory, model internals, and state-of-LLMs assessments. |
-| [🎓 Shazeer](./section-shazeer) | **Academic Analysis — Noam Shazeer** | Alignment against Shazeer's hardware-algorithm co-design philosophy: MQA, MoE, SwiGLU, CharacterFlywheel, and the Kaiju serving architecture. |
 
 ---
 

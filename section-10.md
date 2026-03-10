@@ -857,22 +857,21 @@ Safety infrastructure completion is a separate milestone from capability complet
 <a id="p60"></a>
 ### P60 · Inference cost defined as an acceptance criterion alongside quality — not optimised post-deployment
 
-**Source:** [Noam Shazeer — Character.AI Inference Part 2](https://research.character.ai/optimizing-ai-inference-at-character-ai-part-deux/) · [deeplearning.ai — How Shazeer Co-Created the AI Transformer](https://www.deeplearning.ai/the-batch/ai-transformed/)
+**Source:** [Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/ai/application-design)
 
 **Implementation note:** Treating inference cost as an afterthought produces architectures that are correct in design but undeployable at production scale due to token costs, latency limits, or budget overruns.
 
 **Implementation steps:**
 - Add to Agent Design Template before build begins: expected call volume per day, expected context length per turn, target latency (p50/p95), and estimated monthly inference cost at target scale
 - If estimated cost exceeds budget before go-live, the model tier or context strategy must change — not the budget
-- Prefer models natively trained at the target inference precision (INT8, BF16) over models requiring post-training quantisation
-- Require model providers to disclose serving efficiency benchmarks as part of model selection evaluation
+- Compare token cost and latency across available model tiers in the Azure AI Foundry model catalog before committing to a model tier per agent role
 
 ---
 
 <a id="p61"></a>
 ### P61 · Lightweight input classifier routes to appropriate model tier before LLM invocation
 
-**Source:** [Noam Shazeer — MoE / conditional compute principle](https://arxiv.org/abs/1701.06538) · [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns)
+**Source:** [Azure Architecture Center](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns)
 
 **Implementation note:** Using a frontier reasoning model for simple extraction or formatting tasks wastes cost without quality benefit.
 
@@ -887,7 +886,7 @@ Safety infrastructure completion is a separate milestone from capability complet
 <a id="p62"></a>
 ### P62 · Agent interfaces designed for capability discovery — not hardcoded to current model limitations
 
-**Source:** [Noam Shazeer — a16z Interview](https://a16z.com/universally-accessible-intelligence/) · [Dwarkesh Podcast — Jeff Dean & Noam Shazeer](https://www.dwarkesh.com/p/jeff-dean-and-noam-shazeer)
+**Source:** [Microsoft CAF — Process to Build Agents](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/build-secure-process)
 
 **Implementation note:** Architectures built around today's model limitations become binding constraints when models improve. Current limitation workarounds must be documented so they can be removed cleanly.
 
