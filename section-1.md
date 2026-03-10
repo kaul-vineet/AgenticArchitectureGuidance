@@ -149,7 +149,7 @@ The Gateway → Domain hierarchy is the **Orchestrator-Workers pattern**, docume
 | **Maintainability** | Testing and debugging focused on individual agents — failures isolated, not system-wide |
 | **Optimization** | Each domain agent can use distinct models, tools, and compute appropriate to its workload |
 
-📎 **Performance evidence** — see [Alignment to Key Architectural Principles](../section-align#alignment-to-key-performance-evidence) for the full 10-study performance evidence table.
+📎 **Performance evidence** — the research data backing each design decision is embedded in the [Key Architectural Principles](../section-principles) — see principles 2️⃣ 3️⃣ 4️⃣ 6️⃣ 8️⃣ 9️⃣ for the key empirical findings.
 
 ---
 

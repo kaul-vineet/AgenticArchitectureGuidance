@@ -96,7 +96,10 @@ A curated repository of architecture-specific articles, papers, and guidance on 
 
 | Title | Date | Link |
 |---|---|---|
-| *Populating...* | — | — |
+| Software Is Changing (Again) — Software 3.0 (YC AI Startup School keynote) | Apr 2025 | [↗](https://www.youtube.com/watch?v=LCEmiRjPEtQ) |
+| LLM OS — What It Means for AI to Be an Operating System | 2025 | [↗](https://karpathy.ai/blog/2025-llm-os.html) |
+| Deep Dive into LLMs like ChatGPT (YouTube lecture) | Feb 2025 | [↗](https://www.youtube.com/watch?v=7xTGNNLPyMI) |
+| 2025 LLM Year in Review | Dec 2025 | [↗](https://karpathy.bearblog.dev/year-in-review-2025/) |
 
 ---
 
@@ -104,7 +107,8 @@ A curated repository of architecture-specific articles, papers, and guidance on 
 
 | Title | Date | Link |
 |---|---|---|
-| *Populating...* | — | — |
+| Sequence to Sequence Learning: What a Decade (NeurIPS 2024 keynote) | Dec 2024 | [↗](https://www.youtube.com/watch?v=1yvBqasHLZs) |
+| Moving from the Age of Scaling to the Age of Research — Dwarkesh Patel interview | Nov 2025 | [↗](https://www.dwarkeshpatel.com/p/ilya-sutskever) |
 
 ---
 
@@ -112,7 +116,12 @@ A curated repository of architecture-specific articles, papers, and guidance on 
 
 | Title | Date | Link |
 |---|---|---|
-| *Populating...* | — | — |
+| State of LLMs 2025 | Dec 2025 | [↗](https://magazine.sebastianraschka.com/p/state-of-llms-2025) |
+| Understanding Reasoning LLMs | Feb 2025 | [↗](https://magazine.sebastianraschka.com/p/understanding-reasoning-llms) |
+| Understanding the 4 Main Approaches to LLM Evaluation | 2024 | [↗](https://magazine.sebastianraschka.com/p/understanding-the-4-main-approaches) |
+| The Big LLM Architecture Comparison | 2025 | [↗](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison) |
+| Beyond Standard LLMs: Architecture Variants and Design Decisions | 2024 | [↗](https://magazine.sebastianraschka.com/p/beyond-standard-llms) |
+| Noteworthy LLM Research Papers of 2024 | Jan 2025 | [↗](https://magazine.sebastianraschka.com/p/noteworthy-llm-research-papers-of) |
 
 ---
 
@@ -120,6 +129,8 @@ A curated repository of architecture-specific articles, papers, and guidance on 
 
 | Title | Date | Link |
 |---|---|---|
-| *Populating...* | — | — |
+| Fast Transformer Decoding: One Write-Head is All You Need — Multi-Query Attention (arXiv 1911.02150) | Nov 2019 | [↗](https://arxiv.org/abs/1911.02150) |
+| Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer (arXiv 1701.06538) | Jan 2017 | [↗](https://arxiv.org/abs/1701.06538) |
+| GLU Variants Improve Transformers — SwiGLU (arXiv 2002.05202) | Feb 2020 | [↗](https://arxiv.org/abs/2002.05202) |
 
 ---
