@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "🔧 9. Agentic Framework and Agent 365"
+title: "🔧 10. Agentic Framework and Agent 365"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 12
 ---
 
-## 9. 🔧 Agentic Framework and Agent 365 — Where They Fit
+## 10. 🔧 Agentic Framework and Agent 365 — Where They Fit
 
 ### 🤖 Microsoft Agent Framework (Semantic Kernel + AutoGen)
 

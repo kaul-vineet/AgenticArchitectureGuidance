@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "🔌 8. Infrastructure Requirements"
+title: "🔌 9. Infrastructure Requirements"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 11
 ---
 
-## 8. 🔌 Infrastructure Requirements — Definitive Answer
+## 9. 🔌 Infrastructure Requirements — Definitive Answer
 
 ### ✅ Required (Managed — Minimal Setup)
 

@@ -2,7 +2,7 @@
 layout: default
 title: "📖 12. Implementation Guide"
 parent: Enterprise Multi-Agent Architecture
-nav_order: 15
+nav_order: 14
 ---
 
 ## 12. 📖 Implementation Guide

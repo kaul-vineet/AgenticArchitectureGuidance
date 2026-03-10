@@ -7,6 +7,77 @@ nav_order: 5
 
 ## 3. 🏗️ Representative Architecture
 
+---
+
+<div class="system-descriptor">
+<strong>🎯 System Purpose</strong><br><br>
+
+<strong>Business Problem</strong><br>
+Enterprise multi-agent architecture with a single point of entry. A gateway agent receives every user request, determines intent, and routes it to the right domain agent — which in turn manages specialist agents with the tools, connectors, and knowledge needed to act. Designed to support 100+ agents across multiple business domains delivered in 6–12 months.
+<br><br>
+
+<strong>End Users &amp; Channels</strong><br>
+Enterprise employees · Teams · M365 Copilot · SharePoint · Web · Mobile
+<br><br>
+
+<strong>Compliance Constraints</strong><br>
+Audit trail via Agent 365 + Purview + App Insights · Per-domain data scoping · Entra Agent ID per agent
+<br><br>
+
+<strong>Architecture Type</strong><br>
+Full multi-agent hierarchy — Gateway → Domain → Specialist (3 tiers)
+<br><br>
+
+<strong>Agent Register</strong><br>
+
+| Agent Name | Platform | Role | Type | Purpose |
+|---|---|---|---|---|
+| Gateway Agent | CS | Gateway | Parent | Routes intent to domain agents · owns zero tools · Entra Agent ID |
+| HR Domain Agent | CS | Domain | Parent | Manages HR specialist child and connected agents |
+| Finance Domain Agent | CS | Domain | Parent | Manages Finance specialist child and connected agents |
+| IT / Ops Domain Agent | CS + Foundry | Domain | Parent | Manages IT/Ops specialist agents across CS and Foundry |
+| Leave Management | CS | Specialist | Inline Child | Handles leave requests and policy queries |
+| HR Policy | CS | Specialist | Inline Child | Answers HR policy questions from knowledge base |
+| Expenses | CS | Specialist | Inline Child | Processes and queries expense submissions |
+| Benefits Bot | CS | Specialist | Connected A2A | Handles employee benefits queries |
+| Analytics Agent | Foundry | Specialist | Connected A2A | Complex data analysis and reporting |
+| Agentforce | Non-MS | Specialist | Connected A2A / A2A REST | CRM and sales domain tasks |
+| ServiceNow | Non-MS | Specialist | A2A / REST | IT service management tasks |
+| Code Interpreter | Foundry | Specialist | Workflow Node | Code execution and file analysis for IT/Ops domain |
+
+<br>
+
+<strong>Connections</strong><br>
+Gateway → HR Domain, Finance Domain, IT/Ops Domain (primary routing) · Gateway → Specialist Connected Agents (direct A2A) · CS Domain Agents → CS Inline Child Agents + CS/Foundry/Non-MS Connected Agents (A2A) · Foundry Domain Agents → Foundry Workflow Nodes + Non-MS Agents (A2A/REST)
+<br><br>
+
+<strong>Tools</strong><br>
+All agents: Power Automate flows · APIs via Azure APIM · MCP Servers · Foundry agents additionally: Foundry Flows · Code Interpreter · File Search
+<br><br>
+
+<strong>Knowledge Sources</strong><br>
+Azure AI Search (RAG — all agents requiring document retrieval) · Dataverse (CS agent knowledge and admin data) · SharePoint (HR policy, IT documentation)
+<br><br>
+
+<strong>Session &amp; Storage</strong><br>
+Cross-session memory: Yes · Channel-switch continuity: Yes · Transcripts: Dataverse (CS) · CosmosDB (Foundry) · User profiles: Dataverse (CS-heavy lean) · Low-latency state: Redis (userId→threadId, hot cache) · Compliance archive: Azure Data Lake
+<br><br>
+
+<strong>Security &amp; Identity</strong><br>
+Entra Agent ID: Yes — gateway and all domain agents · Data scoping: Per-domain (HR agents cannot access Finance data) · Auth model: Entra SSO
+<br><br>
+
+<strong>Governance &amp; ALM</strong><br>
+Agent 365: Yes · CoE Toolkit: Yes · Purview: Yes · Defender: Yes · App Insights: Yes · correlationId propagated: Yes — through all agent hops and tool calls · Deployment: Power Platform Pipelines (CS) · Azure DevOps / GitHub Actions (Foundry)
+<br><br>
+
+<strong>Termination &amp; Safety</strong><br>
+Max step count: Yes — enforced in Topics / code · Loop detection: Yes · Irreversible actions: Yes (financial, deletions, external sends) · Human approval gate: Yes — Power Automate approval flows · Escalation path: Fallback topic → human handoff
+
+</div>
+
+---
+
 ### Platform Stack
 
 ```

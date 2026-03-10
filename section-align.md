@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "🔗 3a. Alignment to Key Architectural Principles"
+title: "🔗 4. Alignment to Key Architectural Principles"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 6
 ---

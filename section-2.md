@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "🔄 4. How a User Instruction is Processed"
+title: "🔄 5. How a User Instruction is Processed"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 7
 ---
 
-## 4. 🔄 How a User Instruction is Processed
+## 5. 🔄 How a User Instruction is Processed
 
 ```
 👤 User: "Apply for leave and update my Salesforce records"

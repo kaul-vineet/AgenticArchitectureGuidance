@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "💾 7. Session Management"
+title: "💾 8. Session Management"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 10
 ---
 
-## 7. 💾 Session Management, Transcript Storage & Persistent Storage
+## 8. 💾 Session Management, Transcript Storage & Persistent Storage
 
 ### 🔄 Session Management
 

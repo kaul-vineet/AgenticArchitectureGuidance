@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "🔗 6. Child / Connected Agent"
+title: "🔗 7. Child / Connected Agent"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 9
 ---
 
-## 6. 🔗 Child / Connected Agent
+## 7. 🔗 Child / Connected Agent
 
 ---
 
@@ -47,28 +47,6 @@ CS connects to a Foundry agent via a native platform connector using the Foundry
 
 ---
 
-<h3 style="color:#107c10;font-weight:700;border-left:4px solid #107c10;padding-left:0.6rem;margin-top:1.5rem;">🏆 Recommendation — CS as Child</h3>
-
-*When parent is Copilot Studio: choose between CS child agent and Foundry connected agent.*
-
-| Criterion | 🟦 CS Child / Connected *(CS parent)* | 🟧 Foundry Connected *(CS parent)* |
-|---|---|---|
-| ⚡ Speed | ✅ **Wins** — hours to build; no new platform | ⚠️ Slower — Foundry portal setup + agent publish required |
-| 🧩 No-code authoring | ✅ **Wins** — fully no-code CS Topics | ✅ CS wizard (no-code to add); Foundry agent setup requires portal work |
-| 🏭 Production ready | ✅ **Wins** — GA; full enterprise support | ❌ Public preview only — not for production |
-| 🔵 Reduced complexity | ✅ **Wins** — shared container; zero extra infra | ⚠️ Separate session; CS strips grounding; double LLM hop |
-| 🛡️ Governance | ✅ **Wins** — Agent 365 + CoE Toolkit covers both parent and child | ⚠️ Split — CS governance + Foundry App Insights; no unified view |
-| 📋 Logging & observability | ✅ Unified CS transcript (inline) / correlationId (connected) | ⚠️ Split — CS orchestration (black box) + Foundry App Insights |
-| 📈 Complex agent instructions | ⚠️ 8,000 char limit applies to child agent | ✅ **Wins** — no system prompt size limit on Foundry side |
-| 📈 Complex reasoning / tools | ⚠️ CS model limits; no Code Interpreter | ✅ **Wins** — Code Interpreter, File Search, any Foundry model |
-| 🔗 A2A / Interoperability | ✅ CS child reusable across CS parents via A2A | ⚠️ CS → Foundry uses internal connector, not open A2A |
-| 🏢 LOB system integration | ✅ **Wins** — 1,400+ PA connectors; no custom code | ⚠️ Foundry LOB requires Azure Functions or OpenAPI tools |
-| 👑 P1 — Supervisor pattern | ✅ CS parent acts as supervisor over CS child agents | ✅ CS parent delegates to Foundry for specialist tasks |
-| 📝 P1 — Complex instructions | ⚠️ Child prompt capped at 8,000 chars | ✅ **Wins** — unlimited Foundry system prompt |
-
-> **When your parent is CS, use CS child agents as the default** — they are GA, zero-config, governance-native, and factory-ready. Add Foundry as a connected agent only when the specific task exceeds what CS can deliver: complex reasoning beyond CS model limits, Code Interpreter, large-scale RAG, or a system prompt that cannot fit in 8,000 characters. Do not add Foundry as a connected agent for tasks that CS can handle — the preview status, double LLM hop, and citation gap are real production risks.
-{: .recommendation}
-
 ---
 
 <h3 style="color:#0078d4;font-weight:700;border-left:4px solid #0078d4;padding-left:0.6rem;margin-top:1.5rem;">🟦 CS Child Agent where Master Agent is Foundry</h3>
@@ -107,28 +85,6 @@ A parent Foundry agent invokes child Foundry agents via the **Workflows** featur
 | · **Independent ALM** — each child agent published separately with own Managed Identity and RBAC | · **Max 128 tools per agent** — caps connected agents + other tools on a single parent |
 
 ---
-
-<h3 style="color:#107c10;font-weight:700;border-left:4px solid #107c10;padding-left:0.6rem;margin-top:1.5rem;">🏆 Recommendation — Foundry as Child</h3>
-
-*When parent is Foundry: choose between CS child via workaround and Foundry-to-Foundry.*
-
-| Criterion | 🟦 CS Child *(Foundry parent — workaround)* | 🟧 Foundry Child *(Foundry parent)* |
-|---|---|---|
-| ⚡ Speed | ⚠️ Moderate — CS authoring fast; Direct Line setup adds integration time | ⚠️ Moderate — Foundry Workflow node setup required per child |
-| 🧩 No-code authoring | ✅ CS child is no-code; integration work is on Foundry side | ⚠️ Workflows portal for 3 patterns; Concurrent and Magentic require SDK |
-| 🏭 Production ready | ❌ Unsupported pattern — Direct Line only; subject to breaking changes | ⚠️ Workflows in preview; Classic deprecated |
-| 🔵 Reduced complexity | ❌ Two ALM pipelines; split tracing; auth complexity; text-only return | ⚠️ Infrastructure overhead (Cosmos DB, Functions); per-agent thread management |
-| 🛡️ Governance | ❌ No unified trace; CS governance separate from Foundry | ✅ **Wins** — Managed Identity per agent; RBAC; full App Insights audit trail |
-| 📋 Logging & observability | ❌ Split — App Insights + Dataverse/CoE; no end-to-end trace | ✅ **Wins** — full OpenTelemetry; every hop, tool call, and handoff traceable |
-| 📈 Complex reasoning / tools | ✅ CS brings PA connectors + Dataverse + M365 channels | ✅ **Wins** — Code Interpreter, File Search, Azure AI Search, structured JSON |
-| 🔀 Orchestration at scale | ❌ Sequential REST calls only; no parallel fan-out | ✅ **Wins** — Concurrent fan-out; Magentic supervisor; Group Chat |
-| 🏢 LOB system integration | ✅ **Wins** — 1,400+ PA connectors; Dataverse native; M365 channels | ⚠️ LOB via Azure Functions or OpenAPI tools; narrower connector library |
-| 👑 P1 — Supervisor / Magentic | ❌ No supervisor capability; Foundry orchestrates one REST call | ✅ **Wins** — Magentic pattern: dynamic selection, stall detection, replanning |
-| 📝 P1 — Complex instructions | ⚠️ CS child capped at 8,000 chars | ✅ **Wins** — no system prompt limit per Foundry child |
-| ⚙️ P2 — Custom orchestration | ❌ No custom logic; text-only return | ✅ **Wins** — full Python/C#/JS/Java SDK; state machines; conditional branching |
-
-> **When your parent is Foundry, use Foundry-to-Foundry child agents via Workflows** — they deliver full observability, parallel execution, supervisor patterns (Magentic), structured JSON output, and independent governance per agent. The infrastructure overhead is the accepted cost of Foundry-parent domains. Use CS child agents via Direct Line only as a transitional workaround for existing CS agents handling M365 channel interactions or Dataverse writes that cannot be rebuilt in Foundry — treat it as technical debt and plan migration when first-party Foundry → CS support becomes GA. Never use the CS workaround for new agent builds.
-{: .recommendation}
 
 ---
 

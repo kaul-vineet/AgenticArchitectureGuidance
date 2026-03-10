@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "👑 5. Parent / Master Agent"
+title: "👑 6. Parent / Master Agent"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 8
 ---
 
-## 5. 👑 Parent / Master Agent
+## 6. 👑 Parent / Master Agent
 
 ---
 
@@ -110,34 +110,6 @@ Foundry as parent supports four connectivity types and five orchestration patter
 | Classic Connected Agents | ❌ Deprecated | `ConnectedAgentToolDefinition` | Retire March 31, 2027 — migrate to Workflows now |
 
 ---
-
-<h3 style="color:#107c10;font-weight:700;border-left:4px solid #107c10;padding-left:0.6rem;margin-top:1.5rem;">🏆 Recommendation</h3>
-
-| Criterion | 🟦 Copilot Studio as Parent | 🟧 Foundry as Parent |
-|---|---|---|
-| ⚡ Speed | ✅ **Wins** — hours to first agent vs. days | ⚠️ Slower — Workflow YAML + infra provisioning required |
-| 🧩 No-code authoring | ✅ **Wins** — no-code native; domain teams self-serve | ⚠️ Portal templates for 3 patterns; Concurrent and Magentic require SDK code |
-| 📈 Scale to 100+ agents | ✅ **Wins** — agent templates, Component Collections, PP Pipelines built for factory-scale | ⚠️ Scalable but requires custom ALM pipelines; no out-of-box factory model |
-| 🔵 Reduced complexity | ✅ **Wins** — Dataverse only; no extra infra | ❌ Cosmos DB + Redis + Azure Functions + Azure AI Search required |
-| 🔗 A2A / Agent interoperability | ✅ CS supports A2A connected agents — CS, Foundry, Agentforce, ServiceNow via A2A | ✅ Foundry A2A Tool (GA) — calls any A2A-compliant endpoint across clouds and orgs |
-| 🌐 MSFT + non-MSFT interoperability | ✅ **Wins** — A2A connects to Agentforce, ServiceNow, any A2A endpoint; 1,400+ PA connectors for LOB | ✅ A2A Tool GA — fewer native connectors than CS; OpenAPI covers remaining integrations |
-| 🛡️ Governance | ✅ **Wins** — Agent 365 + CoE Toolkit + Entra Agent ID natively in M365 Admin Center; no custom infra | ⚠️ Azure Policy + Entra + App Insights; no unified agent registry; governance requires custom build |
-| 📋 Logging & observability | ⚠️ CS transcript + Dataverse; limited distributed tracing across hops | ✅ **Wins** — full OpenTelemetry + App Insights; every agent hop, tool call, and handoff traceable |
-| 🔀 Orchestration at scale (100+ agents) | ⚠️ Sequential only; domain hierarchy required to avoid star-topology bottleneck | ✅ **Wins** — Concurrent fan-out, Magentic supervisor, Group Chat, Handoff all GA |
-| 🏢 LOB system integration | ✅ **Wins** — 1,400+ PA connectors; SAP, Dynamics 365, Oracle, Salesforce, ServiceNow with no custom code | ⚠️ Foundry connectors available; LOB typically requires Azure Functions or OpenAPI tool definitions |
-| 📱 Multi-channel exposure | ✅ **Wins** — Teams, SharePoint, M365 Copilot, web, mobile, Direct Line zero-config | ⚠️ API endpoint only; channel routing requires custom front-end or CS wrapper |
-| 📝 Complex agent instructions | ⚠️ 8,000 char limit; complex domain prompts require compression | ✅ **Wins** — no system prompt size limit; full parameter control (temperature, top-p, max tokens) |
-| 👑 Supervisor pattern | ✅ CS Topics act as generative supervisor routing to specialist agents | ✅ Magentic pattern — dynamic specialist selection, stall detection, replanning |
-| 🔧 Supervisor-as-tool | ✅ CS published as A2A endpoint; callable by Foundry or non-MSFT orchestrators | ✅ Foundry agent callable as A2A tool; parent retains full control across delegation |
-| 🏛️ Hierarchical orchestration | ✅ Gateway → Domain → Specialist fully supported; each tier is independent CS agent with own ALM | ✅ Workflow nodes chain into multi-tier hierarchies; no depth limit in Workflows (unlike deprecated Classic) |
-| ⚙️ Custom orchestration | ❌ No SDK access; Topics only | ✅ **Wins** — full Python, C#, JS, Java SDK; custom state machines and conditional branching |
-| 🕸️ Network / mesh pattern | ⚠️ Possible via A2A connected agents but no peer-to-peer routing; always orchestrator-controlled | ⚠️ Group Chat pattern supports multi-agent lateral collaboration; pure peer-to-peer not recommended (36% hallucination rate in unstructured ReAct per AgentArch benchmark) |
-
-> **Use Copilot Studio as the parent/master agent** for the majority of your 100+ agent estate. CS wins on speed, no-code authoring, governance, LOB integration, multi-channel exposure, and factory-scale ALM — all critical requirements for enterprise delivery at pace. All P1 orchestration patterns (Supervisor, Supervisor-as-tool, Hierarchical) are fully supported in CS through generative Topics and A2A connected agents. Agent 365 + CoE Toolkit provide enterprise-grade governance without custom infrastructure. 1,400+ Power Automate connectors eliminate custom LOB integration work. The factory model — agent templates, Component Collections, Power Platform Pipelines — scales from 1 to 100+ agents without re-architecting. Avoid unstructured peer-to-peer (network/mesh) patterns on any platform — AgentArch benchmark shows 36% hallucination rate in unstructured multi-agent ReAct vs. 0% in orchestrator-led configurations.
-{: .recommendation}
-
-> **Introduce Foundry as parent only** for domains that explicitly require capabilities unavailable in CS: parallel fan-out to multiple agents simultaneously (Concurrent pattern), dynamic supervisor orchestration with stall detection and replanning (Magentic pattern), complex system prompts beyond the 8,000 character limit, full OpenTelemetry distributed tracing across deep agent chains, or compliance-grade BYO Cosmos DB storage with CMK. Accept the additional infrastructure overhead (Cosmos DB, Redis, Azure Functions), custom ALM pipelines, and the absence of an out-of-box agent registry. Target fewer than 3 Foundry-parent domains out of your total agent estate — and plan Foundry governance as a deliberate engineering investment, not an assumption.
-{: .recommendation}
 
 ---
 
