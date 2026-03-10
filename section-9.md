@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "📋 8. Agent Design Template"
+title: "📋 11. Agent Design Template"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 14
 ---
 
-## 8. 📋 Agent Design Template
+## 11. 📋 Agent Design Template
 
 > Complete one card per agent before building. This is the factory input document.
 

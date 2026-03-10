@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "🔗 1a. Alignment to Key Architectural Principles"
+title: "🔗 3a. Alignment to Key Architectural Principles"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 6
 ---
 
-## 🔗 1a. Alignment to Key Architectural Principles
+## 🔗 3a. Alignment to Key Architectural Principles
 
 This page maps each of the 62 Key Architectural Principles to the representative architecture — showing how each principle is applied in CS and Foundry implementations.
 

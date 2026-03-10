@@ -1,16 +1,17 @@
 ---
 layout: default
-title: "⚠️ 9. Design Considerations"
+title: "⚠️ 12. Design Considerations"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 15
 ---
 
-## 9. ⚠️ Design Considerations
+## 12. ⚠️ Design Considerations
 
 > Open items identified during architecture review. To be resolved before production scale-out.
 
 ---
 
+<a id="dc-1"></a>
 ### DC-1 · Gateway Routing Capacity at Scale
 
 **Source:** [Microsoft Copilot Studio — Agent Instructions and Best Practices](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-best-practices) · [MAST — Failure Taxonomy for Multi-Agent Systems](https://huggingface.co/blog/ibm-research/itbenchandmast)
@@ -24,6 +25,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-2"></a>
 ### DC-2 · Dependent Cross-Domain Workflows
 
 **Source:** [Microsoft Copilot Studio — Quotas, Limits, and Configuration](https://learn.microsoft.com/en-us/microsoft-copilot-studio/requirements-quotas) · [Microsoft Multi-Agent Reference Architecture](https://microsoft.github.io/multi-agent-reference-architecture/docs/reference-architecture/Reference-Architecture.html)
@@ -40,6 +42,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-3"></a>
 ### DC-3 · Indirect Prompt Injection
 
 **Source:** [OWASP LLM Top 10 — LLM02: Indirect Prompt Injection](https://owasp.org/www-project-top-10-for-large-language-model-applications/) · [Azure AI Content Safety — Prompt Shield](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection) · [Karpathy — Prompt injection (X / various)](https://x.com/karpathy)
@@ -53,6 +56,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-4"></a>
 ### DC-4 · Preview Dependency on Foundry Memory Feature
 
 **Source:** [Azure AI Foundry — Memory Feature (Preview)](https://learn.microsoft.com/en-us/azure/ai-services/agents/how-to/tools/azure-ai-memory) · [Azure AI Foundry — What's New](https://learn.microsoft.com/en-us/azure/ai-foundry/whats-new)
@@ -66,6 +70,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-5"></a>
 ### DC-5 · Model Selection Locked in Copilot Studio
 
 **Source:** [Azure Architecture Center — AI Agent Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns) · [Microsoft Copilot Studio — Generative AI Features](https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-gpt-overview)
@@ -79,6 +84,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-6"></a>
 ### DC-6 · LLM-as-Judge Calibration
 
 **Source:** [Sebastian Raschka — Understanding the 4 Main Approaches to LLM Evaluation](https://magazine.sebastianraschka.com/p/llm-evaluation-4-approaches) · [MAST — Failure Taxonomy for Multi-Agent Systems](https://huggingface.co/blog/ibm-research/itbenchandmast)
@@ -92,6 +98,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-7"></a>
 ### DC-7 · No Circuit Breaker or Tool Degradation Pattern
 
 **Source:** [Azure Architecture Center — AI Agent Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns) · [Microsoft CAF — Governance and Security for AI Agents](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/governance-security-across-organization)
@@ -105,6 +112,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-8"></a>
 ### DC-8 · Error Propagation Through the Agent Hierarchy
 
 **Source:** [MAST — Failure Taxonomy for Multi-Agent Systems](https://huggingface.co/blog/ibm-research/itbenchandmast) · [Azure Architecture Center — AI Agent Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns)
@@ -118,6 +126,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-9"></a>
 ### DC-9 · correlationId Enforcement
 
 **Source:** [A2A Protocol](https://a2a-protocol.org/latest/) · [Microsoft Multi-Agent Reference Architecture](https://microsoft.github.io/multi-agent-reference-architecture/docs/reference-architecture/Reference-Architecture.html) · [MAST — Failure Taxonomy](https://huggingface.co/blog/ibm-research/itbenchandmast)
@@ -133,6 +142,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-10"></a>
 ### DC-10 · Capability Audit Per Task — Not Just Model Tier
 
 **Source:** Andrej Karpathy — [Intro to Large Language Models](https://www.youtube.com/watch?v=zjkBMFhNj_g) · [State of GPT (Microsoft Build 2023)](https://www.youtube.com/watch?v=bZQun8Y4L2A)
@@ -146,6 +156,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-11"></a>
 ### DC-11 · Test Prompt Distributions, Not Single Runs
 
 **Source:** Andrej Karpathy — [Intro to Large Language Models](https://www.youtube.com/watch?v=zjkBMFhNj_g) · [X / Twitter (2024–25)](https://x.com/karpathy)
@@ -159,6 +170,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-12"></a>
 ### DC-12 · HITL Must Be Engineered as UX, Not Just Inserted as a Step
 
 **Source:** Andrej Karpathy — [Autonomy sliders and AI agents (X / various 2024)](https://x.com/karpathy) · [DeepLearning.AI — Agentic Design Patterns](https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/)
@@ -172,6 +184,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-13"></a>
 ### DC-13 · The Orchestration Layer Is the Primary Engineering Surface
 
 **Source:** Andrej Karpathy — [LLM OS framing — Lex Fridman Podcast](https://www.youtube.com/watch?v=cdiD-9MMpb0) · [Context Engineering (X / various 2024–25)](https://x.com/karpathy)
@@ -185,6 +198,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-14"></a>
 ### DC-14 · Evals Must Be Built Before or Alongside the Agent — Not After
 
 **Source:** Andrej Karpathy — [Software 3.0 — YC AI Startup School](https://www.youtube.com/watch?v=LCEmiRjPEtQ) · [Evals (X / various 2024–25)](https://x.com/karpathy)
@@ -198,6 +212,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-15"></a>
 ### DC-15 · Prompt Injection Is the Primary Agentic Security Surface
 
 **Source:** Andrej Karpathy — [Prompt injection (X / various)](https://x.com/karpathy) · [OWASP LLM Top 10 — LLM02: Prompt Injection](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
@@ -212,6 +227,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-16"></a>
 ### DC-16 · Characterise the Jagged Frontier Per Agent Before Deployment
 
 **Source:** Ilya Sutskever — NeurIPS 2024 / Dwarkesh Patel Interview 2025
@@ -225,6 +241,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-17"></a>
 ### DC-17 · Safety Infrastructure Must Lead Capability Deployment, Never Trail It
 
 **Source:** Ilya Sutskever — Safe Superintelligence Inc. founding principles
@@ -237,6 +254,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-18"></a>
 ### DC-18 · Unpredictability Scales with Reasoning Depth — Constrain Reasoning Scope in Production
 
 **Source:** Ilya Sutskever — "The more a system reasons, the more unpredictable it becomes" (NeurIPS 2024 / Technology.org, Dec 2024)
@@ -250,6 +268,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-19"></a>
 ### DC-19 · Alignment Verification Requires Independent Adversarial Testing, Not Just Golden-Set Evals
 
 **Source:** Ilya Sutskever — Weak-to-Strong Generalization (OpenAI / ICML 2024)
@@ -263,6 +282,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-20"></a>
 ### DC-20 · Benchmark-to-Deployment Generalisation Gap Must Be Explicitly Measured and Documented
 
 **Source:** Ilya Sutskever — NeurIPS 2024, Dwarkesh Patel Interview 2025 ("Models look great on benchmarks but fail in practical applications")
@@ -276,6 +296,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-21"></a>
 ### DC-21 · Continual Learning Readiness: Define Agent Update and Revalidation Cadence
 
 **Source:** Ilya Sutskever — Safe Superintelligence Inc. (continual learning thesis) / Dwarkesh Patel Interview 2025
@@ -290,6 +311,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-22"></a>
 ### DC-22 · Fine-Tuning Readiness: Define When Fine-Tuning Is Appropriate Per Agent Role
 
 **Source:** Sebastian Raschka — Using and Finetuning Pretrained Transformers / Practical Tips for Finetuning LLMs Using LoRA
@@ -303,6 +325,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-23"></a>
 ### DC-23 · LLM-as-Judge Must Be Calibrated Before Use as an Automated Gate
 
 **Source:** Sebastian Raschka — Understanding the 4 Main Approaches to LLM Evaluation (From Scratch) — extends DC-6
@@ -317,6 +340,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-24"></a>
 ### DC-24 · RAG Retrieval Quality Requires Independent Evaluation, Separate from Generation Quality
 
 **Source:** Sebastian Raschka — Beyond Standard LLMs / LLM engineering framework
@@ -330,6 +354,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-25"></a>
 ### DC-25 · Model Architecture Validation for Agentic Task Types
 
 **Source:** Sebastian Raschka — The State Of LLMs 2025 / Beyond Standard LLMs (linear attention multi-turn failure documentation)
@@ -343,6 +368,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-26"></a>
 ### DC-26 · Evaluation Methodology Must Evolve with the Agent Fleet — Set a Review Cadence
 
 **Source:** Sebastian Raschka — State of LLMs annual assessments (methodology evolution across 2023–2025)
@@ -356,6 +382,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-27"></a>
 ### DC-27 · Open-Weight Model Strategy: Define When Open-Weight Models Are Appropriate vs. Hosted APIs
 
 **Source:** Sebastian Raschka — AI and Open Source / LLM research coverage / Ahead of AI newsletter
@@ -371,6 +398,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-28"></a>
 ### DC-28 · Hardware-Algorithm Co-Design Is a First-Class Engineering Discipline
 
 **Source:** Noam Shazeer — [Hot Chips 2025 Keynote](https://hc2025.hotchips.org/assets/program/conference/day1/k1_GoogleDeepMind_Shazeer.pdf) · [deeplearning.ai interview](https://www.deeplearning.ai/the-batch/ai-transformed/) · [MQA — Fast Transformer Decoding](https://arxiv.org/abs/1911.02150)
@@ -384,6 +412,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-29"></a>
 ### DC-29 · Inference Cost Must Be a Primary Training Objective, Not an Afterthought
 
 **Source:** Noam Shazeer — [Inside Kaiju](https://blog.character.ai/inside-kaiju-building-conversational-models-at-scale/) · [Character.AI Inference Blog](https://research.character.ai/optimizing-inference/)
@@ -397,6 +426,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-30"></a>
 ### DC-30 · Conditional Compute — Activate Only What the Input Requires
 
 **Source:** Noam Shazeer — [Sparsely-Gated MoE Layer](https://arxiv.org/abs/1701.06538) · [Switch Transformers](https://arxiv.org/abs/2101.03961)
@@ -410,6 +440,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-31"></a>
 ### DC-31 · Scale Produces Emergent Capabilities — Design Agent Interfaces for Capability Discovery, Not Just Current Capability
 
 **Source:** Noam Shazeer — [a16z Interview](https://a16z.com/universally-accessible-intelligence/) · [deeplearning.ai interview](https://www.deeplearning.ai/the-batch/ai-transformed/) · [Dwarkesh Podcast](https://www.dwarkesh.com/p/jeff-dean-and-noam-shazeer)
@@ -424,6 +455,7 @@ nav_order: 15
 
 ---
 
+<a id="dc-32"></a>
 ### DC-32 · Serving Infrastructure Is a Competitive Moat — Model and Serving Architecture Must Co-Evolve
 
 **Source:** Noam Shazeer — [Character.AI Inference Blog](https://research.character.ai/optimizing-inference/) · [Character.AI Inference Blog Part Deux](https://research.character.ai/optimizing-ai-inference-at-character-ai-part-deux/) · [Inside Kaiju](https://blog.character.ai/inside-kaiju-building-conversational-models-at-scale/)

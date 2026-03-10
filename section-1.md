@@ -1,11 +1,11 @@
 ---
 layout: default
-title: "🏗️ 1. Representative Architecture"
+title: "🏗️ 3. Representative Architecture"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 5
 ---
 
-## 1. 🏗️ Representative Architecture
+## 3. 🏗️ Representative Architecture
 
 ### Platform Stack
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "📐 Recommendation Criteria"
+title: "📐 1. Recommendation Criteria"
 parent: Enterprise Multi-Agent Architecture
 nav_order: 3
 ---
