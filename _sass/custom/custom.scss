@@ -142,3 +142,16 @@ ul.ref-grid {
 .adh-partial { display:inline-block; background:#8a6a00; color:#fff; border-radius:3px; padding:1px 7px; font-size:0.78rem; font-weight:600; white-space:nowrap; }
 .adh-maybe   { display:inline-block; background:#e07a10; color:#fff; border-radius:3px; padding:1px 7px; font-size:0.78rem; font-weight:600; white-space:nowrap; }
 .adh-no      { display:inline-block; background:#c53b3b; color:#fff; border-radius:3px; padding:1px 7px; font-size:0.78rem; font-weight:600; white-space:nowrap; }
+
+// ---------------------------------------------
+// 14. HOME PAGE — 20% larger text
+// ---------------------------------------------
+.home-xl .main-content {
+  font-size: 1.2rem;
+  table  { font-size: 1.08rem; }
+  .pill  { font-size: 1.02rem; padding: 0.42rem 1.08rem; }
+  h1     { font-size: 2.4rem; }
+  h2     { font-size: 1.8rem; }
+  h3     { font-size: 1.44rem; }
+  blockquote p { font-size: 1.1rem; }
+}

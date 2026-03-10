@@ -6,6 +6,7 @@ has_children: true
 nav_fold: true
 has_toc: false
 permalink: /
+page_classes: home-xl
 ---
 
 # 🤖 Enterprise Multi-Agent Architecture
