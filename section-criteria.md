@@ -89,6 +89,75 @@ These patterns are valuable and supported by the recommended architecture, but g
 
 ---
 
+## 🎯 Scoring Strategy
+
+Platforms are scored against all 18 criteria. Two scoring schemes are defined below: the **Baseline** (Scheme A) and the **Asymmetric Priority-Weighted** scheme (Scheme B), which is recommended for enterprise platform selection.
+
+---
+
+### **Scheme A — Baseline**
+
+| Tier | Criteria Count | Full Adherence | Partial Adherence | No Adherence | Max Contribution | Min Contribution |
+|---|---|---|---|---|---|---|
+| P0 💎 | 5 | **+1.5** | +0.5 | **−1.0** | +7.5 | −5.0 |
+| P1 🥇 | 11 | **+1.0** | +0.25 | **0** | +11.0 | 0 |
+| P2 🥈 | 2 | **+0.25** | +0.25 | **0** | +0.5 | 0 |
+| | | | | **Score range** | **+19.0** | **−5.0** |
+
+**Limitations of Scheme A:**
+
+| Issue | Impact |
+|---|---|
+| P0 penalty is weak (−1) | A platform failing all 5 P0 criteria scores −5, yet can score +11 on P1 alone — net positive. A fundamentally unsuitable platform can appear viable. |
+| P1 non-adherence is free | Missing every P1 criterion loses the reward but costs nothing. There is no disincentive to accept P1 gaps. |
+| P2 Full = Partial (both +0.25) | No gradient between full and partial adherence at P2 — no incentive to close partial gaps. |
+
+---
+
+### **Scheme B — Asymmetric Priority-Weighted (Recommended)**
+
+**Design principles:**
+1. **P0 non-adherence must be catastrophic** — the numeric penalty plus a gate flag prevent a platform from scoring its way past a foundational gap
+2. **P1 non-adherence carries a mild penalty** — gaps are costly, not cost-free; partial credit is half of full
+3. **P2 is upside-only** — gaps require a mitigation plan but do not penalise the score
+4. **A gate flag is independent of score** — any P0 = None forces a "Conditional" recommendation regardless of total points
+
+| Tier | Criteria Count | Full Adherence | Partial Adherence | No Adherence | Max Contribution | Min Contribution |
+|---|---|---|---|---|---|---|
+| P0 💎 | 5 | **+2.0** | +0.75 | **−3.0** ⚠️ gate | +10.0 | −15.0 |
+| P1 🥇 | 11 | **+1.0** | +0.50 | **−0.25** | +11.0 | −2.75 |
+| P2 🥈 | 2 | **+0.50** | +0.25 | **0** | +1.0 | 0 |
+| | | | | **Score range** | **+22.0** | **−17.75** |
+
+**⚠️ Gate rule:** Any criterion scored P0 = None automatically marks the platform **"Conditional Recommendation"** — meaning an approved mitigation plan is required before deployment, regardless of total numeric score.
+
+**Why Scheme B is better than Scheme A:**
+
+| Dimension | Scheme A | Scheme B |
+|---|---|---|
+| P0 failure cost | −1 per criterion | −3 per criterion + ⚠️ Conditional gate |
+| P0 full reward | +1.5 | +2.0 |
+| P1 non-adherence | Free (0) | −0.25 per criterion |
+| P1 partial reward | +0.25 (quarter credit) | +0.50 (half credit) |
+| P2 gradient | None — Full = Partial | Full (+0.50) > Partial (+0.25) |
+| Score range | −5.0 to +19.0 | −17.75 to +22.0 |
+| Disqualification mechanism | Never — score only | Gate flag for any P0 = None |
+
+---
+
+### **Score Interpretation (Scheme B)**
+
+| Score | % of Max (22) | Rating | Recommendation |
+|---|---|---|---|
+| ≥ 18 | ≥ 82% | ✅ **Strongly Recommended** | Deploy with standard governance |
+| 13–17 | 59–77% | ✅ **Recommended** | Deploy with documented gap mitigations |
+| 8–12 | 36–54% | 🟡 **Acceptable** | Approved only with mitigation plan per gap |
+| 1–7 | < 32% | ⚠️ **Not Recommended** | Requires architectural remediation before approval |
+| ≤ 0 | — | ❌ **Disqualified** | Do not deploy; structural gaps cannot be mitigated |
+| Any P0 = None | — | ⚠️ **Conditional** | Override — applies regardless of total score |
+
+---
+
 ### 📚 References
 
 - [Microsoft CAF — AI Agents](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/)
